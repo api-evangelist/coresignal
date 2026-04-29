@@ -1,0 +1,129 @@
+name: Coresignal API Vocabulary
+description: >-
+  Controlled vocabulary of Coresignal data product types, resources, and key
+  fields used across the Multi-source Company, Employee, and Jobs APIs.
+url: https://docs.coresignal.com/
+version: '1.0'
+modified: '2026-04-28'
+dataTiers:
+  - name: Multi-source
+    description: Cleaned and enriched data combining information from multiple public web sources.
+  - name: Clean
+    description: Deduplicated and standardized data derived from base data with quality processing.
+  - name: Base
+    description: Freshly scraped and structured data updated for easier consumption.
+resources:
+  - name: Company
+    description: An organization profile aggregated from public web sources.
+    fields:
+      - name: id
+        type: integer
+        description: Coresignal internal company identifier.
+      - name: name
+        type: string
+        description: Company display name.
+      - name: domain
+        type: string
+        description: Primary website domain.
+      - name: industry
+        type: string
+        description: Industry classification.
+      - name: size
+        type: string
+        description: Employee size band.
+      - name: employees_count
+        type: integer
+        description: Best estimate of current employee count.
+      - name: founded
+        type: integer
+        description: Founding year.
+      - name: headquarters
+        type: string
+        description: Headquarters address.
+      - name: country
+        type: string
+        description: HQ country.
+      - name: technologies
+        type: array
+        description: Technologies in use, where detectable.
+      - name: linkedin_url
+        type: string
+        description: Public LinkedIn company URL.
+      - name: last_updated
+        type: string
+        description: Timestamp of last refresh.
+  - name: Employee
+    description: A professional profile aggregated from public sources.
+    fields:
+      - name: id
+        type: integer
+        description: Coresignal internal employee identifier.
+      - name: full_name
+        type: string
+        description: Person's full display name.
+      - name: title
+        type: string
+        description: Current job title.
+      - name: headline
+        type: string
+        description: Profile headline.
+      - name: country
+        type: string
+        description: Country of residence.
+      - name: experience
+        type: array
+        description: Work experience entries with company, title, and dates.
+      - name: education
+        type: array
+        description: Education entries with school, degree, and dates.
+      - name: skills
+        type: array
+        description: Self-reported or inferred skills.
+      - name: linkedin_url
+        type: string
+        description: Public LinkedIn profile URL.
+  - name: Job
+    description: A job posting aggregated from public web sources.
+    fields:
+      - name: id
+        type: integer
+        description: Coresignal internal job posting identifier.
+      - name: title
+        type: string
+        description: Job title.
+      - name: company_name
+        type: string
+        description: Hiring company name.
+      - name: location
+        type: string
+        description: Location string.
+      - name: seniority_level
+        type: string
+        description: Seniority classification.
+      - name: employment_type
+        type: string
+        description: Full-time, part-time, contract, etc.
+      - name: date_posted
+        type: string
+        description: Date the posting first appeared.
+      - name: salary_min
+        type: number
+        description: Minimum salary if disclosed.
+      - name: salary_max
+        type: number
+        description: Maximum salary if disclosed.
+concepts:
+  - name: API Credit
+    description: Unit of consumption decremented per qualifying API response.
+  - name: Elasticsearch DSL
+    description: Native Elasticsearch query DSL used for advanced searches.
+  - name: Filter Search
+    description: Structured filter object using top-level field equality and range operators.
+  - name: Collect
+    description: Endpoint that returns the full enriched record for a given ID.
+  - name: Bulk Collect
+    description: Endpoint that returns multiple records given an array of IDs.
+  - name: Subscription
+    description: Webhook-based subscription that delivers record update events.
+  - name: Agentic Search
+    description: Natural language search interface designed for AI agents.

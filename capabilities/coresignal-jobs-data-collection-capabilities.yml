@@ -1,0 +1,56 @@
+name: Coresignal Jobs Data Collection Capabilities
+description: >-
+  Workflow capabilities provided by the Coresignal Multi-source Jobs API for
+  job posting discovery, hiring trend analysis, and labor market research.
+url: https://docs.coresignal.com/multi-source-jobs-api/
+version: '1.0'
+modified: '2026-04-28'
+api: Coresignal Multi-source Jobs API
+baseURL: https://api.coresignal.com/cdapi/v2/multi_source_jobs
+capabilities:
+  - name: Search Jobs by Filter
+    description: >-
+      Find job postings by title, company, country, location, seniority, or
+      employment type using structured filters.
+    operations:
+      - searchJobsByFilter
+    inputs:
+      - JobFilter
+    outputs:
+      - Array of job posting IDs
+  - name: Search Jobs by Elasticsearch DSL
+    description: >-
+      Run advanced Elasticsearch DSL queries against the jobs index for
+      complex boolean, salary range, and date queries.
+    operations:
+      - searchJobsByEsDsl
+    inputs:
+      - Elasticsearch DSL query body
+    outputs:
+      - Array of job posting IDs
+  - name: Collect Job Postings
+    description: >-
+      Retrieve a fully-enriched job posting record with 85+ fields including
+      title, description, company, salary, posted date, and source URL.
+    operations:
+      - collectJob
+    inputs:
+      - job id
+    outputs:
+      - Job record
+useCases:
+  - name: Hiring Demand Analysis
+    description: Track demand for specific titles or skills across companies, industries, and regions.
+    capabilities:
+      - Search Jobs by Elasticsearch DSL
+      - Collect Job Postings
+  - name: Compensation Benchmarking
+    description: Use disclosed salary ranges from public job postings to benchmark compensation.
+    capabilities:
+      - Search Jobs by Filter
+      - Collect Job Postings
+  - name: Competitive Hiring Intelligence
+    description: Monitor competitor hiring activity and team expansion signals.
+    capabilities:
+      - Search Jobs by Filter
+      - Search Jobs by Elasticsearch DSL

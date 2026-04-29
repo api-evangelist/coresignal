@@ -1,0 +1,68 @@
+name: Coresignal Company Data Collection Capabilities
+description: >-
+  Workflow capabilities provided by the Coresignal Multi-source Company API
+  for company discovery, firmographic enrichment, and bulk data collection.
+url: https://docs.coresignal.com/multi-source-company-api/
+version: '1.0'
+modified: '2026-04-28'
+api: Coresignal Multi-source Company API
+baseURL: https://api.coresignal.com/cdapi/v2/multi_source_company
+capabilities:
+  - name: Search Companies by Filter
+    description: >-
+      Find company records matching a structured filter object covering
+      industry, size, country, founding year, employee count, and
+      technology fingerprints.
+    operations:
+      - searchCompaniesByFilter
+    inputs:
+      - CompanyFilter
+    outputs:
+      - Array of company IDs
+  - name: Search Companies by Elasticsearch DSL
+    description: >-
+      Run advanced Elasticsearch DSL queries against the company index for
+      complex boolean, range, and aggregation use cases.
+    operations:
+      - searchCompaniesByEsDsl
+    inputs:
+      - Elasticsearch DSL query body
+    outputs:
+      - Array of company IDs
+  - name: Collect Company Records
+    description: >-
+      Retrieve a fully-enriched company record by its Coresignal ID,
+      including 500+ data fields.
+    operations:
+      - collectCompany
+    inputs:
+      - company id
+    outputs:
+      - Company record
+  - name: Bulk Collect Companies
+    description: >-
+      Retrieve full enriched records for many companies in a single request,
+      ideal for batch enrichment of CRM contact-to-account mappings.
+    operations:
+      - bulkCollectCompanies
+    inputs:
+      - Array of company IDs
+    outputs:
+      - Array of company records
+useCases:
+  - name: TAM and Account Targeting
+    description: Build total addressable market lists by industry, size, country, and technology stack.
+    capabilities:
+      - Search Companies by Filter
+      - Search Companies by Elasticsearch DSL
+      - Bulk Collect Companies
+  - name: CRM Account Enrichment
+    description: Enrich Salesforce or HubSpot account records with up-to-date firmographic data.
+    capabilities:
+      - Collect Company Records
+      - Bulk Collect Companies
+  - name: Competitive Intelligence
+    description: Track competitor headcount, technologies, and funding signals over time.
+    capabilities:
+      - Search Companies by Elasticsearch DSL
+      - Collect Company Records

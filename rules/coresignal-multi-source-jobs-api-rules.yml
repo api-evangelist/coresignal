@@ -1,0 +1,63 @@
+extends: ["spectral:oas"]
+documentationUrl: https://docs.coresignal.com/multi-source-jobs-api/
+rules:
+  coresignal-jobs-server-https:
+    description: Servers must use HTTPS.
+    given: "$.servers[*].url"
+    severity: error
+    then:
+      function: pattern
+      functionOptions:
+        match: "^https://"
+  coresignal-jobs-base-url:
+    description: Base URL must reference api.coresignal.com/cdapi/v2/multi_source_jobs.
+    given: "$.servers[*].url"
+    severity: error
+    then:
+      function: pattern
+      functionOptions:
+        match: "api.coresignal.com/cdapi/v2/multi_source_jobs"
+  coresignal-jobs-apikey:
+    description: API must use apikey header authentication.
+    given: "$.components.securitySchemes.apiKey.name"
+    severity: error
+    then:
+      function: pattern
+      functionOptions:
+        match: "^apikey$"
+  coresignal-jobs-search-paths:
+    description: API should expose filter and Elasticsearch DSL search endpoints.
+    given: "$.paths"
+    severity: warn
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+          required:
+            - /search/filter
+            - /search/es_dsl
+            - /collect/{id}
+  coresignal-jobs-operation-id:
+    description: Operations must define an operationId.
+    given: "$.paths.*[get,post]"
+    severity: error
+    then:
+      field: operationId
+      function: truthy
+  coresignal-jobs-operation-tags:
+    description: Operations must define tags.
+    given: "$.paths.*[get,post]"
+    severity: error
+    then:
+      field: tags
+      function: truthy
+  coresignal-jobs-date-format:
+    description: Date fields should use ISO 8601 date-time format.
+    given: "$.components.schemas.Job.properties.date_posted"
+    severity: warn
+    then:
+      field: format
+      function: pattern
+      functionOptions:
+        match: "date-time"
