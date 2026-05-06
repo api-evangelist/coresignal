@@ -1,5 +1,6 @@
 specification: FinOps Framework
 specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
 alignedWith:
   framework: FinOps Foundation Framework
   frameworkUrl: https://www.finops.org/framework/
@@ -8,169 +9,108 @@ alignedWith:
   dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
 provider: Coresignal
 providerId: coresignal
-publisherName: Coresignal
-serviceCategory: API
+publisherName: Coresignal, UAB
+serviceCategory: B2B Data API
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: true
 tags:
-  - Agentic Search
   - B2B Data
   - Companies
-  - Company Data
   - Data as a Service
-  - Elasticsearch
-  - Employee Data
   - Employees
-  - Enrichment
-  - Firmographics
   - Job Postings
-  - Jobs
-  - Lead Generation
-  - People Data
   - Sales Intelligence
-  - Talent Intelligence
-  - Web Data
   - FinOps
   - Cost Management
   - FOCUS
-description: FinOps framework definition for the Coresignal API surface. Provides a FOCUS-aligned mapping
-  for cost allocation, usage measurement, and unit-economics reporting across the provider's APIs.
-principles:
-  - name: Visibility
-    description: Make API consumption costs visible to engineering, product, and finance teams in near
-      real-time.
-  - name: Allocation
-    description: Tag every chargeable API call with the consuming team, environment, application, and
-      feature so cost can be allocated.
-  - name: Optimization
-    description: Continuously evaluate request patterns, caching, batching, and tier selection to reduce
-      cost per useful unit of work.
-  - name: Accountability
-    description: Establish budget owners and chargeback or showback flows for each consuming team.
-domains:
-  - name: Understand Usage and Cost
-    capabilities:
-      - Data Ingestion
-      - Allocation
-      - Reporting and Analytics
-      - Anomaly Management
-  - name: Quantify Business Value
-    capabilities:
-      - Planning and Estimating
-      - Forecasting
-      - Budgeting
-      - Benchmarking
-      - Unit Economics
-  - name: Optimize Usage and Cost
-    capabilities:
-      - Architecting for Cloud
-      - Rate Optimization
-      - Workload Optimization
-      - Cloud Sustainability
-      - Licensing and SaaS
-  - name: Manage the FinOps Practice
-    capabilities:
-      - FinOps Practice Operations
-      - FinOps Education and Enablement
-      - Invoicing and Chargeback
-      - Onboarding Workloads
-      - Intersecting Disciplines
+description: FOCUS-aligned FinOps for Coresignal - monthly subscription minimum plus credit-metered
+  consumption (Collect and Search credits) with tiered per-record pricing. Datasets product is custom-priced
+  and billed per contract.
+sources:
+  - https://coresignal.com/pricing/
+  - https://docs.coresignal.com/api-introduction/rate-limits
+  - https://focus.finops.org/focus-specification/v1-3/
 billingModel:
-  pricingCategory: Usage-Based
+  pricingCategory: Subscription + Credit Consumption
   billingFrequency: Monthly
   billingCurrency: USD
   chargeCategories:
     - Usage
     - Purchase
     - Tax
-    - Credit
     - Adjustment
+    - Refund
+    - Credit
   chargeFrequency: Recurring
 focusColumns:
   ServiceName: Coresignal
-  ServiceCategory: Developer Tools / API
+  ServiceCategory: B2B Data API
   ProviderName: Coresignal
-  PublisherName: Coresignal
-  InvoiceIssuerName: Coresignal
+  PublisherName: Coresignal, UAB
+  InvoiceIssuerName: Coresignal, UAB
   PricingCategory: Usage-Based
-  PricingUnit: request
   BillingCurrency: USD
   ChargeCategory: Usage
 meters:
-  - name: api_requests
-    description: Count of billable API requests
-    unit: request
+  - name: collect_credits
+    description: Collect (GET / Bulk Collect) credits consumed against the plan allotment
+    unit: credit
     aggregation: sum
     dimensions:
       - api
       - endpoint
-      - tier
-      - region
-      - consumer
-  - name: data_egress
-    description: Bytes returned over the network in API responses
-    unit: GB
-    aggregation: sum
-    dimensions:
-      - api
-      - region
-      - consumer
-  - name: compute_seconds
-    description: Server-side compute consumed by the request, where applicable
-    unit: second
+      - api_key
+      - plan
+  - name: search_credits
+    description: Search (POST) credits consumed against the plan allotment
+    unit: credit
     aggregation: sum
     dimensions:
       - api
       - endpoint
-      - tier
-apis:
-  - name: Coresignal Multi-source Company API
-    baseURL: https://api.coresignal.com/cdapi/v2/multi_source_company
-    tags:
-      - Companies
-      - Firmographics
-      - Multi-source
-    serviceName: Coresignal Multi-source Company API
-    serviceCategory: API
-  - name: Coresignal Multi-source Employee API
-    baseURL: https://api.coresignal.com/cdapi/v2/multi_source_employee
-    tags:
-      - Employees
-      - Multi-source
-      - People Data
-    serviceName: Coresignal Multi-source Employee API
-    serviceCategory: API
-  - name: Coresignal Multi-source Jobs API
-    baseURL: https://api.coresignal.com/cdapi/v2/multi_source_jobs
-    tags:
-      - Jobs
-      - Multi-source
-      - Recruiting
-    serviceName: Coresignal Multi-source Jobs API
-    serviceCategory: API
-  - name: Coresignal Agentic Search API
-    baseURL: https://api.coresignal.com/cdapi/v2/agentic_search
-    tags:
-      - Agentic Search
-      - AI Agents
-      - Natural Language
-    serviceName: Coresignal Agentic Search API
-    serviceCategory: API
-  - name: Coresignal Company Enrichment API
-    baseURL: https://api.coresignal.com/cdapi/v2/company_enrichment
-    tags:
-      - Companies
-      - Enrichment
-      - CRM
-    serviceName: Coresignal Company Enrichment API
-    serviceCategory: API
-unitEconomics:
-  - name: Cost per 1K Requests
-    metric: billed_cost / (api_requests / 1000)
-    target: TBD
-  - name: Cost per Active Consumer
-    metric: billed_cost / active_consumers
-    target: TBD
+      - api_key
+      - plan
+  - name: records_returned
+    description: Records returned to the consumer (basis for per-record pricing)
+    unit: record
+    aggregation: sum
+    dimensions:
+      - api
+      - record_type
+      - api_key
+  - name: subscription_fee
+    description: Monthly subscription minimum charge
+    unit: month
+    aggregation: max
+    dimensions:
+      - plan
+      - billing_term
+  - name: dataset_license
+    description: Dataset (companies / employees / jobs) license fee
+    unit: month
+    aggregation: max
+    dimensions:
+      - dataset
+      - delivery_cadence
+principles:
+  - name: Visibility
+    description: Monitor per-API-key Collect and Search credit consumption from the Coresignal dashboard
+      against the monthly allotment. Track per-record pricing tier breakpoints to forecast unit cost
+      as volume grows.
+  - name: Allocation
+    description: Issue separate API keys per consuming team, environment, or downstream product so
+      credit consumption can be allocated. Tag retrieved records by use case (lead-gen, talent intelligence,
+      enrichment) to attribute cost to revenue-generating workflows.
+  - name: Optimization
+    description: Use Search to filter precisely before issuing Collect calls; prefer Bulk Collect for
+      ingest workloads (higher rate-limit budget at 27 rps); cache and dedupe records to avoid re-billing
+      for the same entity; size monthly commit at the next price-tier breakpoint to lower per-record
+      cost; consider annual prepay for the published 20% discount.
+  - name: Accountability
+    description: Designate an owner per API key with a monthly credit budget. Alert on burn-rate to
+      avoid hitting the credit cap mid-month, and review actual records-returned vs. committed plan
+      tier each renewal cycle.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

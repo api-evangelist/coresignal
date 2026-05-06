@@ -4,7 +4,8 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Coresignal
 providerId: coresignal
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: true
 tags:
   - Agentic Search
   - B2B Data
@@ -23,178 +24,192 @@ tags:
   - Sales Intelligence
   - Talent Intelligence
   - Web Data
-description: Machine-readable plans and pricing scaffold for this API provider. Conforms to the API Commons
-  Plans schema. Tier limits and prices are scaffold defaults; replace with provider-published values.
+description: Coresignal sells API access to its B2B web data (companies, employees, jobs) on credit-based
+  monthly subscriptions. Each plan includes a minimum number of Collect and Search credits with monthly
+  reset; per-record price drops as credit volume increases. A separate Datasets product is sold via
+  custom contract starting at $1,000. Annual prepay receives a 20% discount.
+sources:
+  - https://coresignal.com/pricing/
+  - https://docs.coresignal.com/api-introduction/rate-limits
 plans:
   - id: coresignal-free
     name: Free
     type: freemium
-    description: Free entry tier for the Coresignal API surface. Intended for evaluation, prototyping,
-      and low-volume integrations. Real limits and pricing must be reconciled with the provider's published
-      plan documentation.
+    description: 7-day free evaluation, no credit card. 200 Collect + 400 Search credits across the
+      employee, company, and jobs endpoints.
     entries:
-      - label: API Requests
-        description: Monthly API request quota across all included endpoints
-        name: api_requests
+      - label: Collect credits
+        name: collect_credits
         type: quota
-        metric: requests
-        limit: 1000
-        timeFrame: month
+        metric: credit
+        limit: 200
+        timeFrame: usage
         geo: global
-        domains:
-          - https://api.coresignal.com/cdapi/v2/multi_source_company
-          - https://api.coresignal.com/cdapi/v2/multi_source_employee
-          - https://api.coresignal.com/cdapi/v2/multi_source_jobs
-          - https://api.coresignal.com/cdapi/v2/agentic_search
-          - https://api.coresignal.com/cdapi/v2/company_enrichment
         unit: 1
         price: '0.00'
         userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the free tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 10
-        timeFrame: minute
+      - label: Search credits
+        name: search_credits
+        type: quota
+        metric: credit
+        limit: 400
+        timeFrame: usage
         geo: global
-        domains:
-          - https://api.coresignal.com/cdapi/v2/multi_source_company
-          - https://api.coresignal.com/cdapi/v2/multi_source_employee
-          - https://api.coresignal.com/cdapi/v2/multi_source_jobs
-          - https://api.coresignal.com/cdapi/v2/agentic_search
-          - https://api.coresignal.com/cdapi/v2/company_enrichment
         unit: 1
         price: '0.00'
         userMultiplied: false
     elements:
-      - name: Public Documentation
-      - name: Community Support
-      - name: Sandbox Access
-      - name: Coresignal Multi-source Company API
-      - name: Coresignal Multi-source Employee API
-      - name: Coresignal Multi-source Jobs API
-      - name: Coresignal Agentic Search API
-      - name: Coresignal Company Enrichment API
+      - name: 7-day trial validity
+      - name: Employee, company, jobs endpoints
+      - name: Elasticsearch Query DSL
+      - name: Technical support
+  - id: coresignal-starter
+    name: Starter
+    type: subscription
+    description: Entry monthly subscription. Credits reset each month; per-record price scales with
+      committed volume.
+    entries:
+      - label: Monthly subscription
+        name: monthly_subscription
+        type: subscription
+        metric: month
+        limit: 1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: starting from $49/month
+        userMultiplied: false
+      - label: Collect credits (minimum)
+        name: collect_credits
+        type: quota
+        metric: credit
+        limit: 250
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '$0.196-$0.133/record'
+        userMultiplied: false
+      - label: Search credits (minimum)
+        name: search_credits
+        type: quota
+        metric: credit
+        limit: 500
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '$0.196-$0.133/record'
+        userMultiplied: false
+    elements:
+      - name: Monthly credit renewal
+      - name: Employee, company, jobs endpoints
+      - name: Elasticsearch Query DSL
+      - name: Technical support
+      - name: 20% discount on annual prepay
   - id: coresignal-pro
-    name: Professional
-    type: paid
-    description: Production tier for Coresignal. Provides higher quotas, priority support, and access
-      to the broader API portfolio. Pricing placeholder; align with the provider's pricing page.
+    name: Pro
+    type: subscription
+    description: Mid-volume tier with dedicated account manager and lower per-record pricing.
     entries:
-      - label: API Requests
-        description: Monthly API request quota
-        name: api_requests
+      - label: Monthly subscription
+        name: monthly_subscription
+        type: subscription
+        metric: month
+        limit: 1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: starting from $800/month
+        userMultiplied: false
+      - label: Collect credits (minimum)
+        name: collect_credits
         type: quota
-        metric: requests
-        limit: 100000
+        metric: credit
+        limit: 10000
         timeFrame: month
         geo: global
-        domains:
-          - https://api.coresignal.com/cdapi/v2/multi_source_company
-          - https://api.coresignal.com/cdapi/v2/multi_source_employee
-          - https://api.coresignal.com/cdapi/v2/multi_source_jobs
-          - https://api.coresignal.com/cdapi/v2/agentic_search
-          - https://api.coresignal.com/cdapi/v2/company_enrichment
         unit: 1
-        price: TBD
+        price: '$0.080-$0.050/record'
         userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the professional tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 100
-        timeFrame: minute
-        geo: global
-        domains:
-          - https://api.coresignal.com/cdapi/v2/multi_source_company
-          - https://api.coresignal.com/cdapi/v2/multi_source_employee
-          - https://api.coresignal.com/cdapi/v2/multi_source_jobs
-          - https://api.coresignal.com/cdapi/v2/agentic_search
-          - https://api.coresignal.com/cdapi/v2/company_enrichment
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Overage
-        description: Per-request price after monthly quota is exceeded
-        name: overage
-        type: metered
-        metric: requests
-        limit: -1
+      - label: Search credits (minimum)
+        name: search_credits
+        type: quota
+        metric: credit
+        limit: 20000
         timeFrame: month
         geo: global
-        domains:
-          - https://api.coresignal.com/cdapi/v2/multi_source_company
-          - https://api.coresignal.com/cdapi/v2/multi_source_employee
-          - https://api.coresignal.com/cdapi/v2/multi_source_jobs
-          - https://api.coresignal.com/cdapi/v2/agentic_search
-          - https://api.coresignal.com/cdapi/v2/company_enrichment
-        unit: 1000
-        price: TBD
+        unit: 1
+        price: '$0.080-$0.050/record'
         userMultiplied: false
     elements:
-      - name: All Production Endpoints
-      - name: Email Support
-      - name: SLA Targets
-      - name: Webhook Subscriptions
-      - name: Coresignal Multi-source Company API
-      - name: Coresignal Multi-source Employee API
-      - name: Coresignal Multi-source Jobs API
-      - name: Coresignal Agentic Search API
-      - name: Coresignal Company Enrichment API
-  - id: coresignal-enterprise
-    name: Enterprise
+      - name: Dedicated account manager
+      - name: Employee, company, jobs endpoints
+      - name: Elasticsearch Query DSL
+      - name: 20% discount on annual prepay
+  - id: coresignal-premium
+    name: Premium
+    type: subscription
+    description: High-volume tier (recommended) with the lowest per-record pricing, historical headcount
+      data access, and Employee API webhooks.
+    entries:
+      - label: Monthly subscription
+        name: monthly_subscription
+        type: subscription
+        metric: month
+        limit: 1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: starting from $1,500/month
+        userMultiplied: false
+      - label: Collect credits (minimum)
+        name: collect_credits
+        type: quota
+        metric: credit
+        limit: 50000
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '$0.030-$0.005/record'
+        userMultiplied: false
+      - label: Search credits (minimum)
+        name: search_credits
+        type: quota
+        metric: credit
+        limit: 150000
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '$0.030-$0.005/record'
+        userMultiplied: false
+    elements:
+      - name: Historical headcount API access
+      - name: Employee API webhooks
+      - name: Dedicated account manager
+      - name: Employee, company, jobs endpoints
+      - name: 20% discount on annual prepay
+  - id: coresignal-datasets
+    name: Datasets
     type: enterprise
-    description: Custom-negotiated tier for Coresignal. Includes dedicated capacity, contractual SLAs,
-      security review, data residency options, and named technical account management.
+    description: Bulk dataset product (companies, employees, jobs) delivered monthly with historical
+      data. Custom-priced.
     entries:
-      - label: API Requests
-        description: Negotiated request volume; -1 indicates uncapped subject to fair use
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: -1
+      - label: Dataset license
+        name: dataset_license
+        type: subscription
+        metric: month
+        limit: 1
         timeFrame: month
         geo: configurable
-        domains:
-          - https://api.coresignal.com/cdapi/v2/multi_source_company
-          - https://api.coresignal.com/cdapi/v2/multi_source_employee
-          - https://api.coresignal.com/cdapi/v2/multi_source_jobs
-          - https://api.coresignal.com/cdapi/v2/agentic_search
-          - https://api.coresignal.com/cdapi/v2/company_enrichment
         unit: 1
-        price: custom
-        userMultiplied: false
-      - label: Rate Limit
-        description: Negotiated burst and steady-state rate
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 1000
-        timeFrame: minute
-        geo: configurable
-        domains:
-          - https://api.coresignal.com/cdapi/v2/multi_source_company
-          - https://api.coresignal.com/cdapi/v2/multi_source_employee
-          - https://api.coresignal.com/cdapi/v2/multi_source_jobs
-          - https://api.coresignal.com/cdapi/v2/agentic_search
-          - https://api.coresignal.com/cdapi/v2/company_enrichment
-        unit: 1
-        price: custom
+        price: starting from $1,000 (custom)
         userMultiplied: false
     elements:
-      - name: Unlimited / Negotiated Volume
-      - name: 24/7 Dedicated Support
-      - name: Contractual SLA
-      - name: Security & Compliance Review
-      - name: Dedicated Account Manager
-      - name: Custom Data Residency
-      - name: Coresignal Multi-source Company API
-      - name: Coresignal Multi-source Employee API
-      - name: Coresignal Multi-source Jobs API
-      - name: Coresignal Agentic Search API
-      - name: Coresignal Company Enrichment API
+      - name: Companies dataset
+      - name: Employees dataset
+      - name: Jobs dataset
+      - name: Monthly delivery
+      - name: Historical data
+      - name: Bundling and prepayment discounts
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
