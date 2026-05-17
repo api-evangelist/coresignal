@@ -1,6 +1,6 @@
 aid: coresignal
 name: Coresignal
-x-type: company
+kind: company
 description: >-
   Coresignal is a data-as-a-service company providing access to public web
   data on companies, employees, and jobs through a suite of REST APIs. The
@@ -224,7 +224,7 @@ common:
     url: https://coresignal.com/privacy-policy/
   - type: TermsOfService
     url: https://coresignal.com/terms-and-conditions/
-  - type: Status
+  - type: StatusPage
     url: https://status.coresignal.com/
   - type: LinkedIn
     url: https://www.linkedin.com/company/coresignal
