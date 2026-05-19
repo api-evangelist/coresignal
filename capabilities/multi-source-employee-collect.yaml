@@ -1,0 +1,123 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Coresignal Multi-source Employee API — Collect
+  description: 'Coresignal Multi-source Employee API — Collect. 2 operations. Lead operation: Bulk Collect Employees. Self-contained
+    Naftiko capability covering one Coresignal business surface.'
+  tags:
+  - Coresignal
+  - Collect
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    CORESIGNAL_API_KEY: CORESIGNAL_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: multi-source-employee-collect
+    baseUri: https://api.coresignal.com/cdapi/v2/multi_source_employee
+    description: Coresignal Multi-source Employee API — Collect business capability. Self-contained, no shared references.
+    resources:
+    - name: bulk_collect
+      path: /bulk_collect
+      operations:
+      - name: bulkcollectemployees
+        method: POST
+        description: Bulk Collect Employees
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: collect-id
+      path: /collect/{id}
+      operations:
+      - name: collectemployee
+        method: GET
+        description: Collect an Employee record
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: integer
+          required: true
+    authentication:
+      type: apikey
+      key: apikey
+      value: '{{env.CORESIGNAL_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: multi-source-employee-collect-rest
+    port: 8080
+    description: REST adapter for Coresignal Multi-source Employee API — Collect. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/bulk-collect
+      name: bulk-collect
+      description: REST surface for bulk_collect.
+      operations:
+      - method: POST
+        name: bulkcollectemployees
+        description: Bulk Collect Employees
+        call: multi-source-employee-collect.bulkcollectemployees
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/collect/{id}
+      name: collect-id
+      description: REST surface for collect-id.
+      operations:
+      - method: GET
+        name: collectemployee
+        description: Collect an Employee record
+        call: multi-source-employee-collect.collectemployee
+        with:
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: multi-source-employee-collect-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Coresignal Multi-source Employee API — Collect. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: bulk-collect-employees
+      description: Bulk Collect Employees
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: multi-source-employee-collect.bulkcollectemployees
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: collect-employee-record
+      description: Collect an Employee record
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: multi-source-employee-collect.collectemployee
+      with:
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
