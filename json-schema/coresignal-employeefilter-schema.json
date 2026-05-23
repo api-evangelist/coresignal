@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/EmployeeFilter",
+  "title": "EmployeeFilter",
+  "type": "object",
+  "properties": {
+    "full_name": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "country": {
+      "type": "string"
+    },
+    "location": {
+      "type": "string"
+    },
+    "industry": {
+      "type": "string"
+    },
+    "active_experience_company_name": {
+      "type": "string"
+    },
+    "active_experience_title": {
+      "type": "string"
+    },
+    "skills": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

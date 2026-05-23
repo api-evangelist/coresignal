@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/JobFilter",
+  "title": "JobFilter",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "company_name": {
+      "type": "string"
+    },
+    "country": {
+      "type": "string"
+    },
+    "location": {
+      "type": "string"
+    },
+    "seniority_level": {
+      "type": "string"
+    },
+    "employment_type": {
+      "type": "string"
+    },
+    "date_posted_from": {
+      "type": "string"
+    },
+    "date_posted_to": {
+      "type": "string"
+    },
+    "application_active": {
+      "type": "boolean"
+    }
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "provider": "Coresignal",
+  "providerId": "coresignal",
+  "kind": "json-structure",
+  "description": "Structural overview of the Coresignal API surface; extracted from openapi/.",
+  "schemaCount": 2,
+  "operationCount": 4,
+  "schemas": [
+    {
+      "name": "Company",
+      "type": "object",
+      "propertyCount": 24,
+      "required": []
+    },
+    {
+      "name": "CompanyFilter",
+      "type": "object",
+      "propertyCount": 10,
+      "required": []
+    }
+  ],
+  "operations": [
+    {
+      "method": "POST",
+      "path": "/search/filter",
+      "operationId": "searchCompaniesByFilter",
+      "summary": "Search Companies (filter)",
+      "tags": [
+        "Search"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/search/es_dsl",
+      "operationId": "searchCompaniesByEsDsl",
+      "summary": "Search Companies (Elasticsearch DSL)",
+      "tags": [
+        "Search"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/collect/{id}",
+      "operationId": "collectCompany",
+      "summary": "Collect a Company record",
+      "tags": [
+        "Collect"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/bulk_collect",
+      "operationId": "bulkCollectCompanies",
+      "summary": "Bulk Collect Companies",
+      "tags": [
+        "Collect"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,110 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Employee",
+  "title": "Employee",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "format": "int64"
+    },
+    "full_name": {
+      "type": "string"
+    },
+    "first_name": {
+      "type": "string"
+    },
+    "last_name": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "headline": {
+      "type": "string"
+    },
+    "summary": {
+      "type": "string"
+    },
+    "country": {
+      "type": "string"
+    },
+    "location": {
+      "type": "string"
+    },
+    "industry": {
+      "type": "string"
+    },
+    "connections": {
+      "type": "integer"
+    },
+    "followers": {
+      "type": "integer"
+    },
+    "experience": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "company_name": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "date_from": {
+            "type": "string"
+          },
+          "date_to": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "education": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "school": {
+            "type": "string"
+          },
+          "degree": {
+            "type": "string"
+          },
+          "field": {
+            "type": "string"
+          },
+          "date_from": {
+            "type": "string"
+          },
+          "date_to": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "skills": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "certifications": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "linkedin_url": {
+      "type": "string"
+    },
+    "last_updated": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

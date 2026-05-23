@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CompanyFilter",
+  "title": "CompanyFilter",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "industry": {
+      "type": "string"
+    },
+    "size": {
+      "type": "string"
+    },
+    "country": {
+      "type": "string"
+    },
+    "region": {
+      "type": "string"
+    },
+    "founded_from": {
+      "type": "integer"
+    },
+    "founded_to": {
+      "type": "integer"
+    },
+    "employees_count_from": {
+      "type": "integer"
+    },
+    "employees_count_to": {
+      "type": "integer"
+    },
+    "technologies": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}
