@@ -224,6 +224,8 @@ common:
     url: https://www.linkedin.com/company/coresignal
   - type: Twitter
     url: https://twitter.com/coresignal
+  - type: LLMsTxt
+    url: https://docs.coresignal.com/llms.txt
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
