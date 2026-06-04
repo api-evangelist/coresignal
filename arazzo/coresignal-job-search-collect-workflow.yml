@@ -1,0 +1,96 @@
+arazzo: 1.0.1
+info:
+  title: Coresignal Job Search and Collect
+  summary: Search the Multi-source Jobs API by filters, then collect the full top-matching job posting.
+  description: >-
+    The canonical Coresignal jobs pattern. The workflow submits a structured job
+    filter to the Multi-source Jobs API search endpoint, which returns an array
+    of matching job posting IDs, and then collects the full enriched job posting
+    record for the first matching ID. Every step spells out its request inline,
+    including the apikey authentication header and the search filter body, so the
+    flow can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: jobsApi
+  url: ../openapi/coresignal-multi-source-jobs-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: job-search-collect
+  summary: Filter job postings and collect the full record for the best match.
+  description: >-
+    Posts a job filter to the search endpoint and collects the full job posting
+    record for the first returned ID.
+  inputs:
+    type: object
+    required:
+    - apikey
+    properties:
+      apikey:
+        type: string
+        description: Coresignal API key sent in the apikey header.
+      title:
+        type: string
+        description: Job title to filter postings on.
+      company_name:
+        type: string
+        description: Hiring company name to filter on.
+      country:
+        type: string
+        description: Country to filter job postings on.
+      seniority_level:
+        type: string
+        description: Seniority level to filter on (e.g. "Mid-Senior level").
+      employment_type:
+        type: string
+        description: Employment type to filter on (e.g. "Full-time").
+      application_active:
+        type: boolean
+        description: Whether to restrict to postings with active applications.
+  steps:
+  - stepId: searchJobs
+    description: >-
+      Search job posting records using a structured filter. Returns an array of
+      matching Coresignal job posting IDs.
+    operationId: searchJobsByFilter
+    parameters:
+    - name: apikey
+      in: header
+      value: $inputs.apikey
+    requestBody:
+      contentType: application/json
+      payload:
+        title: $inputs.title
+        company_name: $inputs.company_name
+        country: $inputs.country
+        seniority_level: $inputs.seniority_level
+        employment_type: $inputs.employment_type
+        application_active: $inputs.application_active
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      jobIds: $response.body
+      topJobId: $response.body#/0
+  - stepId: collectJob
+    description: >-
+      Retrieve the full enriched job posting record for the first matching ID
+      returned by the search.
+    operationId: collectJob
+    parameters:
+    - name: apikey
+      in: header
+      value: $inputs.apikey
+    - name: id
+      in: path
+      value: $steps.searchJobs.outputs.topJobId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      jobId: $response.body#/id
+      title: $response.body#/title
+      companyName: $response.body#/company_name
+      url: $response.body#/url
+  outputs:
+    jobIds: $steps.searchJobs.outputs.jobIds
+    title: $steps.collectJob.outputs.title
+    companyName: $steps.collectJob.outputs.companyName

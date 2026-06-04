@@ -1,0 +1,121 @@
+arazzo: 1.0.1
+info:
+  title: Coresignal Company to Employees Enrichment
+  summary: Find a company, then find and collect a key employee currently working at that company.
+  description: >-
+    A multi-source pattern that bridges the Company and Employee APIs. The
+    workflow filters the Multi-source Company API to resolve a target company,
+    collects that company's full record to obtain its canonical name, then uses
+    that name as the active-employer filter against the Multi-source Employee API
+    and collects the full profile of the first matching employee. Every step
+    spells out its request inline, including the apikey authentication header and
+    the search filter bodies, so the flow can be read and executed without
+    opening the underlying OpenAPI descriptions.
+  version: 1.0.0
+sourceDescriptions:
+- name: companyApi
+  url: ../openapi/coresignal-multi-source-company-api-openapi.yml
+  type: openapi
+- name: employeeApi
+  url: ../openapi/coresignal-multi-source-employee-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: company-to-employees
+  summary: Resolve a company and collect a key employee working there.
+  description: >-
+    Searches and collects a company, then searches employees by that company
+    name and collects the top matching employee profile.
+  inputs:
+    type: object
+    required:
+    - apikey
+    properties:
+      apikey:
+        type: string
+        description: Coresignal API key sent in the apikey header.
+      name:
+        type: string
+        description: Company name to resolve against the Company API.
+      country:
+        type: string
+        description: Country to filter the company search on.
+      employee_title:
+        type: string
+        description: Title to filter employees on within the resolved company.
+  steps:
+  - stepId: searchCompanies
+    description: >-
+      Search company records by name and country. Returns an array of matching
+      Coresignal company IDs.
+    operationId: searchCompaniesByFilter
+    parameters:
+    - name: apikey
+      in: header
+      value: $inputs.apikey
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.name
+        country: $inputs.country
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      topCompanyId: $response.body#/0
+  - stepId: collectCompany
+    description: >-
+      Retrieve the full company record to obtain the canonical company name used
+      to filter employees.
+    operationId: collectCompany
+    parameters:
+    - name: apikey
+      in: header
+      value: $inputs.apikey
+    - name: id
+      in: path
+      value: $steps.searchCompanies.outputs.topCompanyId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      companyName: $response.body#/name
+      employeesCount: $response.body#/employees_count
+  - stepId: searchEmployees
+    description: >-
+      Search employee records whose active employer matches the resolved company
+      name and whose current title matches the requested title.
+    operationId: searchEmployeesByFilter
+    parameters:
+    - name: apikey
+      in: header
+      value: $inputs.apikey
+    requestBody:
+      contentType: application/json
+      payload:
+        active_experience_company_name: $steps.collectCompany.outputs.companyName
+        active_experience_title: $inputs.employee_title
+        country: $inputs.country
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      topEmployeeId: $response.body#/0
+  - stepId: collectEmployee
+    description: >-
+      Retrieve the full enriched profile for the first employee matching the
+      resolved company and title.
+    operationId: collectEmployee
+    parameters:
+    - name: apikey
+      in: header
+      value: $inputs.apikey
+    - name: id
+      in: path
+      value: $steps.searchEmployees.outputs.topEmployeeId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      employeeId: $response.body#/id
+      fullName: $response.body#/full_name
+      title: $response.body#/title
+  outputs:
+    companyName: $steps.collectCompany.outputs.companyName
+    employeeFullName: $steps.collectEmployee.outputs.fullName
+    employeeTitle: $steps.collectEmployee.outputs.title

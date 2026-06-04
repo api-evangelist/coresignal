@@ -1,0 +1,121 @@
+arazzo: 1.0.1
+info:
+  title: Coresignal Company to Job Postings Enrichment
+  summary: Find a company, then find and collect an active job posting published by that company.
+  description: >-
+    A multi-source pattern that bridges the Company and Jobs APIs. The workflow
+    filters the Multi-source Company API to resolve a target company, collects
+    that company's full record to obtain its canonical name, then uses that name
+    as the hiring-company filter against the Multi-source Jobs API and collects
+    the full record of the first matching active job posting. Every step spells
+    out its request inline, including the apikey authentication header and the
+    search filter bodies, so the flow can be read and executed without opening
+    the underlying OpenAPI descriptions.
+  version: 1.0.0
+sourceDescriptions:
+- name: companyApi
+  url: ../openapi/coresignal-multi-source-company-api-openapi.yml
+  type: openapi
+- name: jobsApi
+  url: ../openapi/coresignal-multi-source-jobs-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: company-to-jobs
+  summary: Resolve a company and collect an active job posting it published.
+  description: >-
+    Searches and collects a company, then searches jobs by that company name and
+    collects the top matching active job posting.
+  inputs:
+    type: object
+    required:
+    - apikey
+    properties:
+      apikey:
+        type: string
+        description: Coresignal API key sent in the apikey header.
+      name:
+        type: string
+        description: Company name to resolve against the Company API.
+      country:
+        type: string
+        description: Country to filter the company and job searches on.
+      job_title:
+        type: string
+        description: Job title to filter the company's postings on.
+  steps:
+  - stepId: searchCompanies
+    description: >-
+      Search company records by name and country. Returns an array of matching
+      Coresignal company IDs.
+    operationId: searchCompaniesByFilter
+    parameters:
+    - name: apikey
+      in: header
+      value: $inputs.apikey
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.name
+        country: $inputs.country
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      topCompanyId: $response.body#/0
+  - stepId: collectCompany
+    description: >-
+      Retrieve the full company record to obtain the canonical company name used
+      to filter job postings.
+    operationId: collectCompany
+    parameters:
+    - name: apikey
+      in: header
+      value: $inputs.apikey
+    - name: id
+      in: path
+      value: $steps.searchCompanies.outputs.topCompanyId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      companyName: $response.body#/name
+  - stepId: searchJobs
+    description: >-
+      Search active job posting records whose hiring company matches the resolved
+      company name and whose title matches the requested title.
+    operationId: searchJobsByFilter
+    parameters:
+    - name: apikey
+      in: header
+      value: $inputs.apikey
+    requestBody:
+      contentType: application/json
+      payload:
+        company_name: $steps.collectCompany.outputs.companyName
+        title: $inputs.job_title
+        country: $inputs.country
+        application_active: true
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      topJobId: $response.body#/0
+  - stepId: collectJob
+    description: >-
+      Retrieve the full enriched job posting record for the first match published
+      by the resolved company.
+    operationId: collectJob
+    parameters:
+    - name: apikey
+      in: header
+      value: $inputs.apikey
+    - name: id
+      in: path
+      value: $steps.searchJobs.outputs.topJobId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      jobId: $response.body#/id
+      title: $response.body#/title
+      url: $response.body#/url
+  outputs:
+    companyName: $steps.collectCompany.outputs.companyName
+    jobTitle: $steps.collectJob.outputs.title
+    jobUrl: $steps.collectJob.outputs.url

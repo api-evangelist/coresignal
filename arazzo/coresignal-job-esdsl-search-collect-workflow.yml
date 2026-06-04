@@ -1,0 +1,76 @@
+arazzo: 1.0.1
+info:
+  title: Coresignal Job Elasticsearch Search and Collect
+  summary: Run an Elasticsearch DSL job query, then collect the full record for the first matching posting.
+  description: >-
+    A precision jobs pattern built on Elasticsearch DSL. The workflow submits a
+    full Elasticsearch DSL query to the Multi-source Jobs API, which returns an
+    array of matching job posting IDs, and then collects the full enriched record
+    for the first matching ID. Every step spells out its request inline,
+    including the apikey authentication header and the Elasticsearch DSL query
+    body, so the flow can be read and executed without opening the underlying
+    OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: jobsApi
+  url: ../openapi/coresignal-multi-source-jobs-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: job-esdsl-search-collect
+  summary: Query job postings with Elasticsearch DSL and collect the first match.
+  description: >-
+    Posts an Elasticsearch DSL query to the jobs search endpoint and collects the
+    full record for the first returned ID.
+  inputs:
+    type: object
+    required:
+    - apikey
+    - query
+    properties:
+      apikey:
+        type: string
+        description: Coresignal API key sent in the apikey header.
+      query:
+        type: object
+        description: Elasticsearch DSL query object used as the search request body.
+  steps:
+  - stepId: searchJobs
+    description: >-
+      Search job posting records using a full Elasticsearch DSL query body.
+      Returns an array of matching Coresignal job posting IDs.
+    operationId: searchJobsByEsDsl
+    parameters:
+    - name: apikey
+      in: header
+      value: $inputs.apikey
+    requestBody:
+      contentType: application/json
+      payload: $inputs.query
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      jobIds: $response.body
+      topJobId: $response.body#/0
+  - stepId: collectJob
+    description: >-
+      Retrieve the full enriched job posting record for the first matching ID
+      returned by the Elasticsearch DSL search.
+    operationId: collectJob
+    parameters:
+    - name: apikey
+      in: header
+      value: $inputs.apikey
+    - name: id
+      in: path
+      value: $steps.searchJobs.outputs.topJobId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      jobId: $response.body#/id
+      title: $response.body#/title
+      companyName: $response.body#/company_name
+      datePosted: $response.body#/date_posted
+  outputs:
+    jobIds: $steps.searchJobs.outputs.jobIds
+    title: $steps.collectJob.outputs.title
+    companyName: $steps.collectJob.outputs.companyName

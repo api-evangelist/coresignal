@@ -1,0 +1,124 @@
+arazzo: 1.0.1
+info:
+  title: Coresignal Company Search with Branching Collect
+  summary: Filter companies and branch between single-record collect and multi-record bulk collect based on how many matched.
+  description: >-
+    The classic Coresignal search-then-collect pattern with a branch on the
+    result count. The workflow posts a company filter to the Multi-source Company
+    API and then decides how to enrich: when exactly one company matches it
+    collects that single record, and when more than one matches it bulk collects
+    the whole set. Every step spells out its request inline, including the apikey
+    authentication header and the search filter body, so the flow can be read and
+    executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: companyApi
+  url: ../openapi/coresignal-multi-source-company-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: company-search-branch-collect
+  summary: Filter companies, then collect one or bulk collect many based on the match count.
+  description: >-
+    Searches companies by filter and branches between collectCompany and
+    bulkCollectCompanies depending on how many IDs were returned.
+  inputs:
+    type: object
+    required:
+    - apikey
+    properties:
+      apikey:
+        type: string
+        description: Coresignal API key sent in the apikey header.
+      name:
+        type: string
+        description: Company name to filter on.
+      industry:
+        type: string
+        description: Industry to filter companies on.
+      country:
+        type: string
+        description: Country to filter companies on.
+      founded_from:
+        type: integer
+        description: Earliest founding year to include.
+      founded_to:
+        type: integer
+        description: Latest founding year to include.
+  steps:
+  - stepId: searchCompanies
+    description: >-
+      Search company records using a structured filter object. Returns an array
+      of matching Coresignal company IDs.
+    operationId: searchCompaniesByFilter
+    parameters:
+    - name: apikey
+      in: header
+      value: $inputs.apikey
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.name
+        industry: $inputs.industry
+        country: $inputs.country
+        founded_from: $inputs.founded_from
+        founded_to: $inputs.founded_to
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      companyIds: $response.body
+      topCompanyId: $response.body#/0
+    onSuccess:
+    - name: manyMatches
+      type: goto
+      stepId: bulkCollectCompanies
+      criteria:
+      - context: $response.body
+        condition: $.length > 1
+        type: jsonpath
+    - name: singleMatch
+      type: goto
+      stepId: collectCompany
+      criteria:
+      - context: $response.body
+        condition: $.length == 1
+        type: jsonpath
+  - stepId: collectCompany
+    description: >-
+      Retrieve the full enriched company record for the single matching ID.
+    operationId: collectCompany
+    parameters:
+    - name: apikey
+      in: header
+      value: $inputs.apikey
+    - name: id
+      in: path
+      value: $steps.searchCompanies.outputs.topCompanyId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      companyName: $response.body#/name
+      website: $response.body#/website
+    onSuccess:
+    - name: done
+      type: end
+  - stepId: bulkCollectCompanies
+    description: >-
+      Retrieve the full enriched company records for all matching IDs when the
+      search returned more than one company.
+    operationId: bulkCollectCompanies
+    parameters:
+    - name: apikey
+      in: header
+      value: $inputs.apikey
+    requestBody:
+      contentType: application/json
+      payload:
+        ids: $steps.searchCompanies.outputs.companyIds
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      companies: $response.body
+  outputs:
+    companyIds: $steps.searchCompanies.outputs.companyIds
+    companyName: $steps.collectCompany.outputs.companyName
+    companies: $steps.bulkCollectCompanies.outputs.companies
