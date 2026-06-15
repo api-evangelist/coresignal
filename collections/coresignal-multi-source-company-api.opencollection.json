@@ -1,0 +1,98 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Coresignal Multi-source Company API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "apikey",
+      "value": "{{apikey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Search",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search Companies (filter)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.coresignal.com/cdapi/v2/multi_source_company/search/filter",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search company records using a structured filter object. Returns matching record IDs."
+        },
+        {
+          "info": {
+            "name": "Search Companies (Elasticsearch DSL)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.coresignal.com/cdapi/v2/multi_source_company/search/es_dsl",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search company records using a full Elasticsearch DSL query body."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Collect",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Collect a Company record",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.coresignal.com/cdapi/v2/multi_source_company/collect/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Coresignal internal company ID"
+              }
+            ]
+          },
+          "docs": "Retrieve the full company record for the given ID."
+        },
+        {
+          "info": {
+            "name": "Bulk Collect Companies",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.coresignal.com/cdapi/v2/multi_source_company/bulk_collect",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retrieve multiple full company records by an array of IDs."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

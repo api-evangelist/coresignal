@@ -1,0 +1,707 @@
+{
+  "item": [
+    {
+      "id": "5bafdeb8-701e-4370-bbec-841542271c37",
+      "name": "Search",
+      "description": {
+        "content": "Search and filter company records.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b4d947dc-12d0-4a98-81af-5b679dbc498d",
+          "name": "Search Companies (filter)",
+          "request": {
+            "name": "Search Companies (filter)",
+            "description": {
+              "content": "Search company records using a structured filter object. Returns matching record IDs.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "search",
+                "filter"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"industry\": \"<string>\",\n  \"size\": \"<string>\",\n  \"country\": \"<string>\",\n  \"region\": \"<string>\",\n  \"founded_from\": \"<integer>\",\n  \"founded_to\": \"<integer>\",\n  \"employees_count_from\": \"<integer>\",\n  \"employees_count_to\": \"<integer>\",\n  \"technologies\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e9832563-778d-4c17-ac47-9e52b50f7c2e",
+              "name": "Array of matching company record IDs",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search",
+                    "filter"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"industry\": \"<string>\",\n  \"size\": \"<string>\",\n  \"country\": \"<string>\",\n  \"region\": \"<string>\",\n  \"founded_from\": \"<integer>\",\n  \"founded_to\": \"<integer>\",\n  \"employees_count_from\": \"<integer>\",\n  \"employees_count_to\": \"<integer>\",\n  \"technologies\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  5738,\n  928\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2ec578f6-b9d6-41df-a82e-268890a82757",
+              "name": "Missing or invalid apikey header",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search",
+                    "filter"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"industry\": \"<string>\",\n  \"size\": \"<string>\",\n  \"country\": \"<string>\",\n  \"region\": \"<string>\",\n  \"founded_from\": \"<integer>\",\n  \"founded_to\": \"<integer>\",\n  \"employees_count_from\": \"<integer>\",\n  \"employees_count_to\": \"<integer>\",\n  \"technologies\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3255c32d-ac1b-46dd-9e62-faed501e61d5",
+              "name": "API credits exhausted for the account",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search",
+                    "filter"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"industry\": \"<string>\",\n  \"size\": \"<string>\",\n  \"country\": \"<string>\",\n  \"region\": \"<string>\",\n  \"founded_from\": \"<integer>\",\n  \"founded_to\": \"<integer>\",\n  \"employees_count_from\": \"<integer>\",\n  \"employees_count_to\": \"<integer>\",\n  \"technologies\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Payment Required",
+              "code": 402,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a745de3f-3dea-41d0-b925-b9f3547da089",
+              "name": "Rate limit exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search",
+                    "filter"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"industry\": \"<string>\",\n  \"size\": \"<string>\",\n  \"country\": \"<string>\",\n  \"region\": \"<string>\",\n  \"founded_from\": \"<integer>\",\n  \"founded_to\": \"<integer>\",\n  \"employees_count_from\": \"<integer>\",\n  \"employees_count_to\": \"<integer>\",\n  \"technologies\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6fb0faec-3a6e-48f0-b203-597653dbd774",
+          "name": "Search Companies (Elasticsearch DSL)",
+          "request": {
+            "name": "Search Companies (Elasticsearch DSL)",
+            "description": {
+              "content": "Search company records using a full Elasticsearch DSL query body.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "search",
+                "es_dsl"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2bb2eb08-9c0f-43d5-88d6-f94e4a7578c7",
+              "name": "Array of matching company record IDs",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search",
+                    "es_dsl"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  5738,\n  928\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "5814d3c9-bf15-4e3c-bc71-11bc976430cb",
+      "name": "Collect",
+      "description": {
+        "content": "Retrieve full company records by ID.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "85cdc532-db51-497b-b6a3-7f0a6a82fb55",
+          "name": "Collect a Company record",
+          "request": {
+            "name": "Collect a Company record",
+            "description": {
+              "content": "Retrieve the full company record for the given ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "collect",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "id",
+                  "description": "(Required) Coresignal internal company ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a1796d6e-5748-4699-8726-cf4d570a253d",
+              "name": "Full company record",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "collect",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "id",
+                      "description": "(Required) Coresignal internal company ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 3025,\n  \"name\": \"string\",\n  \"website\": \"https://cnPChluY.lbewXdsFIUBQfh-6M-4PHjHu24nuQV3sUNDA9heRqfvleBT\",\n  \"domain\": \"string\",\n  \"industry\": \"string\",\n  \"type\": \"string\",\n  \"founded\": 3589,\n  \"size\": \"string\",\n  \"employees_count\": 7808,\n  \"followers_count\": 6482,\n  \"description\": \"string\",\n  \"headquarters\": \"string\",\n  \"country\": \"string\",\n  \"region\": \"string\",\n  \"locality\": \"string\",\n  \"specialities\": [\n    \"string\",\n    \"string\"\n  ],\n  \"technologies\": [\n    \"string\",\n    \"string\"\n  ],\n  \"funding_total_amount\": 3658.6256155312803,\n  \"last_funding_round\": {},\n  \"linkedin_url\": \"string\",\n  \"twitter_url\": \"string\",\n  \"facebook_url\": \"string\",\n  \"crunchbase_url\": \"string\",\n  \"last_updated\": \"1996-12-03T12:22:17.679Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3fa62b2d-4a79-4d75-9dce-13417af4e9c0",
+              "name": "Missing or invalid apikey header",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "collect",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "id",
+                      "description": "(Required) Coresignal internal company ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "25d1a876-d66a-4a94-bfcd-4229d95721d5",
+              "name": "Company not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "collect",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "id",
+                      "description": "(Required) Coresignal internal company ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "28ab0063-897c-4fb3-a3c3-7ed91215cbe8",
+          "name": "Bulk Collect Companies",
+          "request": {
+            "name": "Bulk Collect Companies",
+            "description": {
+              "content": "Retrieve multiple full company records by an array of IDs.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "bulk_collect"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ids\": [\n    \"<long>\",\n    \"<long>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "cec30365-5672-4705-a5ed-203d114413bf",
+              "name": "Array of company records",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bulk_collect"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ids\": [\n    \"<long>\",\n    \"<long>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 6420,\n    \"name\": \"string\",\n    \"website\": \"https://RAmWY.zeiwSlMwa9FfpBVsly44VU.oUcjRJs,S0kNrpP7cIKVQWsuTMKs\",\n    \"domain\": \"string\",\n    \"industry\": \"string\",\n    \"type\": \"string\",\n    \"founded\": 3141,\n    \"size\": \"string\",\n    \"employees_count\": 8712,\n    \"followers_count\": 3901,\n    \"description\": \"string\",\n    \"headquarters\": \"string\",\n    \"country\": \"string\",\n    \"region\": \"string\",\n    \"locality\": \"string\",\n    \"specialities\": [\n      \"string\",\n      \"string\"\n    ],\n    \"technologies\": [\n      \"string\",\n      \"string\"\n    ],\n    \"funding_total_amount\": 2866.400764738624,\n    \"last_funding_round\": {},\n    \"linkedin_url\": \"string\",\n    \"twitter_url\": \"string\",\n    \"facebook_url\": \"string\",\n    \"crunchbase_url\": \"string\",\n    \"last_updated\": \"1977-11-11T05:30:50.809Z\"\n  },\n  {\n    \"id\": 1270,\n    \"name\": \"string\",\n    \"website\": \"http://CBGSpobBWNUhLmMuIeaXYh.pfY1O3hRTEinxBlzE2d\",\n    \"domain\": \"string\",\n    \"industry\": \"string\",\n    \"type\": \"string\",\n    \"founded\": 3466,\n    \"size\": \"string\",\n    \"employees_count\": 1312,\n    \"followers_count\": 141,\n    \"description\": \"string\",\n    \"headquarters\": \"string\",\n    \"country\": \"string\",\n    \"region\": \"string\",\n    \"locality\": \"string\",\n    \"specialities\": [\n      \"string\",\n      \"string\"\n    ],\n    \"technologies\": [\n      \"string\",\n      \"string\"\n    ],\n    \"funding_total_amount\": 1611.7212881431597,\n    \"last_funding_round\": {},\n    \"linkedin_url\": \"string\",\n    \"twitter_url\": \"string\",\n    \"facebook_url\": \"string\",\n    \"crunchbase_url\": \"string\",\n    \"last_updated\": \"1959-09-22T16:11:34.732Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "99fb0bc4-3f85-43ae-b3a2-7fb7c52d32b0",
+      "name": "Subscriptions",
+      "description": {
+        "content": "Manage webhook subscriptions for company data updates.",
+        "type": "text/plain"
+      },
+      "item": [],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.coresignal.com/cdapi/v2/multi_source_company",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "apikey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "9c43a57a-f25a-40ec-aa38-a90ba6ba5f22",
+    "name": "Coresignal Multi-source Company API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Multi-source Company API returns enriched company records combining public web data sources, deduplicated and standardized with 500+ fields. Search uses Elasticsearch DSL queries; Collect returns full records by ID. Authentication uses the apikey HTTP header.\n\nContact Support:\n Name: Coresignal Support",
+      "type": "text/plain"
+    }
+  }
+}

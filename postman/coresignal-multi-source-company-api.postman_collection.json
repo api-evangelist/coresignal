@@ -1,0 +1,711 @@
+{
+  "info": {
+    "_postman_id": "55e81076-ba94-4a39-b458-224ddf6d9c07",
+    "name": "Coresignal Multi-source Company API",
+    "description": "The Multi-source Company API returns enriched company records combining public web data sources, deduplicated and standardized with 500+ fields. Search uses Elasticsearch DSL queries; Collect returns full records by ID. Authentication uses the apikey HTTP header.\n\nContact Support:\n Name: Coresignal Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:07:10.000Z",
+    "updatedAt": "2026-06-05T15:07:10.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-55e81076-ba94-4a39-b458-224ddf6d9c07"
+  },
+  "item": [
+    {
+      "name": "search",
+      "item": [
+        {
+          "name": "filter",
+          "item": [
+            {
+              "name": "Search Companies (filter)",
+              "id": "f8d42c1c-76e5-46de-b9e7-58bdd07c6906",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"industry\": \"<string>\",\n  \"size\": \"<string>\",\n  \"country\": \"<string>\",\n  \"region\": \"<string>\",\n  \"founded_from\": \"<integer>\",\n  \"founded_to\": \"<integer>\",\n  \"employees_count_from\": \"<integer>\",\n  \"employees_count_to\": \"<integer>\",\n  \"technologies\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/search/filter",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "search",
+                    "filter"
+                  ]
+                },
+                "description": "Search company records using a structured filter object. Returns matching record IDs."
+              },
+              "response": [
+                {
+                  "id": "d48e9893-c058-42db-aa90-a371710ea1c9",
+                  "name": "Array of matching company record IDs",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "apikey",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"industry\": \"<string>\",\n  \"size\": \"<string>\",\n  \"country\": \"<string>\",\n  \"region\": \"<string>\",\n  \"founded_from\": \"<integer>\",\n  \"founded_to\": \"<integer>\",\n  \"employees_count_from\": \"<integer>\",\n  \"employees_count_to\": \"<integer>\",\n  \"technologies\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/search/filter",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "search",
+                        "filter"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "[\n  \"<long>\",\n  \"<long>\"\n]",
+                  "createdAt": "2026-06-05T15:07:10.000Z",
+                  "updatedAt": "2026-06-05T15:07:10.000Z",
+                  "uid": "35240-d48e9893-c058-42db-aa90-a371710ea1c9"
+                },
+                {
+                  "id": "89f0d338-5713-4e62-875a-375392a0ce63",
+                  "name": "Missing or invalid apikey header",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "apikey",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"industry\": \"<string>\",\n  \"size\": \"<string>\",\n  \"country\": \"<string>\",\n  \"region\": \"<string>\",\n  \"founded_from\": \"<integer>\",\n  \"founded_to\": \"<integer>\",\n  \"employees_count_from\": \"<integer>\",\n  \"employees_count_to\": \"<integer>\",\n  \"technologies\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/search/filter",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "search",
+                        "filter"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:07:10.000Z",
+                  "updatedAt": "2026-06-05T15:07:10.000Z",
+                  "uid": "35240-89f0d338-5713-4e62-875a-375392a0ce63"
+                },
+                {
+                  "id": "dfee5f03-9c5d-42cf-add8-086cf0e7bebf",
+                  "name": "API credits exhausted for the account",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "apikey",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"industry\": \"<string>\",\n  \"size\": \"<string>\",\n  \"country\": \"<string>\",\n  \"region\": \"<string>\",\n  \"founded_from\": \"<integer>\",\n  \"founded_to\": \"<integer>\",\n  \"employees_count_from\": \"<integer>\",\n  \"employees_count_to\": \"<integer>\",\n  \"technologies\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/search/filter",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "search",
+                        "filter"
+                      ]
+                    }
+                  },
+                  "status": "Payment Required",
+                  "code": 402,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:07:10.000Z",
+                  "updatedAt": "2026-06-05T15:07:10.000Z",
+                  "uid": "35240-dfee5f03-9c5d-42cf-add8-086cf0e7bebf"
+                },
+                {
+                  "id": "126cc34a-f39b-42d1-ab25-a3c45c493e74",
+                  "name": "Rate limit exceeded",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "apikey",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"industry\": \"<string>\",\n  \"size\": \"<string>\",\n  \"country\": \"<string>\",\n  \"region\": \"<string>\",\n  \"founded_from\": \"<integer>\",\n  \"founded_to\": \"<integer>\",\n  \"employees_count_from\": \"<integer>\",\n  \"employees_count_to\": \"<integer>\",\n  \"technologies\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/search/filter",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "search",
+                        "filter"
+                      ]
+                    }
+                  },
+                  "status": "Too Many Requests",
+                  "code": 429,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:07:10.000Z",
+                  "updatedAt": "2026-06-05T15:07:10.000Z",
+                  "uid": "35240-126cc34a-f39b-42d1-ab25-a3c45c493e74"
+                }
+              ],
+              "createdAt": "2026-06-05T15:07:10.000Z",
+              "updatedAt": "2026-06-05T15:07:10.000Z",
+              "uid": "35240-f8d42c1c-76e5-46de-b9e7-58bdd07c6906"
+            }
+          ],
+          "id": "d772d68b-ea7a-4a44-92a8-337954dca3a2",
+          "createdAt": "2026-06-05T15:07:10.000Z",
+          "updatedAt": "2026-06-05T15:07:10.000Z",
+          "uid": "35240-d772d68b-ea7a-4a44-92a8-337954dca3a2"
+        },
+        {
+          "name": "es_dsl",
+          "item": [
+            {
+              "name": "Search Companies (Elasticsearch DSL)",
+              "id": "e493fdcd-8762-44de-b881-a793bc0ecd56",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/search/es_dsl",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "search",
+                    "es_dsl"
+                  ]
+                },
+                "description": "Search company records using a full Elasticsearch DSL query body."
+              },
+              "response": [
+                {
+                  "id": "6fc56d17-4b9f-456a-a65a-e0ea4fedd93a",
+                  "name": "Array of matching company record IDs",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "apikey",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/search/es_dsl",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "search",
+                        "es_dsl"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "[\n  \"<long>\",\n  \"<long>\"\n]",
+                  "createdAt": "2026-06-05T15:07:10.000Z",
+                  "updatedAt": "2026-06-05T15:07:10.000Z",
+                  "uid": "35240-6fc56d17-4b9f-456a-a65a-e0ea4fedd93a"
+                }
+              ],
+              "createdAt": "2026-06-05T15:07:10.000Z",
+              "updatedAt": "2026-06-05T15:07:10.000Z",
+              "uid": "35240-e493fdcd-8762-44de-b881-a793bc0ecd56"
+            }
+          ],
+          "id": "c4c48f2f-274e-4a38-b5fd-aad45f3ae7f7",
+          "createdAt": "2026-06-05T15:07:10.000Z",
+          "updatedAt": "2026-06-05T15:07:10.000Z",
+          "uid": "35240-c4c48f2f-274e-4a38-b5fd-aad45f3ae7f7"
+        }
+      ],
+      "id": "889f6259-af21-438e-bcde-1b12f5206ab4",
+      "createdAt": "2026-06-05T15:07:10.000Z",
+      "updatedAt": "2026-06-05T15:07:10.000Z",
+      "uid": "35240-889f6259-af21-438e-bcde-1b12f5206ab4"
+    },
+    {
+      "name": "collect",
+      "item": [
+        {
+          "name": "{id}",
+          "item": [
+            {
+              "name": "Collect a Company record",
+              "id": "390bade1-4cfa-4d68-b138-e7978415b30e",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/collect/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "collect",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "5bd21f6e-f8eb-4354-b10a-f1f387237085",
+                      "key": "id",
+                      "value": "<long>",
+                      "description": "(Required) Coresignal internal company ID"
+                    }
+                  ]
+                },
+                "description": "Retrieve the full company record for the given ID."
+              },
+              "response": [
+                {
+                  "id": "78fc2027-01b5-4996-8aff-4fe6df6f8a0c",
+                  "name": "Full company record",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "apikey",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/collect/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "collect",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<long>\",\n  \"name\": \"<string>\",\n  \"website\": \"<uri>\",\n  \"domain\": \"<string>\",\n  \"industry\": \"<string>\",\n  \"type\": \"<string>\",\n  \"founded\": \"<integer>\",\n  \"size\": \"<string>\",\n  \"employees_count\": \"<integer>\",\n  \"followers_count\": \"<integer>\",\n  \"description\": \"<string>\",\n  \"headquarters\": \"<string>\",\n  \"country\": \"<string>\",\n  \"region\": \"<string>\",\n  \"locality\": \"<string>\",\n  \"specialities\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"technologies\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"funding_total_amount\": \"<number>\",\n  \"last_funding_round\": {},\n  \"linkedin_url\": \"<string>\",\n  \"twitter_url\": \"<string>\",\n  \"facebook_url\": \"<string>\",\n  \"crunchbase_url\": \"<string>\",\n  \"last_updated\": \"<dateTime>\"\n}",
+                  "createdAt": "2026-06-05T15:07:10.000Z",
+                  "updatedAt": "2026-06-05T15:07:10.000Z",
+                  "uid": "35240-78fc2027-01b5-4996-8aff-4fe6df6f8a0c"
+                },
+                {
+                  "id": "1133ad2a-8de1-40ef-bc7c-d2857fe2a326",
+                  "name": "Missing or invalid apikey header",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "apikey",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/collect/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "collect",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:07:10.000Z",
+                  "updatedAt": "2026-06-05T15:07:10.000Z",
+                  "uid": "35240-1133ad2a-8de1-40ef-bc7c-d2857fe2a326"
+                },
+                {
+                  "id": "8dd9f67c-fea4-48d9-9704-0904c2336171",
+                  "name": "Company not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "apikey",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/collect/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "collect",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:07:10.000Z",
+                  "updatedAt": "2026-06-05T15:07:10.000Z",
+                  "uid": "35240-8dd9f67c-fea4-48d9-9704-0904c2336171"
+                }
+              ],
+              "createdAt": "2026-06-05T15:07:10.000Z",
+              "updatedAt": "2026-06-05T15:07:10.000Z",
+              "uid": "35240-390bade1-4cfa-4d68-b138-e7978415b30e"
+            }
+          ],
+          "id": "304ceac3-2b96-454c-a2fb-ccf0268906b2",
+          "createdAt": "2026-06-05T15:07:10.000Z",
+          "updatedAt": "2026-06-05T15:07:10.000Z",
+          "uid": "35240-304ceac3-2b96-454c-a2fb-ccf0268906b2"
+        }
+      ],
+      "id": "fd91cd47-483a-4b78-b063-2c918cdf8b32",
+      "createdAt": "2026-06-05T15:07:10.000Z",
+      "updatedAt": "2026-06-05T15:07:10.000Z",
+      "uid": "35240-fd91cd47-483a-4b78-b063-2c918cdf8b32"
+    },
+    {
+      "name": "bulk_collect",
+      "item": [
+        {
+          "name": "Bulk Collect Companies",
+          "id": "6ea7f976-5c78-4288-be63-b399f5030f61",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ids\": [\n    \"<long>\",\n    \"<long>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/bulk_collect",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "bulk_collect"
+              ]
+            },
+            "description": "Retrieve multiple full company records by an array of IDs."
+          },
+          "response": [
+            {
+              "id": "69a80a63-d694-4faf-a31a-70e887ddabb9",
+              "name": "Array of company records",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ids\": [\n    \"<long>\",\n    \"<long>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/bulk_collect",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "bulk_collect"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "[\n  {\n    \"id\": \"<long>\",\n    \"name\": \"<string>\",\n    \"website\": \"<uri>\",\n    \"domain\": \"<string>\",\n    \"industry\": \"<string>\",\n    \"type\": \"<string>\",\n    \"founded\": \"<integer>\",\n    \"size\": \"<string>\",\n    \"employees_count\": \"<integer>\",\n    \"followers_count\": \"<integer>\",\n    \"description\": \"<string>\",\n    \"headquarters\": \"<string>\",\n    \"country\": \"<string>\",\n    \"region\": \"<string>\",\n    \"locality\": \"<string>\",\n    \"specialities\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"technologies\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"funding_total_amount\": \"<number>\",\n    \"last_funding_round\": {},\n    \"linkedin_url\": \"<string>\",\n    \"twitter_url\": \"<string>\",\n    \"facebook_url\": \"<string>\",\n    \"crunchbase_url\": \"<string>\",\n    \"last_updated\": \"<dateTime>\"\n  },\n  {\n    \"id\": \"<long>\",\n    \"name\": \"<string>\",\n    \"website\": \"<uri>\",\n    \"domain\": \"<string>\",\n    \"industry\": \"<string>\",\n    \"type\": \"<string>\",\n    \"founded\": \"<integer>\",\n    \"size\": \"<string>\",\n    \"employees_count\": \"<integer>\",\n    \"followers_count\": \"<integer>\",\n    \"description\": \"<string>\",\n    \"headquarters\": \"<string>\",\n    \"country\": \"<string>\",\n    \"region\": \"<string>\",\n    \"locality\": \"<string>\",\n    \"specialities\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"technologies\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"funding_total_amount\": \"<number>\",\n    \"last_funding_round\": {},\n    \"linkedin_url\": \"<string>\",\n    \"twitter_url\": \"<string>\",\n    \"facebook_url\": \"<string>\",\n    \"crunchbase_url\": \"<string>\",\n    \"last_updated\": \"<dateTime>\"\n  }\n]",
+              "createdAt": "2026-06-05T15:07:10.000Z",
+              "updatedAt": "2026-06-05T15:07:10.000Z",
+              "uid": "35240-69a80a63-d694-4faf-a31a-70e887ddabb9"
+            }
+          ],
+          "createdAt": "2026-06-05T15:07:10.000Z",
+          "updatedAt": "2026-06-05T15:07:10.000Z",
+          "uid": "35240-6ea7f976-5c78-4288-be63-b399f5030f61"
+        }
+      ],
+      "id": "2d284c0d-ac02-415a-9a34-2fb03250a743",
+      "createdAt": "2026-06-05T15:07:10.000Z",
+      "updatedAt": "2026-06-05T15:07:10.000Z",
+      "uid": "35240-2d284c0d-ac02-415a-9a34-2fb03250a743"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "apikey",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.coresignal.com/cdapi/v2/multi_source_company"
+    }
+  ]
+}

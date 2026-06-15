@@ -1,0 +1,97 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Coresignal Multi-source Employee API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "apikey",
+      "value": "{{apikey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Search",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search Employees (filter)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.coresignal.com/cdapi/v2/multi_source_employee/search/filter",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search employee records using a structured filter."
+        },
+        {
+          "info": {
+            "name": "Search Employees (Elasticsearch DSL)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.coresignal.com/cdapi/v2/multi_source_employee/search/es_dsl",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search employee records using a full Elasticsearch DSL query body."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Collect",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Collect an Employee record",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.coresignal.com/cdapi/v2/multi_source_employee/collect/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve the full employee record for the given ID."
+        },
+        {
+          "info": {
+            "name": "Bulk Collect Employees",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.coresignal.com/cdapi/v2/multi_source_employee/bulk_collect",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retrieve multiple full employee records by an array of IDs."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

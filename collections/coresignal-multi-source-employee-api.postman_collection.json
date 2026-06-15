@@ -1,0 +1,467 @@
+{
+  "item": [
+    {
+      "id": "3b8ce01e-03d2-40e1-bd3c-6c75b4dbf751",
+      "name": "Search",
+      "description": {
+        "content": "Search employee records.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a3fca958-c4f9-4ba6-af5d-49de7879709a",
+          "name": "Search Employees (filter)",
+          "request": {
+            "name": "Search Employees (filter)",
+            "description": {
+              "content": "Search employee records using a structured filter.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "search",
+                "filter"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"full_name\": \"<string>\",\n  \"title\": \"<string>\",\n  \"country\": \"<string>\",\n  \"location\": \"<string>\",\n  \"industry\": \"<string>\",\n  \"active_experience_company_name\": \"<string>\",\n  \"active_experience_title\": \"<string>\",\n  \"skills\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "14c9c9f4-7d9d-4779-92ab-f08d3751f9d9",
+              "name": "Array of matching employee record IDs",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search",
+                    "filter"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"full_name\": \"<string>\",\n  \"title\": \"<string>\",\n  \"country\": \"<string>\",\n  \"location\": \"<string>\",\n  \"industry\": \"<string>\",\n  \"active_experience_company_name\": \"<string>\",\n  \"active_experience_title\": \"<string>\",\n  \"skills\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  1398,\n  5756\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "41bf9f26-6e22-4d34-a332-7818b23dee48",
+          "name": "Search Employees (Elasticsearch DSL)",
+          "request": {
+            "name": "Search Employees (Elasticsearch DSL)",
+            "description": {
+              "content": "Search employee records using a full Elasticsearch DSL query body.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "search",
+                "es_dsl"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "96275819-bd52-4eec-b7ed-feabeeb2d8fd",
+              "name": "Array of matching employee record IDs",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search",
+                    "es_dsl"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  1398,\n  5756\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "702ff6c7-b983-483b-a6a3-f27036de91bd",
+      "name": "Collect",
+      "description": {
+        "content": "Retrieve full employee records.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "cde0d966-bac3-4697-a6a6-a97f3be32a8d",
+          "name": "Collect an Employee record",
+          "request": {
+            "name": "Collect an Employee record",
+            "description": {
+              "content": "Retrieve the full employee record for the given ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "collect",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "640a83ec-a247-408c-86de-8831a03699bb",
+              "name": "Full employee record",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "collect",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 5204,\n  \"full_name\": \"string\",\n  \"first_name\": \"string\",\n  \"last_name\": \"string\",\n  \"title\": \"string\",\n  \"headline\": \"string\",\n  \"summary\": \"string\",\n  \"country\": \"string\",\n  \"location\": \"string\",\n  \"industry\": \"string\",\n  \"connections\": 3260,\n  \"followers\": 2957,\n  \"experience\": [\n    {\n      \"company_name\": \"string\",\n      \"title\": \"string\",\n      \"date_from\": \"string\",\n      \"date_to\": \"string\",\n      \"description\": \"string\"\n    },\n    {\n      \"company_name\": \"string\",\n      \"title\": \"string\",\n      \"date_from\": \"string\",\n      \"date_to\": \"string\",\n      \"description\": \"string\"\n    }\n  ],\n  \"education\": [\n    {\n      \"school\": \"string\",\n      \"degree\": \"string\",\n      \"field\": \"string\",\n      \"date_from\": \"string\",\n      \"date_to\": \"string\"\n    },\n    {\n      \"school\": \"string\",\n      \"degree\": \"string\",\n      \"field\": \"string\",\n      \"date_from\": \"string\",\n      \"date_to\": \"string\"\n    }\n  ],\n  \"skills\": [\n    \"string\",\n    \"string\"\n  ],\n  \"linkedin_url\": \"string\",\n  \"last_updated\": \"1979-06-19T11:44:19.786Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8729191e-f646-4cad-95f0-9cfa35004134",
+          "name": "Bulk Collect Employees",
+          "request": {
+            "name": "Bulk Collect Employees",
+            "description": {
+              "content": "Retrieve multiple full employee records by an array of IDs.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "bulk_collect"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ids\": [\n    \"<long>\",\n    \"<long>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d41b0fc9-80a0-471d-bc3d-c6e243913f24",
+              "name": "Array of employee records",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bulk_collect"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ids\": [\n    \"<long>\",\n    \"<long>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 7850,\n    \"full_name\": \"string\",\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \"title\": \"string\",\n    \"headline\": \"string\",\n    \"summary\": \"string\",\n    \"country\": \"string\",\n    \"location\": \"string\",\n    \"industry\": \"string\",\n    \"connections\": 3266,\n    \"followers\": 7019,\n    \"experience\": [\n      {\n        \"company_name\": \"string\",\n        \"title\": \"string\",\n        \"date_from\": \"string\",\n        \"date_to\": \"string\",\n        \"description\": \"string\"\n      },\n      {\n        \"company_name\": \"string\",\n        \"title\": \"string\",\n        \"date_from\": \"string\",\n        \"date_to\": \"string\",\n        \"description\": \"string\"\n      }\n    ],\n    \"education\": [\n      {\n        \"school\": \"string\",\n        \"degree\": \"string\",\n        \"field\": \"string\",\n        \"date_from\": \"string\",\n        \"date_to\": \"string\"\n      },\n      {\n        \"school\": \"string\",\n        \"degree\": \"string\",\n        \"field\": \"string\",\n        \"date_from\": \"string\",\n        \"date_to\": \"string\"\n      }\n    ],\n    \"skills\": [\n      \"string\",\n      \"string\"\n    ],\n    \"linkedin_url\": \"string\",\n    \"last_updated\": \"2014-08-04T09:22:49.855Z\"\n  },\n  {\n    \"id\": 5454,\n    \"full_name\": \"string\",\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \"title\": \"string\",\n    \"headline\": \"string\",\n    \"summary\": \"string\",\n    \"country\": \"string\",\n    \"location\": \"string\",\n    \"industry\": \"string\",\n    \"connections\": 7993,\n    \"followers\": 757,\n    \"experience\": [\n      {\n        \"company_name\": \"string\",\n        \"title\": \"string\",\n        \"date_from\": \"string\",\n        \"date_to\": \"string\",\n        \"description\": \"string\"\n      },\n      {\n        \"company_name\": \"string\",\n        \"title\": \"string\",\n        \"date_from\": \"string\",\n        \"date_to\": \"string\",\n        \"description\": \"string\"\n      }\n    ],\n    \"education\": [\n      {\n        \"school\": \"string\",\n        \"degree\": \"string\",\n        \"field\": \"string\",\n        \"date_from\": \"string\",\n        \"date_to\": \"string\"\n      },\n      {\n        \"school\": \"string\",\n        \"degree\": \"string\",\n        \"field\": \"string\",\n        \"date_from\": \"string\",\n        \"date_to\": \"string\"\n      }\n    ],\n    \"skills\": [\n      \"string\",\n      \"string\"\n    ],\n    \"linkedin_url\": \"string\",\n    \"last_updated\": \"2002-12-04T19:55:32.428Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "a7c2b03e-46a4-4365-b6d0-d26004f03398",
+      "name": "Subscriptions",
+      "description": {
+        "content": "Webhook subscriptions for employee record updates.",
+        "type": "text/plain"
+      },
+      "item": [],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.coresignal.com/cdapi/v2/multi_source_employee",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "apikey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "0ec5696b-ea43-45f8-b196-dbb506d8447c",
+    "name": "Coresignal Multi-source Employee API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Multi-source Employee API returns enriched employee profiles aggregated from multiple public sources with 300+ fields. Search uses Elasticsearch DSL or filters; Collect returns full records by ID.\n\nContact Support:\n Name: Coresignal Support",
+      "type": "text/plain"
+    }
+  }
+}

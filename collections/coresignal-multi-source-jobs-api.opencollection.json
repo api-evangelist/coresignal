@@ -1,0 +1,82 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Coresignal Multi-source Jobs API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "apikey",
+      "value": "{{apikey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Search",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search Jobs (filter)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.coresignal.com/cdapi/v2/multi_source_jobs/search/filter",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search job posting records using a structured filter."
+        },
+        {
+          "info": {
+            "name": "Search Jobs (Elasticsearch DSL)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.coresignal.com/cdapi/v2/multi_source_jobs/search/es_dsl",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search job posting records using a full Elasticsearch DSL query."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Collect",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Collect a Job posting record",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.coresignal.com/cdapi/v2/multi_source_jobs/collect/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve the full job posting record for the given ID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

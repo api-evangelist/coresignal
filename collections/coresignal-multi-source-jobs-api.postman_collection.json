@@ -1,0 +1,358 @@
+{
+  "item": [
+    {
+      "id": "216eb6b7-3c58-4f08-9634-826a9e9391df",
+      "name": "Search",
+      "description": {
+        "content": "Search job posting records.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "db4e5cf1-43c7-4157-b392-01a73ffdf6c5",
+          "name": "Search Jobs (filter)",
+          "request": {
+            "name": "Search Jobs (filter)",
+            "description": {
+              "content": "Search job posting records using a structured filter.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "search",
+                "filter"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"<string>\",\n  \"company_name\": \"<string>\",\n  \"country\": \"<string>\",\n  \"location\": \"<string>\",\n  \"seniority_level\": \"<string>\",\n  \"employment_type\": \"<string>\",\n  \"date_posted_from\": \"<string>\",\n  \"date_posted_to\": \"<string>\",\n  \"application_active\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "df95b162-5f5b-47d4-a607-96ea2a7a8174",
+              "name": "Array of matching job posting record IDs",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search",
+                    "filter"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"company_name\": \"<string>\",\n  \"country\": \"<string>\",\n  \"location\": \"<string>\",\n  \"seniority_level\": \"<string>\",\n  \"employment_type\": \"<string>\",\n  \"date_posted_from\": \"<string>\",\n  \"date_posted_to\": \"<string>\",\n  \"application_active\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  1753,\n  848\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "87c9b0ff-e9f6-4395-a902-5a9c6ca0a5ee",
+          "name": "Search Jobs (Elasticsearch DSL)",
+          "request": {
+            "name": "Search Jobs (Elasticsearch DSL)",
+            "description": {
+              "content": "Search job posting records using a full Elasticsearch DSL query.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "search",
+                "es_dsl"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1ef47004-4534-4980-858c-d0aacb102d07",
+              "name": "Array of matching job posting record IDs",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search",
+                    "es_dsl"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  1753,\n  848\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "7f7d983a-75ea-41a4-8b63-7a8e2a7e3d11",
+      "name": "Collect",
+      "description": {
+        "content": "Retrieve full job posting records by ID.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e51a45a4-e7d7-4e3c-9cce-db4665379b8c",
+          "name": "Collect a Job posting record",
+          "request": {
+            "name": "Collect a Job posting record",
+            "description": {
+              "content": "Retrieve the full job posting record for the given ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "collect",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cc0632c3-71ec-42e6-80cd-9605d70cf17a",
+              "name": "Full job posting record",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "collect",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 6024,\n  \"title\": \"string\",\n  \"description\": \"string\",\n  \"url\": \"http://UVxrNrFCxKchSzHMVcGwYLg.nnmxY6VIwm,e+Wtm3YWDqfbTf9ZGrI4jeYJ2+IwO96.aI,gw.MnvFXcuMPt7n+C5xib0s1\",\n  \"company_name\": \"string\",\n  \"company_url\": \"string\",\n  \"location\": \"string\",\n  \"country\": \"string\",\n  \"region\": \"string\",\n  \"seniority_level\": \"string\",\n  \"employment_type\": \"string\",\n  \"application_active\": false,\n  \"time_posted\": \"string\",\n  \"date_posted\": \"1974-02-16T18:44:55.861Z\",\n  \"salary_currency\": \"string\",\n  \"salary_min\": 3408.0421777143756,\n  \"salary_max\": 5983.911510929034,\n  \"last_updated\": \"1994-12-19T05:08:55.251Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.coresignal.com/cdapi/v2/multi_source_jobs",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "apikey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "4b334a61-0f9b-4ecb-8fcc-5b60d39ee948",
+    "name": "Coresignal Multi-source Jobs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Multi-source Jobs API returns enriched job posting records aggregated from multiple public sources. Search supports filter and Elasticsearch DSL queries; Collect retrieves full job records by ID.\n\nContact Support:\n Name: Coresignal Support",
+      "type": "text/plain"
+    }
+  }
+}
