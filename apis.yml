@@ -9,7 +9,7 @@ description: >-
   real-time, employee posts, agentic search, and company enrichment endpoints. Authentication uses a single apikey HTTP
   header.
 url: https://raw.githubusercontent.com/api-evangelist/coresignal/refs/heads/main/apis.yml
-image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 type: Index
 access: 3rd-Party
 position: Consumer
@@ -41,7 +41,7 @@ apis:
       The Multi-source Company API returns enriched company records combining data from multiple public web sources,
       deduplicated and standardized with 500+ data fields covering firmographics, technographics, headcount, revenue,
       and locations. Search uses Elasticsearch DSL. Results are paginated and credits-priced per response.
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://docs.coresignal.com/multi-source-company-api/
     baseURL: https://api.coresignal.com/cdapi/v2/multi_source_company
     tags:
@@ -77,7 +77,7 @@ apis:
       The Multi-source Employee API returns enriched employee profiles aggregated from multiple public sources with 300+
       data fields covering experience, education, skills, certifications, and connections. Search uses Elasticsearch DSL
       with rich filter support, pagination, and collect/bulk_collect endpoints for retrieving full records by ID.
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://docs.coresignal.com/multi-source-employee-api/
     baseURL: https://api.coresignal.com/cdapi/v2/multi_source_employee
     tags:
@@ -113,7 +113,7 @@ apis:
       The Multi-source Jobs API returns enriched job posting records aggregated from multiple public sources with 85+
       data fields covering title, location, company, salary, posted date, source URLs, and full job descriptions. Search
       uses Elasticsearch DSL with collect endpoints for retrieving full records by ID.
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://docs.coresignal.com/multi-source-jobs-api/
     baseURL: https://api.coresignal.com/cdapi/v2/multi_source_jobs
     tags:
@@ -145,7 +145,7 @@ apis:
       The Agentic Search API enables natural language search across Coresignal's company, employee, and jobs datasets,
       returning relevant records based on conversational queries. Designed for AI agents and automated workflows that
       need quick B2B data lookups without crafting Elasticsearch queries.
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://docs.coresignal.com/agentic-search-api/
     baseURL: https://api.coresignal.com/cdapi/v2/agentic_search
     tags:
@@ -160,7 +160,7 @@ apis:
     description: >-
       The Company Enrichment API takes a company domain or name and returns a fully-enriched company record. Designed
       for sales and marketing systems that need to enrich CRM records or web form submissions in real time.
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://docs.coresignal.com/company-enrichment-api/
     baseURL: https://api.coresignal.com/cdapi/v2/company_enrichment
     tags:
