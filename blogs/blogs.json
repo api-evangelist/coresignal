@@ -3,16 +3,12 @@
   "feeds": [
     {
       "source": "https://coresignal.com/blog/",
-      "feed_url": "https://coresignal.com/blog/",
-      "title": "",
+      "feed_url": "",
       "saved": 0,
-      "method": "none"
-    },
-    {
-      "source": "https://coresignal.com/use-cases/",
-      "error": "HTTPError"
+      "method": "agent-scrape"
     }
   ],
-  "post_count": 1,
-  "fetched": "2026-06-14T20:42:17Z"
+  "post_count": 3,
+  "fetched": "2026-06-27T12:34:45Z",
+  "agent_pulled": "2026-06-27"
 }

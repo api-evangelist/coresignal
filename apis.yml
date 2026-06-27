@@ -173,38 +173,33 @@ apis:
 common:
   - type: PostmanWorkspace
     url: https://www.postman.com/kinlaneapi/coresignal/overview
-  - type: ArazzoWorkflows
-    url: arazzo/
-    workflows:
-      - url: arazzo/coresignal-company-esdsl-bulk-collect-workflow.yml
-        name: Coresignal Company Elasticsearch Search and Bulk Collect
-        summary: Run an Elasticsearch DSL company query, then bulk collect the full records for every matching ID.
-      - url: arazzo/coresignal-company-search-branch-collect-workflow.yml
-        name: Coresignal Company Search with Branching Collect
-        summary: >-
-          Filter companies and branch between single-record collect and multi-record bulk collect based on how many
-          matched.
-      - url: arazzo/coresignal-company-search-collect-workflow.yml
-        name: Coresignal Company Search and Collect
-        summary: Search the Multi-source Company API by filters, then collect the full top-matching company record.
-      - url: arazzo/coresignal-company-to-employees-workflow.yml
-        name: Coresignal Company to Employees Enrichment
-        summary: Find a company, then find and collect a key employee currently working at that company.
-      - url: arazzo/coresignal-company-to-jobs-workflow.yml
-        name: Coresignal Company to Job Postings Enrichment
-        summary: Find a company, then find and collect an active job posting published by that company.
-      - url: arazzo/coresignal-employee-esdsl-bulk-collect-workflow.yml
-        name: Coresignal Employee Elasticsearch Search and Bulk Collect
-        summary: Run an Elasticsearch DSL employee query, then bulk collect the full profiles for every matching ID.
-      - url: arazzo/coresignal-employee-search-collect-workflow.yml
-        name: Coresignal Employee Search and Collect
-        summary: Search the Multi-source Employee API by filters, then collect the full top-matching employee profile.
-      - url: arazzo/coresignal-job-esdsl-search-collect-workflow.yml
-        name: Coresignal Job Elasticsearch Search and Collect
-        summary: Run an Elasticsearch DSL job query, then collect the full record for the first matching posting.
-      - url: arazzo/coresignal-job-search-collect-workflow.yml
-        name: Coresignal Job Search and Collect
-        summary: Search the Multi-source Jobs API by filters, then collect the full top-matching job posting.
+  - type: Arazzo
+    url: arazzo/coresignal-company-esdsl-bulk-collect-workflow.yml
+    name: Coresignal Company Elasticsearch Search and Bulk Collect
+  - type: Arazzo
+    url: arazzo/coresignal-company-search-branch-collect-workflow.yml
+    name: Coresignal Company Search with Branching Collect
+  - type: Arazzo
+    url: arazzo/coresignal-company-search-collect-workflow.yml
+    name: Coresignal Company Search and Collect
+  - type: Arazzo
+    url: arazzo/coresignal-company-to-employees-workflow.yml
+    name: Coresignal Company to Employees Enrichment
+  - type: Arazzo
+    url: arazzo/coresignal-company-to-jobs-workflow.yml
+    name: Coresignal Company to Job Postings Enrichment
+  - type: Arazzo
+    url: arazzo/coresignal-employee-esdsl-bulk-collect-workflow.yml
+    name: Coresignal Employee Elasticsearch Search and Bulk Collect
+  - type: Arazzo
+    url: arazzo/coresignal-employee-search-collect-workflow.yml
+    name: Coresignal Employee Search and Collect
+  - type: Arazzo
+    url: arazzo/coresignal-job-esdsl-search-collect-workflow.yml
+    name: Coresignal Job Elasticsearch Search and Collect
+  - type: Arazzo
+    url: arazzo/coresignal-job-search-collect-workflow.yml
+    name: Coresignal Job Search and Collect
   - type: GitHubOrganization
     url: https://github.com/Coresignal-com
   - type: Website
@@ -229,7 +224,7 @@ common:
     url: https://docs.coresignal.com/api-introduction/webhooks
   - type: Dashboard
     url: https://dashboard.coresignal.com/sign-in
-  - type: SignUp
+  - type: Signup
     url: https://dashboard.coresignal.com/sign-up
   - type: Pricing
     url: https://coresignal.com/pricing/
@@ -253,7 +248,7 @@ common:
     url: https://www.linkedin.com/company/coresignal
   - type: Twitter
     url: https://twitter.com/coresignal
-  - type: LLMsTxt
+  - type: LlmsText
     url: https://docs.coresignal.com/llms.txt
 maintainers:
   - FN: Kin Lane
