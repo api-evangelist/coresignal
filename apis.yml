@@ -171,6 +171,10 @@ apis:
       - type: Documentation
         url: https://docs.coresignal.com/company-enrichment-api/
 common:
+  - type: DomainSecurity
+    url: security/coresignal-domain-security.yml
+  - type: Authentication
+    url: authentication/coresignal-authentication.yml
   - type: PostmanWorkspace
     url: https://www.postman.com/kinlaneapi/coresignal/overview
   - type: Arazzo

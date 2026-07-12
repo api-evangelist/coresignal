@@ -1,0 +1,18 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/coresignal-multi-source-company-api-openapi.yml, openapi/coresignal-multi-source-employee-api-openapi.yml,
+  openapi/coresignal-multi-source-jobs-api-openapi.yml
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+schemes:
+- name: apiKey
+  type: apiKey
+  in: header
+  parameter: apikey
+  sources:
+  - openapi/coresignal-multi-source-company-api-openapi.yml
+  - openapi/coresignal-multi-source-employee-api-openapi.yml
+  - openapi/coresignal-multi-source-jobs-api-openapi.yml
