@@ -171,6 +171,8 @@ apis:
       - type: Documentation
         url: https://docs.coresignal.com/company-enrichment-api/
 common:
+  - type: AgenticAccess
+    url: agentic-access/coresignal-agentic-access.yml
   - type: DomainSecurity
     url: security/coresignal-domain-security.yml
   - type: Authentication
