@@ -1,0 +1,16 @@
+{
+  "provider": "coresignal",
+  "sources": [
+    "coresignal-collect-api-openapi.yml",
+    "coresignal-search-api-openapi.yml"
+  ],
+  "outputs": [
+    "coresignal-collect-api-openapi.yml",
+    "coresignal-search-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
