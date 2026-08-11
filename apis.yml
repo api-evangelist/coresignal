@@ -108,8 +108,6 @@ apis:
     url: https://docs.coresignal.com/multi-source-company-api/subscriptions
   - type: Rules
     url: rules/coresignal-multi-source-company-api-rules.yml
-  - type: Capabilities
-    url: capabilities/coresignal-company-data-collection-capabilities.yml
   - type: Documentation
     url: https://docs.coresignal.com/multi-source-employee-api/
   - type: DataDictionary
@@ -128,8 +126,6 @@ apis:
     url: https://docs.coresignal.com/multi-source-employee-api/subscriptions
   - type: Rules
     url: rules/coresignal-multi-source-employee-api-rules.yml
-  - type: Capabilities
-    url: capabilities/coresignal-employee-data-collection-capabilities.yml
   - type: Documentation
     url: https://docs.coresignal.com/multi-source-jobs-api/
   - type: DataDictionary
@@ -144,8 +140,6 @@ apis:
     url: https://docs.coresignal.com/multi-source-jobs-api/collect
   - type: Rules
     url: rules/coresignal-multi-source-jobs-api-rules.yml
-  - type: Capabilities
-    url: capabilities/coresignal-jobs-data-collection-capabilities.yml
 - aid: coresignal:coresignal-search-api
   name: Coresignal Search API
   description: Search and filter company records.
@@ -174,8 +168,6 @@ apis:
     url: https://docs.coresignal.com/multi-source-company-api/subscriptions
   - type: Rules
     url: rules/coresignal-multi-source-company-api-rules.yml
-  - type: Capabilities
-    url: capabilities/coresignal-company-data-collection-capabilities.yml
   - type: Documentation
     url: https://docs.coresignal.com/multi-source-employee-api/
   - type: DataDictionary
@@ -194,8 +186,6 @@ apis:
     url: https://docs.coresignal.com/multi-source-employee-api/subscriptions
   - type: Rules
     url: rules/coresignal-multi-source-employee-api-rules.yml
-  - type: Capabilities
-    url: capabilities/coresignal-employee-data-collection-capabilities.yml
   - type: Documentation
     url: https://docs.coresignal.com/multi-source-jobs-api/
   - type: DataDictionary
@@ -210,8 +200,6 @@ apis:
     url: https://docs.coresignal.com/multi-source-jobs-api/collect
   - type: Rules
     url: rules/coresignal-multi-source-jobs-api-rules.yml
-  - type: Capabilities
-    url: capabilities/coresignal-jobs-data-collection-capabilities.yml
 common:
   - type: AgenticAccess
     url: agentic-access/coresignal-agentic-access.yml
