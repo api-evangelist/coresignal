@@ -45,8 +45,13 @@ tags:
   - Talent Intelligence
   - Web Data
 created: '2025-02-12'
-modified: '2026-05-19'
+modified: '2026-08-13'
 specificationVersion: '0.20'
+x-enrichment:
+  date: '2026-08-13'
+  status: enriched
+  artifacts_added: 27
+  pass: local-v1
 apis:
 - aid: coresignal:agentic-search-api
   name: Coresignal Agentic Search API
@@ -286,6 +291,74 @@ common:
     url: https://twitter.com/coresignal
   - type: LlmsText
     url: https://docs.coresignal.com/llms.txt
+  - type: LLMsTxt
+    url: llms/coresignal-llms.txt
+  - type: APIReference
+    url: https://docs.coresignal.com/api-introduction/apis-overview
+  - type: Support
+    url: https://coresignal.com/contact-us/
+  - type: SignUp
+    url: https://dashboard.coresignal.com/sign-up
+  - type: Login
+    url: https://dashboard.coresignal.com/sign-in
+  - type: ChangeLog
+    url: https://docs.coresignal.com/release-notes/release-notes
+  - type: ChangeLog
+    url: changelog/coresignal-changelog.yml
+  - type: Compliance
+    url: https://coresignal.com/data-transparency
+  - type: MCPServer
+    url: mcp/coresignal-mcp.yml
+  - type: ToolCrosswalk
+    url: mcp/coresignal-tool-crosswalk.yml
+  - type: WellKnown
+    url: well-known/coresignal-well-known.yml
+  - type: Packages
+    url: packages/coresignal-packages.yml
+  - type: Conformance
+    url: conformance/coresignal-conformance.yml
+  - type: ErrorCatalog
+    url: errors/coresignal-error-codes.yml
+  - type: Lifecycle
+    url: lifecycle/coresignal-lifecycle.yml
+  - type: OAuthScopes
+    url: scopes/coresignal-scopes.yml
+  - type: Sandbox
+    url: sandbox/coresignal-sandbox.yml
+  - type: Conventions
+    url: conventions/coresignal-conventions.yml
+  - type: DataModel
+    url: data-model/coresignal-data-model.yml
+  - type: Webhooks
+    url: asyncapi/coresignal-webhooks.yml
+  - type: AgentSkill
+    url: skills/_index.yml
+  - type: Plans
+    url: plans/coresignal-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/coresignal-rate-limits.yml
+  - type: FinOps
+    url: finops/coresignal-finops.yml
+  - type: Overlay
+    url: overlays/coresignal-search-api-overlay.yaml
+    name: Coresignal Search API enhancements
+  - type: Overlay
+    url: overlays/coresignal-collect-api-overlay.yaml
+    name: Coresignal Collect API enhancements
+  - type: JSONSchema
+    url: json-schema/coresignal-company-schema.json
+  - type: JSONSchema
+    url: json-schema/coresignal-companyfilter-schema.json
+  - type: JSONSchema
+    url: json-schema/coresignal-employee-schema.json
+  - type: JSONSchema
+    url: json-schema/coresignal-employeefilter-schema.json
+  - type: JSONSchema
+    url: json-schema/coresignal-job-schema.json
+  - type: JSONSchema
+    url: json-schema/coresignal-jobfilter-schema.json
+  - type: JSONStructure
+    url: json-structure/coresignal-structure.json
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
