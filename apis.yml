@@ -46,7 +46,7 @@ tags:
   - Web Data
 created: '2025-02-12'
 modified: '2026-08-13'
-specificationVersion: '0.20'
+specificationVersion: '0.23'
 x-enrichment:
   date: '2026-08-13'
   status: enriched
