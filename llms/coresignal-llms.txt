@@ -1,0 +1,280 @@
+# Coresignal Docs
+
+## Documentation
+
+- [Welcome to Coresignal](https://docs.coresignal.com/introduction/welcome-to-coresignal.md): Overview of available datasets and APIs. Select the right data solution for your use case and access fresh company, employee, and job posting data.
+- [Data and Compliance](https://docs.coresignal.com/introduction/data-and-compliance.md): Learn how Coresignal collects fresh public web data ethically and in compliance with global privacy regulations.
+- [Delivery Formats](https://docs.coresignal.com/introduction/delivery-formats.md): Access Coresignal's fresh B2B data via flat files (JSONL, Parquet, CSV) or APIs. Supports S3, Azure, GCS delivery.
+- [Product Comparison](https://docs.coresignal.com/introduction/product-comparison.md)
+- [FAQ](https://docs.coresignal.com/introduction/faq.md): Answers common questions about Coresignal data, pricing, compliance, API access, credits, and subscriptions.
+- [Data for AI](https://docs.coresignal.com/data-for-ai.md): This page explains why Coresignal data is a good fit for AI pipelines and how to integrate it.
+- [Data Overview](https://docs.coresignal.com/data-introduction/data-overview.md): Browse Coresignal datasets. Compare Multi-source, Clean, and Base tiers built on fresh, regularly updated public web data.
+- [Data Documentation](https://docs.coresignal.com/data-introduction/data-documentation.md)
+- [APIs Overview](https://docs.coresignal.com/api-introduction/apis-overview.md): Overview of all Coresignal APIs for fresh company, employee, and jobs data – including a Real-time Employee API for real-time data access.
+- [Authorization](https://docs.coresignal.com/api-introduction/authorization.md)
+- [Credits](https://docs.coresignal.com/api-introduction/credits.md): Understand how Coresignal's credit system works. Credits are deducted per successful request when accessing fresh data via Search and Collect APIs.
+- [Rate Limits](https://docs.coresignal.com/api-introduction/rate-limits.md): API rate limit reference for all Coresignal endpoints. Optimize fresh data streaming without hitting Search or Collect thresholds.
+- [Response Codes](https://docs.coresignal.com/api-introduction/response-codes.md): Complete reference for all Coresignal API response codes – covering Search, Collect, Bulk Collect, Webhooks, and the Real-time Employee API.
+- [Requests](https://docs.coresignal.com/api-introduction/requests.md)
+- [Elasticsearch DSL](https://docs.coresignal.com/api-introduction/requests/elasticsearch-dsl.md): Write powerful queries against Coresignal's fresh data using Elasticsearch DSL. Includes schema links, input values, sorting options, and query tips.
+- [Results Pagination](https://docs.coresignal.com/api-introduction/requests/elasticsearch-dsl/results-pagination.md)
+- [Semantic Search](https://docs.coresignal.com/api-introduction/requests/semantic-search.md): Use Elasticsearch DSL semantic search endpoints to expand job title queries with synonym matches, improving recall without changing the request format.
+- [Search Filters](https://docs.coresignal.com/api-introduction/requests/search-filters.md)
+- [Search Preview](https://docs.coresignal.com/api-introduction/requests/search-preview.md): Search Preview returns up to 20 matching records with fresh data in a single API call — no separate Collect request needed. Supports pagination.
+- [Collect and Enrich](https://docs.coresignal.com/api-introduction/requests/collect.md)
+- [Bulk Collect](https://docs.coresignal.com/api-introduction/requests/bulk-collect.md)
+- [POST Requests](https://docs.coresignal.com/api-introduction/requests/bulk-collect/post-requests.md)
+- [GET Requests](https://docs.coresignal.com/api-introduction/requests/bulk-collect/get-requests.md)
+- [Webhooks](https://docs.coresignal.com/api-introduction/webhooks.md): Get real-time notifications on employee profile changes via webhooks. Subscriptions are valid for 91 days with no credit deduction per notification.
+- [Experience Webhooks](https://docs.coresignal.com/api-introduction/webhooks/experience-webhooks.md)
+- [Employee Webhooks](https://docs.coresignal.com/api-introduction/webhooks/employee-webhooks.md)
+- [Subscription Management](https://docs.coresignal.com/api-introduction/webhooks/subscription-management.md)
+- [Subscription Simulation](https://docs.coresignal.com/api-introduction/webhooks/subscription-simulation.md)
+- [Multi-source Company Data](https://docs.coresignal.com/company-data/multi-source-company-data.md): Enriched fresh company data from multiple sources with firmographics, funding, workforce trends, and historical signals, available via flat files or API.
+- [Dictionary: Multi-source Company Data](https://docs.coresignal.com/company-data/multi-source-company-data/dictionary-multi-source-company-data.md): Field-level dictionary for Multi-source Company Data covering fresh firmographics, funding, technographics, workforce trends, salaries, and more.
+- [Sample: Multi-source Company Data](https://docs.coresignal.com/company-data/multi-source-company-data/sample-multi-source-company-data.md): Explore a full Multi-source Company Data sample, including firmographics, funding, technographics, workforce trends, salaries, and web traffic insights.
+- [Clean Company Data](https://docs.coresignal.com/company-data/clean-company-data.md): Clean and enriched ready-to-use company data with firmographics, contact details, funding, and technographics, available via flat files or API.
+- [Dictionary: Clean Company Data](https://docs.coresignal.com/company-data/clean-company-data/dictionary-clean-company-data.md): Data dictionary for Clean Company Data – field-level reference covering fresh firmographics, funding, contact info, social media, and location fields.
+- [Sample: Clean Company Data](https://docs.coresignal.com/company-data/clean-company-data/sample-clean-company-data.md): Explore a full Clean Company Data sample, including firmographics, funding rounds, tech stack, and up-to-date social and contact details.
+- [Base Company Data](https://docs.coresignal.com/company-data/base-company-data.md): Regularly updated base company data with core firmographics, company structure, and location signals, available via flat files or API.
+- [Dictionary: Base Company Data](https://docs.coresignal.com/company-data/base-company-data/dictionary-base-company-data.md): Complete data dictionary for Base Company Data, covering all fields related to company information, funding rounds, locations, investors, and recent updates.
+- [Sample: Base Company Data](https://docs.coresignal.com/company-data/base-company-data/sample-base-company-data.md): Complete data dictionary for Base Company Data, covering all fields related to company information, funding rounds, locations, investors, and recent updates.
+- [Company Posts Data](https://docs.coresignal.com/company-data/company-posts-data.md): The most recent and historical company posts and communications data from public companies for tracking launches, hiring signals, partnerships, and other updates.
+- [Dictionary: Company Posts Data](https://docs.coresignal.com/company-data/company-posts-data/dictionary-company-posts-data.md): Data dictionary for Company Posts Data – all fields explained across post content, author details, engagement metrics, and reshared post data.
+- [Sample: Company Posts Data](https://docs.coresignal.com/company-data/company-posts-data/sample-company-posts-data.md): Review a full Company Posts Data sample including post content, engagement metrics, author details, and freshly collected publication timestamps.
+- [Multi-source Company API](https://docs.coresignal.com/company-api/multi-source-company-api.md): Multi-source Company API overview: endpoints and rate limits for accessing enriched fresh company data via Search, Collect, Enrich, and Bulk Collect.
+- [Data Dictionary: Multi-source Company API](https://docs.coresignal.com/company-api/multi-source-company-api/data-dictionary-multi-source-company-api.md): Data dictionary for Multi-source Company API – field definitions across fresh firmographics, funding, technographics, workforce trends, and salaries.
+- [Sample: Multi-source Company API Data](https://docs.coresignal.com/company-api/multi-source-company-api/sample-multi-source-company-api-data.md): Explore a Multi-source Company API data sample with fresh firmographics, company updates, funding details, and enriched workforce intelligence fields.
+- [Elasticsearch DSL: Multi-source Company API](https://docs.coresignal.com/company-api/multi-source-company-api/elasticsearch-dsl.md)
+- [Pagination: Multi-source Company API](https://docs.coresignal.com/company-api/multi-source-company-api/elasticsearch-dsl/pagination.md)
+- [Search Preview: Multi-source Company API](https://docs.coresignal.com/company-api/multi-source-company-api/search-preview.md)
+- [Collect: Multi-source Company API](https://docs.coresignal.com/company-api/multi-source-company-api/collect.md)
+- [Bulk Collect: Multi-source Company API](https://docs.coresignal.com/company-api/multi-source-company-api/bulk-collect.md)
+- [POST Requests: Multi-source Company API](https://docs.coresignal.com/company-api/multi-source-company-api/bulk-collect/post-requests.md)
+- [Enrich: Multi-Source Company API](https://docs.coresignal.com/company-api/multi-source-company-api/enrich.md)
+- [Clean Company API](https://docs.coresignal.com/company-api/clean-company-api.md): Clean Company API overview: endpoints, rate limits, and credits for accessing fresh, enriched company data via Search, Collect, and Bulk Collect.
+- [Data Dictionary: Clean Company API](https://docs.coresignal.com/company-api/clean-company-api/data-dictionary-clean-company-api.md): Data dictionary for Clean Company API – field-level reference with cleaning details across fresh firmographics, funding, technologies, and updates.
+- [Sample: Clean Company API Data](https://docs.coresignal.com/company-api/clean-company-api/sample-clean-company-api-data.md): Review a Clean Company API data sample – enriched firmographics, funding rounds, tech stack, social URLs, and regularly refreshed company metadata.
+- [Endpoints: Clean Company API](https://docs.coresignal.com/company-api/clean-company-api/endpoints.md)
+- [Elasticsearch DSL: Clean Company API](https://docs.coresignal.com/company-api/clean-company-api/endpoints/elasticsearch-dsl.md)
+- [Search Preview: Clean Company API](https://docs.coresignal.com/company-api/clean-company-api/endpoints/search-preview.md)
+- [Collect: Clean Company API](https://docs.coresignal.com/company-api/clean-company-api/endpoints/collect.md)
+- [Bulk Collect: Clean Company API](https://docs.coresignal.com/company-api/clean-company-api/endpoints/bulk-collect.md)
+- [POST Requests: Clean Company API](https://docs.coresignal.com/company-api/clean-company-api/endpoints/bulk-collect/post-requests.md)
+- [Enrich: Clean Company API](https://docs.coresignal.com/company-api/clean-company-api/endpoints/enrich.md)
+- [Base Company API](https://docs.coresignal.com/company-api/base-company-api.md): Overview of the Base Company API: includes endpoints, rate limits, and accessing company data via Search, Collect, and Bulk Collect.
+- [Data Dictionary: Base Company API](https://docs.coresignal.com/company-api/base-company-api/data-dictionary-base-company-api.md): Data dictionary for Base Company API – all fields explained across company info, funding rounds, stock data, locations, and fresh company updates.
+- [Sample: Base Company API Data](https://docs.coresignal.com/company-api/base-company-api/sample-base-company-api-data.md): Explore a Base Company API data sample – firmographics, funding rounds, locations, specialties, and regularly refreshed company profile fields.
+- [Endpoints: Base Company API](https://docs.coresignal.com/company-api/base-company-api/endpoints.md)
+- [Search Filters: Base Company API](https://docs.coresignal.com/company-api/base-company-api/endpoints/search-filters.md)
+- [Search Filters Pagination: Base Company API](https://docs.coresignal.com/company-api/base-company-api/endpoints/search-filters/pagination.md)
+- [Elasticsearch DSL: Base Company API](https://docs.coresignal.com/company-api/base-company-api/endpoints/elasticsearch-dsl.md): Elasticsearch DSL endpoint for Base Company API. Includes the full schema, sample queries, and sorting options for retrieving fresh company data.
+- [Pagination: Base Company API](https://docs.coresignal.com/company-api/base-company-api/endpoints/elasticsearch-dsl/pagination.md)
+- [Search Preview: Base Company API](https://docs.coresignal.com/company-api/base-company-api/endpoints/search-preview.md)
+- [Collect: Base Company API](https://docs.coresignal.com/company-api/base-company-api/endpoints/collect.md)
+- [Bulk Collect: Base Company API](https://docs.coresignal.com/company-api/base-company-api/endpoints/bulk-collect.md)
+- [POST Requests: Base Company API](https://docs.coresignal.com/company-api/base-company-api/endpoints/bulk-collect/post-requests.md)
+- [Company Posts API](https://docs.coresignal.com/company-api/company-posts-api.md): Company Posts API overview: search and collect fresh company-published posts via Search Filters or Elasticsearch DSL, with Collect endpoint support.
+- [Data Dictionary: Company Posts API](https://docs.coresignal.com/company-api/company-posts-api/data-dictionary-company-posts-api.md): Data dictionary for Company Posts API – fields explained across author info, fresh post content, engagement metrics, and comment data.
+- [Sample: Company Posts API](https://docs.coresignal.com/company-api/company-posts-api/sample-company-posts-api.md): Explore Company Posts API data sample with fresh post content, author profile details, engagement counts, and comment-level data in JSON format.
+- [Search Filters: Company Posts API](https://docs.coresignal.com/company-api/company-posts-api/search-filters.md)
+- [Search Filters Pagination: Company Posts API](https://docs.coresignal.com/company-api/company-posts-api/search-filters/pagination.md)
+- [Elasticsearch DSL: Company Posts API](https://docs.coresignal.com/company-api/company-posts-api/elasticsearch-dsl.md)
+- [Pagination: Company Posts API](https://docs.coresignal.com/company-api/company-posts-api/elasticsearch-dsl/pagination.md)
+- [Collect: Company Posts API](https://docs.coresignal.com/company-api/company-posts-api/collect.md)
+- [Historical Headcount API](https://docs.coresignal.com/company-api/historical-headcount-api.md)
+- [Multi-source Employee Data](https://docs.coresignal.com/employee-data/multi-source-employee-data.md): Enriched, Multi-source Employee dataset with weekly or monthly delivery of fresh data in JSONL or Parquet format. Includes historical tracking.
+- [Dictionary: Multi-source Employee Data](https://docs.coresignal.com/employee-data/multi-source-employee-data/dictionary-multi-source-employee-data.md)
+- [Sample: Multi-source Employee Data](https://docs.coresignal.com/employee-data/multi-source-employee-data/sample-multi-source-employee-data.md)
+- [Clean Employee Data](https://docs.coresignal.com/employee-data/clean-employee-data.md): Clean, comprehensive, recent employee data, including profile, experience, education, and skills, accessible via flat files or API.
+- [Dictionary: Clean Employee Data](https://docs.coresignal.com/employee-data/clean-employee-data/dictionary-clean-employee-data.md)
+- [Sample: Clean Employee Data](https://docs.coresignal.com/employee-data/clean-employee-data/sample-clean-employee-data.md)
+- [Base Employee Data](https://docs.coresignal.com/employee-data/base-employee-data.md): Base Employee Data — fresh professional profiles scraped on an ongoing basis. Ideal for HR tech, lead generation, and talent intelligence.
+- [Dictionary: Base Employee Data](https://docs.coresignal.com/employee-data/base-employee-data/dictionary-base-employee-data.md): Complete data dictionary for Base Employee Data – all fields explained across experience, education, certifications, skills, and fresh profile metadata.
+- [Sample: Base Employee Data](https://docs.coresignal.com/employee-data/base-employee-data/sample-base-employee-data.md)
+- [Employee Posts Data](https://docs.coresignal.com/employee-data/employee-posts-data.md): Employee Posts Data provides freshly collected professional network posts with engagement metrics, authorship details, and publication timestamps.
+- [Dictionary: Employee Posts Data](https://docs.coresignal.com/employee-data/employee-posts-data/dictionary-employee-posts-data.md): Data dictionary for Employee Posts Data, with all fields explained across author details, recent post content, engagement metrics, and reshared post data.
+- [Sample: Employee Posts Data](https://docs.coresignal.com/employee-data/employee-posts-data/sample-employee-posts-data.md): Review an Employee Posts Data sample with fresh post content, author profiles, engagement counts, and reshared post details in JSONL format.
+- [Multi-source Employee API](https://docs.coresignal.com/employee-api/multi-source-employee-api.md): Multi-source Employee API documentation covering search and collect endpoints, request types, bulk data retrieval, webhooks, rate limits, and credit usage.
+- [Data Dictionary: Multi-source Employee API](https://docs.coresignal.com/employee-api/multi-source-employee-api/data-dictionary-multi-source-employee-api.md): Full data dictionary for Multi-source Employee API: field definitions and examples covering fresh profile data, salaries, experience changes, and more.
+- [Sample: Multi-source Employee API](https://docs.coresignal.com/employee-api/multi-source-employee-api/sample-multi-source-employee-api.md): Explore a Multi-source Employee API data sample – freshly enriched profiles with experience, salary, contact details, and workforce intelligence fields.
+- [Elasticsearch DSL: Multi-source Employee API](https://docs.coresignal.com/employee-api/multi-source-employee-api/elasticsearch-dsl.md)
+- [Pagination: Multi-source Employee API](https://docs.coresignal.com/employee-api/multi-source-employee-api/elasticsearch-dsl/pagination.md)
+- [Search Preview: Multi-source Employee API](https://docs.coresignal.com/employee-api/multi-source-employee-api/search-preview.md)
+- [Collect: Multi-source Employee API](https://docs.coresignal.com/employee-api/multi-source-employee-api/collect.md)
+- [Bulk Collect: Multi-source Employee API](https://docs.coresignal.com/employee-api/multi-source-employee-api/bulk-collect.md)
+- [POST Requests: Multi-source Employee API](https://docs.coresignal.com/employee-api/multi-source-employee-api/bulk-collect/post-requests.md)
+- [Webhook Subscriptions: Multi-source Employee API](https://docs.coresignal.com/employee-api/multi-source-employee-api/webhook-subscriptions.md)
+- [Clean Employee API](https://docs.coresignal.com/employee-api/clean-employee-api.md): Documentation for the Clean Employee API, including search and collect endpoints, bulk collect, webhook subscriptions, rate limits, and credits.
+- [Data Dictionary: Clean Employee API](https://docs.coresignal.com/employee-api/clean-employee-api/data-dictionary-clean-employee-api.md): Data dictionary for Clean Employee API – field definitions covering fresh experience, education, skills, certifications, and enriched profile metadata.
+- [Sample: Clean Employee API Data](https://docs.coresignal.com/employee-api/clean-employee-api/sample-clean-employee-api-data.md): Review a full Clean Employee API data sample including experience, education, skills, and enriched company details from regularly refreshed profiles.
+- [Endpoints: Clean Employee API](https://docs.coresignal.com/employee-api/clean-employee-api/endpoints.md)
+- [Elasticsearch DSL: Clean Employee API](https://docs.coresignal.com/employee-api/clean-employee-api/endpoints/elasticsearch-dsl.md)
+- [Pagination: Clean Employee API](https://docs.coresignal.com/employee-api/clean-employee-api/endpoints/elasticsearch-dsl/pagination.md)
+- [Search Preview: Clean Employee API](https://docs.coresignal.com/employee-api/clean-employee-api/endpoints/search-preview.md)
+- [Collect: Clean Employee API](https://docs.coresignal.com/employee-api/clean-employee-api/endpoints/collect.md)
+- [Bulk Collect: Clean Employee API](https://docs.coresignal.com/employee-api/clean-employee-api/endpoints/bulk-collect.md)
+- [POST Requests: Clean Employee API](https://docs.coresignal.com/employee-api/clean-employee-api/endpoints/bulk-collect/post-requests.md)
+- [Webhook Subscriptions: Clean Employee API](https://docs.coresignal.com/employee-api/clean-employee-api/endpoints/webhook-subscriptions.md)
+- [Base Employee API](https://docs.coresignal.com/employee-api/base-employee-api.md): Search and collect regularly refreshed base employee profiles via search filters or Elasticsearch DSL, with Bulk Collect and webhook support.
+- [Data Dictionary: Base Employee API](https://docs.coresignal.com/employee-api/base-employee-api/data-dictionary-base-employee-api.md): Data dictionary for Base Employee API – all fields explained across fresh profile data, experience, education, certifications, and company details.
+- [Sample: Base Employee API](https://docs.coresignal.com/employee-api/base-employee-api/sample-base-employee-api.md): Explore a full Base Employee API data request response – including experience, education, skills, and certifications from regularly refreshed profiles.
+- [Endpoints: Base Employee API](https://docs.coresignal.com/employee-api/base-employee-api/endpoints.md)
+- [Search Filters: Base Employee API](https://docs.coresignal.com/employee-api/base-employee-api/endpoints/search-filters.md): Filter fresh Base Employee data by name, location, experience, education, and skills. A simpler alternative to Elasticsearch DSL queries.
+- [Search Filters Pagination: Base Employee API](https://docs.coresignal.com/employee-api/base-employee-api/endpoints/search-filters/pagination.md)
+- [Elasticsearch DSL: Base Employee API](https://docs.coresignal.com/employee-api/base-employee-api/endpoints/elasticsearch-dsl.md)
+- [Pagination: Base Employee API](https://docs.coresignal.com/employee-api/base-employee-api/endpoints/elasticsearch-dsl/pagination.md)
+- [Search Preview: Base Employee API](https://docs.coresignal.com/employee-api/base-employee-api/endpoints/search-preview.md)
+- [Collect: Base Employee API](https://docs.coresignal.com/employee-api/base-employee-api/endpoints/collect.md)
+- [Bulk Collect: Base Employee API](https://docs.coresignal.com/employee-api/base-employee-api/endpoints/bulk-collect.md)
+- [POST Requests: Base Employee API](https://docs.coresignal.com/employee-api/base-employee-api/endpoints/bulk-collect/post-requests.md)
+- [Webhook Subscriptions: Base Employee API](https://docs.coresignal.com/employee-api/base-employee-api/endpoints/webhook-subscriptions.md)
+- [Employee Posts API](https://docs.coresignal.com/employee-api/employee-posts-api.md): Employee Posts API overview: search and collect fresh employee-published posts via Search Filters or Elasticsearch DSL, with Collect endpoint support.
+- [Data Dictionary: Employee Posts API](https://docs.coresignal.com/employee-api/employee-posts-api/data-dictionary-employee-posts-api.md): Data dictionary for Employee Posts API – fields explained across author info, fresh post content, engagement metrics, and comment data.
+- [Sample: Employee Posts API](https://docs.coresignal.com/employee-api/employee-posts-api/sample-employee-posts-api.md): Explore an Employee Posts API data sample with fresh post content, author profile details, engagement counts, and comment-level data in JSON format.
+- [Endpoints: Employee Posts API](https://docs.coresignal.com/employee-api/employee-posts-api/endpoints.md)
+- [Search Filters: Employee Posts API](https://docs.coresignal.com/employee-api/employee-posts-api/endpoints/search-filters.md)
+- [Search Filters Pagination: Employee Posts API](https://docs.coresignal.com/employee-api/employee-posts-api/endpoints/search-filters/pagination.md)
+- [Elasticsearch DSL: Employee Posts API](https://docs.coresignal.com/employee-api/employee-posts-api/endpoints/elasticsearch-dsl.md)
+- [Pagination: Employee Posts API](https://docs.coresignal.com/employee-api/employee-posts-api/endpoints/elasticsearch-dsl/pagination.md)
+- [Collect: Employee Posts API](https://docs.coresignal.com/employee-api/employee-posts-api/endpoints/collect.md)
+- [Multi-source Jobs Data](https://docs.coresignal.com/jobs-data/multi-source-jobs-data.md): Deduplicated, fresh job postings from multiple sources delivered daily to quarterly. Built for investment research, HR tech, and sales intelligence.
+- [Dictionary: Multi-source Jobs Data](https://docs.coresignal.com/jobs-data/multi-source-jobs-data/dictionary-multi-source-jobs-data.md): Data dictionary for Multi-source Jobs Data – fields across fresh job postings, salary, benefits, company funding, technographics, and recruiter info.
+- [Sample: Multi-source Jobs Data](https://docs.coresignal.com/jobs-data/multi-source-jobs-data/sample-multi-source-jobs-data.md): Explore a Multi-source Jobs Data sample – deduplicated, fresh job postings from multiple sources including salary, benefits, and company details.
+- [Base Jobs Data](https://docs.coresignal.com/jobs-data/base-jobs-data.md): Continuously updated global job postings with ongoing data freshness. Ideal for investment research, lead gen, and HR intelligence.
+- [Dictionary: Base Jobs Data](https://docs.coresignal.com/jobs-data/base-jobs-data/dictionary-base-jobs-data.md): Data dictionary for Base Jobs Data – all fields explained across fresh job postings, recruiter info, company details, salary, and benefits data.
+- [Sample: Base Jobs Data](https://docs.coresignal.com/jobs-data/base-jobs-data/sample-base-jobs-data.md): Explore a Base Jobs Data sample with fresh job postings including title, seniority, employment type, location, and company details. Free trial available.
+- [Multi-source Jobs API](https://docs.coresignal.com/jobs-api/multi-source-jobs-api.md): Multi-source Jobs API overview: search and collect fresh, deduplicated job postings via Elasticsearch DSL, with Bulk Collect and preview support.
+- [Data Dictionary: Multi-source Jobs API](https://docs.coresignal.com/jobs-api/multi-source-jobs-api/data-dictionary-multi-source-jobs-api.md): Field-level dictionary for Multi-source Jobs API covering metadata, recruiter, company, and salary fields across aggregated and fresh job postings.
+- [Sample: Multi-source Jobs API](https://docs.coresignal.com/jobs-api/multi-source-jobs-api/sample-multi-source-jobs-api.md): Explore a Multi-source Jobs API data sample with fresh job postings unified across professional network and other sources with status tracking.
+- [Elasticsearch DSL: Multi-source Jobs API](https://docs.coresignal.com/jobs-api/multi-source-jobs-api/elasticsearch-dsl.md)
+- [Pagination: Multi-source Jobs API](https://docs.coresignal.com/jobs-api/multi-source-jobs-api/elasticsearch-dsl/pagination.md)
+- [Search Preview: Multi-source Jobs API](https://docs.coresignal.com/jobs-api/multi-source-jobs-api/search-preview.md)
+- [Collect: Multi-source Jobs API](https://docs.coresignal.com/jobs-api/multi-source-jobs-api/collect.md)
+- [Bulk Collect: Multi-source Jobs API](https://docs.coresignal.com/jobs-api/multi-source-jobs-api/bulk-collect.md)
+- [POST Requests: Multi-source Jobs API](https://docs.coresignal.com/jobs-api/multi-source-jobs-api/bulk-collect/post-requests.md)
+- [Base Jobs API](https://docs.coresignal.com/jobs-api/base-jobs-api.md): Search and collect continuously updated global job postings using search filters or Elasticsearch DSL, with Bulk Collect support.
+- [Data Dictionary: Base Jobs API](https://docs.coresignal.com/jobs-api/base-jobs-api/data-dictionary-base-jobs-api.md): Field-level dictionary for Base Jobs API covering job posting fields, metadata, industries, and functions in continuously updated global jobs data.
+- [Sample: Base Jobs API](https://docs.coresignal.com/jobs-api/base-jobs-api/sample-base-jobs-api.md): Review a Base Jobs API sample response with core job posting fields, company details, industries, and functions from continuously updated global jobs data.
+- [Endpoints: Base Jobs API](https://docs.coresignal.com/jobs-api/base-jobs-api/endpoints.md)
+- [Search Filters: Base Jobs API](https://docs.coresignal.com/jobs-api/base-jobs-api/endpoints/search-filters.md)
+- [Search Filters Pagination: Base Jobs API](https://docs.coresignal.com/jobs-api/base-jobs-api/endpoints/search-filters/pagination.md)
+- [Elasticsearch DSL: Base Jobs API](https://docs.coresignal.com/jobs-api/base-jobs-api/endpoints/elasticsearch-dsl.md)
+- [Pagination: Base Jobs API](https://docs.coresignal.com/jobs-api/base-jobs-api/endpoints/elasticsearch-dsl/pagination.md)
+- [Search Preview: Base Jobs API](https://docs.coresignal.com/jobs-api/base-jobs-api/endpoints/search-preview.md)
+- [Collect: Base Jobs API](https://docs.coresignal.com/jobs-api/base-jobs-api/endpoints/collect.md)
+- [Bulk Collect: Base Jobs API](https://docs.coresignal.com/jobs-api/base-jobs-api/endpoints/bulk-collect.md)
+- [POST Requests: Base Jobs API](https://docs.coresignal.com/jobs-api/base-jobs-api/endpoints/bulk-collect/post-requests.md)
+- [Professional Network Data](https://docs.coresignal.com/additional-sources/professional-network-data.md): Fresh Professional network data can be used by multiple industries, including sales tech, market research, investment, risk assessment, and HR.
+- [Docker Hub](https://docs.coresignal.com/additional-sources/docker-hub.md)
+- [Docker Hub Repositories](https://docs.coresignal.com/additional-sources/docker-hub/docker-hub-repositories.md)
+- [Data Dictionary: Docker Hub Repositories](https://docs.coresignal.com/additional-sources/docker-hub/docker-hub-repositories/data-dictionary.md)
+- [Data Sample: Docker Hub Repositories](https://docs.coresignal.com/additional-sources/docker-hub/docker-hub-repositories/data-sample.md)
+- [Docker Hub Users](https://docs.coresignal.com/additional-sources/docker-hub/docker-hub-users.md)
+- [Data Dictionary: Docker Hub Users](https://docs.coresignal.com/additional-sources/docker-hub/docker-hub-users/data-dictionary.md)
+- [Data Sample: Docker Hub Users](https://docs.coresignal.com/additional-sources/docker-hub/docker-hub-users/data-sample.md)
+- [Craft Companies](https://docs.coresignal.com/additional-sources/craft-companies.md)
+- [Data Dictionary: Craft Companies](https://docs.coresignal.com/additional-sources/craft-companies/data-dictionary.md): Complete data dictionary for Craft Companies dataset – field-level reference covering firmographics, financials, tech stack, and up-to-date metrics.
+- [Data Sample: Craft Companies](https://docs.coresignal.com/additional-sources/craft-companies/data-sample.md)
+- [Chrome Store](https://docs.coresignal.com/additional-sources/chrome-store.md)
+- [Chrome Store Companies](https://docs.coresignal.com/additional-sources/chrome-store/chrome-store-companies.md)
+- [Data Dictionary: Chrome Store Companies](https://docs.coresignal.com/additional-sources/chrome-store/chrome-store-companies/data-dictionary.md)
+- [Data Sample: Chrome Store Companies](https://docs.coresignal.com/additional-sources/chrome-store/chrome-store-companies/data-sample.md)
+- [Chrome Store Reviews](https://docs.coresignal.com/additional-sources/chrome-store/chrome-store-reviews.md)
+- [Data Dictionary: Chrome Store Reviews](https://docs.coresignal.com/additional-sources/chrome-store/chrome-store-reviews/data-dictionary.md)
+- [Data Sample: Chrome Store Reviews](https://docs.coresignal.com/additional-sources/chrome-store/chrome-store-reviews/data-sample.md)
+- [Glassdoor](https://docs.coresignal.com/additional-sources/glassdoor.md)
+- [Glassdoor Companies](https://docs.coresignal.com/additional-sources/glassdoor/glassdoor-companies.md)
+- [Data Dictionary: Glassdoor Companies](https://docs.coresignal.com/additional-sources/glassdoor/glassdoor-companies/data-dictionary.md)
+- [Data Sample: Glassdoor Companies](https://docs.coresignal.com/additional-sources/glassdoor/glassdoor-companies/data-sample.md)
+- [Glassdoor Reviews](https://docs.coresignal.com/additional-sources/glassdoor/glassdoor-reviews.md)
+- [Data Dictionary: Glassdoor Reviews](https://docs.coresignal.com/additional-sources/glassdoor/glassdoor-reviews/data-dictionary.md)
+- [Data Sample: Glassdoor Reviews](https://docs.coresignal.com/additional-sources/glassdoor/glassdoor-reviews/data-sample.md)
+- [Glassdoor Jobs](https://docs.coresignal.com/additional-sources/glassdoor/glassdoor-jobs.md)
+- [Data Dictionary: Glassdoor Jobs](https://docs.coresignal.com/additional-sources/glassdoor/glassdoor-jobs/data-dictionary.md)
+- [Data Sample: Glassdoor Jobs](https://docs.coresignal.com/additional-sources/glassdoor/glassdoor-jobs/data-sample.md)
+- [Glassdoor Salaries](https://docs.coresignal.com/additional-sources/glassdoor/glassdoor-salaries.md)
+- [Data Dictionary: Glassdoor Salaries](https://docs.coresignal.com/additional-sources/glassdoor/glassdoor-salaries/data-dictionary.md)
+- [Data Sample: Glassdoor Salaries](https://docs.coresignal.com/additional-sources/glassdoor/glassdoor-salaries/data-sample.md)
+- [Indeed Data](https://docs.coresignal.com/additional-sources/indeed-data.md)
+- [Indeed Companies](https://docs.coresignal.com/additional-sources/indeed-data/indeed-companies.md)
+- [Data Dictionary: Indeed Companies](https://docs.coresignal.com/additional-sources/indeed-data/indeed-companies/data-dictionary.md)
+- [Data Sample: Indeed Companies](https://docs.coresignal.com/additional-sources/indeed-data/indeed-companies/data-sample.md)
+- [Indeed Jobs](https://docs.coresignal.com/additional-sources/indeed-data/indeed-jobs.md)
+- [Data Dictionary: Indeed Jobs](https://docs.coresignal.com/additional-sources/indeed-data/indeed-jobs/data-dictionary.md)
+- [Data Sample: Indeed Jobs](https://docs.coresignal.com/additional-sources/indeed-data/indeed-jobs/data-sample.md)
+- [Owler Companies](https://docs.coresignal.com/additional-sources/owler-companies.md)
+- [Data Dictionary: Owler Companies](https://docs.coresignal.com/additional-sources/owler-companies/data-dictionary.md)
+- [Data Sample: Owler Companies](https://docs.coresignal.com/additional-sources/owler-companies/data-sample.md)
+
+## Self-service
+
+- [Overview](https://docs.coresignal.com/self-service/overview.md): Coresignal's self-service platform: access 1B+ fresh company, employee, and jobs records using no-code tools or APIs.
+- [Quickstart Tutorial](https://docs.coresignal.com/self-service/quickstart-tutorial.md): Get started with Coresignal's no-code tools. Search, preview, and download fresh B2B data in JSON or CSV – no engineering setup required.
+- [Free Trial](https://docs.coresignal.com/self-service/account-management/free-trial.md): Test Coresignal's real-time data quality for free. New users get 2,000 credits, valid for 7 days after signup.
+- [Subscription Management](https://docs.coresignal.com/self-service/account-management/subscription-management.md)
+- [Teams](https://docs.coresignal.com/self-service/account-management/teams.md)
+- [Authentication and API Keys](https://docs.coresignal.com/self-service/account-management/authentication-and-api-keys.md): Manage your Coresignal API keys to authenticate requests and start accessing fresh data. Supports multiple keys per account.
+- [AI Data Search](https://docs.coresignal.com/self-service/features-and-tools/ai-data-search.md): Search fresh company, employee, and job data using plain language. No code or query syntax needed – get results from real-time data instantly.
+- [Build Lists](https://docs.coresignal.com/self-service/features-and-tools/ai-data-search/build-lists.md)
+- [Lists Pricing](https://docs.coresignal.com/self-service/features-and-tools/ai-data-search/lists-pricing.md): Understand AI Data Search credit costs for list previews, enrichment, and exports.
+- [API Playgrounds](https://docs.coresignal.com/self-service/features-and-tools/api-playgrounds.md): Test Coresignal APIs with natural language prompts. Preview fresh data responses for company, employee, and jobs endpoints – no code needed.
+- [Agentic Search API Playground](https://docs.coresignal.com/self-service/features-and-tools/agentic-search-api-playground.md): Test the Agentic Search API playground in real time with a natural-language prompt. Explore professional data directly from the Coresignal dashboard.
+- [Company Enrichment API](https://docs.coresignal.com/self-service/features-and-tools/company-enrichment-api.md)
+- [Company Enricher](https://docs.coresignal.com/self-service/features-and-tools/company-enricher.md): Enrich lead lists with fresh company data. Upload a CSV and instantly append up-to-date firmographics using Coresignal's no-code tool.
+
+## Agentic Search API
+
+- [Agentic Search API](https://docs.coresignal.com/agentic-search-api/agentic-search-api.md): Query fresh professional data using plain language with Coresignal's Agentic Search API. Built for LLM pipelines, AI agents, and agentic workflows.
+
+## Integrations
+
+- [Integrations Overview](https://docs.coresignal.com/integrations/integrations-overview.md): Compare Coresignal integration options and connect company, employee, and job data to existing workflows.
+- [Coresignal MCP](https://docs.coresignal.com/integrations/coresignal-mcp.md): Easily connect Coresignal's fresh company, employee, and jobs data to Claude, Cursor, and other MCP-compatible AI tools.
+- [n8n](https://docs.coresignal.com/integrations/n8n.md): Connect Coresignal to n8n to search, enrich, and sync B2B data in automated workflows.
+- [Zapier](https://docs.coresignal.com/integrations/zapier.md): Connect Coresignal to Zapier to search and enrich employee, company, and job data in no-code workflows across 9,000+ apps.
+- [Clay](https://docs.coresignal.com/integrations/clay.md): Enrich Clay tables with Coresignal data through native actions or the HTTP API.
+- [Databricks](https://docs.coresignal.com/integrations/databricks.md): Deliver Coresignal datasets to cloud storage and load them into Databricks on a schedule.
+
+## Release notes
+
+- [Release notes](https://docs.coresignal.com/release-notes/release-notes.md): Monthly product, data, and API updates, including new features, improvements, and breaking changes.
+- [August 2026](https://docs.coresignal.com/release-notes/august-2026.md)
+- [July 2026](https://docs.coresignal.com/release-notes/july-2026.md)
+- [June 2026](https://docs.coresignal.com/release-notes/june-2026.md)
+- [May 2026](https://docs.coresignal.com/release-notes/may-2026.md)
+- [April 2026](https://docs.coresignal.com/release-notes/april-2026.md)
+- [March 2026](https://docs.coresignal.com/release-notes/march-2026.md)
+- [February 2026](https://docs.coresignal.com/release-notes/february-2026.md)
+- [January 2026](https://docs.coresignal.com/release-notes/january-2026.md)
+- [December 2025](https://docs.coresignal.com/release-notes/december-2025.md)
+- [November 2025](https://docs.coresignal.com/release-notes/november-2025.md)
+- [October 2025](https://docs.coresignal.com/release-notes/october-2025.md)
+- [September 2025](https://docs.coresignal.com/release-notes/september-2025.md)
+- [August 2025](https://docs.coresignal.com/release-notes/august-2025.md)
+- [July 2025](https://docs.coresignal.com/release-notes/july-2025.md)
+- [June 2025](https://docs.coresignal.com/release-notes/june-2025.md)
+- [May 2025](https://docs.coresignal.com/release-notes/may-2025.md)
+- [April 2025](https://docs.coresignal.com/release-notes/april-2025.md)
+- [March 2025](https://docs.coresignal.com/release-notes/march-2025.md)
+- [February 2025](https://docs.coresignal.com/release-notes/february-2025.md)
+
+## Pricing
+
+- [Pricing](https://docs.coresignal.com/pricing/pricing.md): Find information about API credits, free trial, annual billing, and request cost.
+
+
+---
+
+# Agent Instructions
+This documentation is published with GitBook. GitBook is the documentation platform designed so that both humans and AI agents can read, navigate, and reason over technical content effectively. Learn more at gitbook.com.
+
+## Querying This Documentation
+If you need additional information, you can query the documentation dynamically by asking a question.
+Perform an HTTP GET request on a page URL with the `ask` query parameter:
+```
+GET https://docs.coresignal.com/introduction/welcome-to-coresignal.md?ask=<question>
+```
+The question should be specific, self-contained, and written in natural language.
+The response will contain a direct answer to the question and relevant excerpts and sources from the documentation.
+Use this mechanism when the answer is not explicitly present in the current page, you need clarification or additional context, or you want to retrieve related documentation sections.

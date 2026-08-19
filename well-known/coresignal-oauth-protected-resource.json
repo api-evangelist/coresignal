@@ -1,0 +1,1 @@
+{"resource":"https://mcp.coresignal.com/mcp/v2","authorization_servers":["https://dashboard.coresignal.com/api/auth"],"scopes_supported":[],"bearer_methods_supported":["header"]}

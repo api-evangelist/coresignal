@@ -1,0 +1,107 @@
+generated: '2026-08-13'
+method: searched
+source: https://docs.coresignal.com/integrations/coresignal-mcp.md
+status: published
+deployment:
+  mode: remote
+  endpoint: https://mcp.coresignal.com/mcp/v2
+  auth: oauth
+  verified: probed
+  note: >-
+    Remote-only. Coresignal ships NO stdio package — the legacy endpoint was reached via the generic
+    `npx mcp-remote` bridge, which is a third-party proxy to the same HTTPS URL, not a Coresignal
+    package. There is nothing to install; an MCP client POSTs directly to the endpoint.
+server:
+  name: com.coresignal/mcp
+  display_name: Coresignal MCP v2
+  version: 2.0.0
+  transport: streamable-http
+  url: https://mcp.coresignal.com/mcp/v2
+  repository: https://github.com/Coresignal-com/coresignal-mcp
+  registry_manifest: https://github.com/Coresignal-com/coresignal-mcp/blob/main/server.json
+  docs: https://docs.coresignal.com/integrations/coresignal-mcp
+  official: true
+authentication:
+  scheme: OAuth 2.1
+  flow: authorization_code
+  pkce: S256
+  dynamic_client_registration: true
+  authorization_server: https://dashboard.coresignal.com/api/auth
+  protected_resource_metadata: https://mcp.coresignal.com/.well-known/oauth-protected-resource/mcp/v2
+  scopes_supported: []
+  api_key_required: false
+  note: >-
+    The server resolves the signed-in team's Coresignal API key server-side; no API key is stored in
+    client config. Discovery documents captured verbatim in well-known/.
+tools:
+  - name: entity_search
+    description: >-
+      Natural-language search over employee, company or job records. Returns total_count, up to 20
+      preview rows showing the matched fields, and a cache_id handle valid for 1 hour.
+    cost: 20 credits per search (flat)
+    source: https://github.com/Coresignal-com/coresignal-mcp#tools
+  - name: entity_fields
+    description: Keyword/semantic search over an entity's ~300 field names, for scoping a fetch.
+    cost: free
+    source: https://github.com/Coresignal-com/coresignal-mcp#tools
+  - name: entity_fetch
+    description: >-
+      Pull full (JSONL) or field-projected records, either by up to 20 hand-picked ids or up to 1,000
+      records per call via a cache_id.
+    cost: 20 credits per employee/company record, 1 credit per job record
+    source: https://github.com/Coresignal-com/coresignal-mcp#tools
+  - name: email_enrich
+    description: >-
+      Verified business email lookup for employee ids, returned as CSV. EEA and UK employees are
+      excluded for GDPR compliance and blocked lookups are not charged.
+    cost: 10 credits per email found (misses free)
+    source: https://github.com/Coresignal-com/coresignal-mcp#tools
+  - name: artifact_read
+    description: Page rows back out of a server-delivered result file into the conversation.
+    cost: free
+    source: https://github.com/Coresignal-com/coresignal-mcp#tools
+tools_schema_status: gated
+tools_schema_note: >-
+  POST tools/list against https://mcp.coresignal.com/mcp/v2 returns HTTP 401
+  (WWW-Authenticate: Bearer error="invalid_token"), so the v2 inputSchemas require an authenticated
+  introspection. The five tool names/descriptions above are taken verbatim from the provider's own
+  README and docs, not guessed.
+legacy_server:
+  url: https://mcp.coresignal.com/mcp
+  status: supported-but-deprecating
+  transport: streamable-http
+  auth: api-key
+  auth_header: apikey
+  server_info:
+    name: coresignal_mcp
+    version: 3.4.2
+    protocol_version: '2025-06-18'
+  introspection: anonymous
+  tools_file: coresignal-mcp-legacy-tools.json
+  probed: '2026-08-13'
+  note: >-
+    The legacy endpoint answered initialize + tools/list ANONYMOUSLY on 2026-08-13 and returned three
+    real tools with full inputSchemas (query / keys / limit, where `query` is an Elasticsearch Query
+    DSL object and the schema mapping is inlined in the description). Saved verbatim to
+    coresignal-mcp-legacy-tools.json. Coresignal's docs state this endpoint "will eventually be
+    deprecated" and that new integrations should use v2.
+  tools:
+    - name: coresignal_company_multisource_api
+      description: Get company multisource data using Coresignal API
+      input_schema: [query, keys, limit]
+    - name: coresignal_employee_multisource_api
+      description: Get employee multisource data using Coresignal API
+      input_schema: [query, keys, limit]
+    - name: coresignal_job_api
+      description: Get job data using Coresignal API
+      input_schema: [query, keys, limit]
+capabilities:
+  prompts: false
+  resources: false
+  tools: true
+  note: prompts/list and resources/list both returned empty arrays on the legacy endpoint.
+x-evidence:
+  - {url: 'https://mcp.coresignal.com/mcp', method: 'POST initialize', http_status: 200, result: 'serverInfo coresignal_mcp 3.4.2'}
+  - {url: 'https://mcp.coresignal.com/mcp', method: 'POST tools/list', http_status: 200, result: '3 tools with inputSchema'}
+  - {url: 'https://mcp.coresignal.com/mcp/v2', method: 'POST initialize', http_status: 401, result: 'Bearer invalid_token — OAuth required'}
+  - {url: 'https://mcp.coresignal.com/.well-known/oauth-protected-resource/mcp/v2', method: GET, http_status: 200}

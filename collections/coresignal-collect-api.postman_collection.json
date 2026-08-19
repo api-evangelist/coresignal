@@ -1,0 +1,340 @@
+{
+  "item": [
+    {
+      "id": "8634672b-e242-4097-b187-b64435a3a784",
+      "name": "Collect",
+      "description": {
+        "content": "Retrieve full company records by ID.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6bb65d21-a355-4ebb-9088-839a8df984f4",
+          "name": "Collect a Company record",
+          "request": {
+            "name": "Collect a Company record",
+            "description": {
+              "content": "Retrieve the full company record for the given ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "collect",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "id",
+                  "description": "(Required) Coresignal internal company ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "88a49852-0066-4ec6-b087-946320d11c28",
+              "name": "Full company record",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "collect",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "id",
+                      "description": "(Required) Coresignal internal company ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 9822,\n  \"name\": \"string\",\n  \"website\": \"http://yKM.wmhtLBai5Hb9hzEfRPuNyelKxMhlFF7oZBAOqvB\",\n  \"domain\": \"string\",\n  \"industry\": \"string\",\n  \"type\": \"string\",\n  \"founded\": 1689,\n  \"size\": \"string\",\n  \"employees_count\": 7548,\n  \"followers_count\": 3419,\n  \"description\": \"string\",\n  \"headquarters\": \"string\",\n  \"country\": \"string\",\n  \"region\": \"string\",\n  \"locality\": \"string\",\n  \"specialities\": [\n    \"string\",\n    \"string\"\n  ],\n  \"technologies\": [\n    \"string\",\n    \"string\"\n  ],\n  \"funding_total_amount\": 2304.302353942619,\n  \"last_funding_round\": {},\n  \"linkedin_url\": \"string\",\n  \"twitter_url\": \"string\",\n  \"facebook_url\": \"string\",\n  \"crunchbase_url\": \"string\",\n  \"last_updated\": \"1973-12-04T09:04:45.131Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5cc95e48-b479-4fb2-b365-8d7d14d14026",
+              "name": "Missing or invalid apikey header",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "collect",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "id",
+                      "description": "(Required) Coresignal internal company ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4a377858-246c-4c12-8e16-fdae909c37ec",
+              "name": "Company not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "collect",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "id",
+                      "description": "(Required) Coresignal internal company ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1909f053-fc7d-4ad4-865b-47e07ec3932c",
+          "name": "Bulk Collect Companies",
+          "request": {
+            "name": "Bulk Collect Companies",
+            "description": {
+              "content": "Retrieve multiple full company records by an array of IDs.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "bulk_collect"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ids\": [\n    \"<long>\",\n    \"<long>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8443ffca-fd16-4e59-b026-e2bded1fa72a",
+              "name": "Array of company records",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bulk_collect"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ids\": [\n    \"<long>\",\n    \"<long>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 8519,\n    \"name\": \"string\",\n    \"website\": \"http://MxpnGaAGMx.uikMYmoSwzTsisHT6tKcNgxH4Z2czIaWHq.7LkMHv+Ms7TJlDLoo2dgGjFTfeovCJ1-u46E87x\",\n    \"domain\": \"string\",\n    \"industry\": \"string\",\n    \"type\": \"string\",\n    \"founded\": 5035,\n    \"size\": \"string\",\n    \"employees_count\": 1736,\n    \"followers_count\": 8007,\n    \"description\": \"string\",\n    \"headquarters\": \"string\",\n    \"country\": \"string\",\n    \"region\": \"string\",\n    \"locality\": \"string\",\n    \"specialities\": [\n      \"string\",\n      \"string\"\n    ],\n    \"technologies\": [\n      \"string\",\n      \"string\"\n    ],\n    \"funding_total_amount\": 8155.626793835512,\n    \"last_funding_round\": {},\n    \"linkedin_url\": \"string\",\n    \"twitter_url\": \"string\",\n    \"facebook_url\": \"string\",\n    \"crunchbase_url\": \"string\",\n    \"last_updated\": \"1979-02-28T18:13:36.755Z\"\n  },\n  {\n    \"id\": 8860,\n    \"name\": \"string\",\n    \"website\": \"http://ablgKHoVsCvWxqVsYfQVfoitiNVi.cyu5N5nWZhVtILuuErUda+g6UUga0Tt.O89PvkfY1eJngn1PtL\",\n    \"domain\": \"string\",\n    \"industry\": \"string\",\n    \"type\": \"string\",\n    \"founded\": 8354,\n    \"size\": \"string\",\n    \"employees_count\": 1969,\n    \"followers_count\": 6208,\n    \"description\": \"string\",\n    \"headquarters\": \"string\",\n    \"country\": \"string\",\n    \"region\": \"string\",\n    \"locality\": \"string\",\n    \"specialities\": [\n      \"string\",\n      \"string\"\n    ],\n    \"technologies\": [\n      \"string\",\n      \"string\"\n    ],\n    \"funding_total_amount\": 5199.4763502936,\n    \"last_funding_round\": {},\n    \"linkedin_url\": \"string\",\n    \"twitter_url\": \"string\",\n    \"facebook_url\": \"string\",\n    \"crunchbase_url\": \"string\",\n    \"last_updated\": \"2022-06-23T09:41:14.129Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.coresignal.com/cdapi/v2/multi_source_company",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "apikey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "16aa540b-04e9-4f40-afda-442d5973463e",
+    "name": "Coresignal Multi-source Company Collect API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Multi-source Company API returns enriched company records combining public web data sources, deduplicated and standardized with 500+ fields. Search uses Elasticsearch DSL queries; Collect returns full records by ID. Authentication uses the apikey HTTP header.\n\nContact Support:\n Name: Coresignal Support",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,126 @@
+generated: '2026-08-13'
+method: derived
+source: mcp/coresignal-mcp.yml + openapi/_original/*.yml
+note: >-
+  Binds each Coresignal MCP tool to the OpenAPI operation(s) that back it. The v2 tool inputSchemas
+  are OAuth-gated, so v2 rows are mapped by name and by the provider's own tool documentation and
+  carry honest confidence values. The LEGACY server's three tools were introspected anonymously and
+  their inputSchema (Elasticsearch Query DSL `query` + `keys` + `limit`) maps cleanly onto the
+  search/es_dsl + collect operation pair, so those rows are high confidence.
+surfaces:
+  openapi:
+    files:
+      - openapi/_original/coresignal-multi-source-company-api-openapi.yml
+      - openapi/_original/coresignal-multi-source-employee-api-openapi.yml
+      - openapi/_original/coresignal-multi-source-jobs-api-openapi.yml
+      - openapi/coresignal-search-api-openapi.yml
+      - openapi/coresignal-collect-api-openapi.yml
+    gated: false
+  graphql:
+    endpoint: null
+    note: Coresignal publishes no GraphQL surface.
+  mcp:
+    url: https://mcp.coresignal.com/mcp/v2
+    gated: true
+    gate: OAuth 2.1 bearer required for tools/list
+  mcp_legacy:
+    url: https://mcp.coresignal.com/mcp
+    gated: false
+    introspected: '2026-08-13'
+crosswalk:
+  # --- legacy server (introspected, high confidence) ---
+  - tool: coresignal_company_multisource_api
+    server: legacy
+    category: company
+    rest: [searchCompaniesByEsDsl, collectCompany]
+    binding: rest
+    confidence: high
+    note: >-
+      inputSchema.query is an Elasticsearch Query DSL object matching the /search/es_dsl request body;
+      the tool then collects the matched records, which is /collect/{id}. Composite of the two.
+  - tool: coresignal_employee_multisource_api
+    server: legacy
+    category: employee
+    rest: [searchEmployeesByEsDsl, collectEmployee]
+    binding: rest
+    confidence: high
+    note: Same search-then-collect composite against the Multi-source Employee API.
+  - tool: coresignal_job_api
+    server: legacy
+    category: job
+    rest: [searchJobsByEsDsl, collectJob]
+    binding: rest
+    confidence: high
+    note: >-
+      Docs describe this tool as backed by the Base Jobs API; the catalog's OpenAPI covers the
+      Multi-source Jobs API, whose search/collect shape is identical. Mapped to the operations we hold.
+  # --- v2 server (gated schemas, mapped by provider documentation) ---
+  - tool: entity_search
+    server: v2
+    category: search
+    rest: [searchCompaniesByEsDsl, searchEmployeesByEsDsl, searchJobsByEsDsl, searchCompaniesByFilter, searchEmployeesByFilter, searchJobsByFilter]
+    binding: rest
+    confidence: medium
+    note: >-
+      Fans out across all three entities — the tool takes natural language, builds the Elasticsearch
+      query server-side, and returns a preview. The preview behaviour corresponds to the documented
+      /search/es_dsl/preview and /search/filter/preview endpoints, which are not in the OpenAPI we hold.
+  - tool: entity_fetch
+    server: v2
+    category: collect
+    rest: [collectCompany, collectEmployee, collectJob, bulkCollectCompanies, bulkCollectEmployees]
+    binding: rest
+    confidence: medium
+    note: >-
+      Up to 20 ids maps to per-id /collect/{id}; up to 1,000 records via a cache_id maps to the
+      bulk-collect surface.
+  - tool: email_enrich
+    server: v2
+    category: enrichment
+    rest: []
+    binding: none
+    confidence: low
+    note: >-
+      Backed by the Contact Enrichment API, which is a separate paid endpoint not present in the
+      OpenAPI files this repo holds. Listed here so the divergence is recorded, not to claim a binding.
+mcp_only:
+  - tool: entity_fields
+    server: v2
+    reason: >-
+      Semantic search over an entity's ~300 field names. There is no public REST operation for field
+      discovery — the equivalent for a REST consumer is reading the static Data Dictionary docs page.
+  - tool: artifact_read
+    server: v2
+    reason: >-
+      Pages rows out of a server-side result file the MCP server created. Pure MCP-server construct;
+      the REST API has no artifact/file-delivery surface.
+  - tool: email_enrich
+    server: v2
+    reason: >-
+      Contact Enrichment API is on-demand/plan-gated and is not published in any OpenAPI Coresignal
+      distributes, so there is no operationId to bind to.
+rest_only:
+  - capability: Structured filter search
+    operations: [searchCompaniesByFilter, searchEmployeesByFilter, searchJobsByFilter]
+    note: >-
+      The v2 MCP surface takes natural language only; a REST consumer can post an explicit structured
+      filter object. No dedicated tool exposes the filter schema.
+  - capability: Bulk Collect
+    operations: [bulkCollectCompanies, bulkCollectEmployees]
+    note: >-
+      Asynchronous bulk job submission (up to 10k ids, 30-day retrieval window) has no MCP tool;
+      entity_fetch caps at 1,000 records per call.
+  - capability: Webhook subscriptions
+    operations: []
+    note: >-
+      Documented at /v2/subscriptions (create, list, renew, delete, simulate) but not present in the
+      OpenAPI files this repo holds and not exposed as an MCP tool. Recorded in asyncapi/.
+coverage:
+  tools_named: 8
+  tools_named_v2: 5
+  tools_named_legacy: 3
+  tools_bound_to_rest: 5
+  mcp_only: 3
+  rest_operations_total: 11
+  rest_operations_with_a_tool: 11
+  graphql_fields: 0

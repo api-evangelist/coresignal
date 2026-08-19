@@ -1,0 +1,72 @@
+generated: '2026-08-13'
+method: probed
+source: >-
+  well-known/coresignal-oauth-authorization-server.json,
+  well-known/coresignal-openid-configuration.json,
+  well-known/coresignal-oauth-protected-resource.json
+docs: https://docs.coresignal.com/integrations/coresignal-mcp
+note: >-
+  Coresignal's REST data APIs use an api-key header and have NO scope surface at all. The only OAuth
+  on the estate authenticates the MCP v2 server, and it is a sign-in flow, not a permissioning model:
+  the four scopes below are the standard OIDC identity set, and the protected resource itself
+  advertises scopes_supported: [] — meaning once a user signs in, the server resolves their team's
+  API key and the token carries the team's full data entitlement. There is no read/write split, no
+  per-dataset scope, and no way for an agent to request less than everything the team can see.
+schemes:
+  - name: Coresignal Dashboard OAuth 2.1
+    source: https://dashboard.coresignal.com/.well-known/oauth-authorization-server
+    issuer: https://dashboard.coresignal.com/api/auth
+    protects: https://mcp.coresignal.com/mcp/v2
+    flows:
+      - flow: authorizationCode
+        authorizationUrl: https://dashboard.coresignal.com/api/auth/oauth2/authorize
+        tokenUrl: https://dashboard.coresignal.com/api/auth/oauth2/token
+        pkce: S256
+      - flow: clientCredentials
+        tokenUrl: https://dashboard.coresignal.com/api/auth/oauth2/token
+      - flow: refreshToken
+        tokenUrl: https://dashboard.coresignal.com/api/auth/oauth2/token
+    jwks_uri: https://dashboard.coresignal.com/api/auth/jwks
+    introspection_endpoint: https://dashboard.coresignal.com/api/auth/oauth2/introspect
+    revocation_endpoint: https://dashboard.coresignal.com/api/auth/oauth2/revoke
+    registration_endpoint: https://dashboard.coresignal.com/api/auth/oauth2/register
+    userinfo_endpoint: https://dashboard.coresignal.com/api/auth/oauth2/userinfo
+    end_session_endpoint: https://dashboard.coresignal.com/api/auth/oauth2/end-session
+    token_endpoint_auth_methods: [none, client_secret_basic, client_secret_post]
+    id_token_signing_alg: [RS256]
+scopes:
+  - scope: openid
+    description: Standard OIDC scope — request an ID token identifying the signed-in dashboard user.
+    flows: [authorizationCode]
+    sources: [well-known/coresignal-oauth-authorization-server.json]
+  - scope: profile
+    description: >-
+      Standard OIDC scope — name, given_name, family_name, picture claims for the dashboard user.
+    flows: [authorizationCode]
+    sources: [well-known/coresignal-oauth-authorization-server.json]
+  - scope: email
+    description: Standard OIDC scope — email and email_verified claims for the dashboard user.
+    flows: [authorizationCode]
+    sources: [well-known/coresignal-oauth-authorization-server.json]
+  - scope: offline_access
+    description: >-
+      Standard OIDC scope — issue a refresh token so the MCP client can keep the session alive without
+      re-prompting the user in the browser.
+    flows: [authorizationCode]
+    sources: [well-known/coresignal-oauth-authorization-server.json]
+resource_scopes:
+  resource: https://mcp.coresignal.com/mcp/v2
+  scopes_supported: []
+  bearer_methods_supported: [header]
+  interpretation: >-
+    The MCP resource declares an EMPTY scope list. Authorization is binary — a valid token for a team
+    grants every tool, including the credit-spending ones (entity_search at 20 credits, entity_fetch
+    at up to 20 credits per record, email_enrich at 10 credits per email). Spend control is handled by
+    the server's confirmation prompt before expensive calls, not by the token.
+claims_supported: [sub, iss, aud, exp, iat, sid, scope, azp, email, email_verified, name, picture, family_name, given_name]
+rest_api_scopes:
+  present: false
+  note: >-
+    api.coresignal.com authenticates with a 32-character `apikey` header. Keys have no scopes and no
+    least-privilege model; entitlement is the plan attached to the account. Multiple keys per account
+    can be generated and revoked, which is the only isolation mechanism available.

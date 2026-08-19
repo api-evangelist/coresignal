@@ -1,0 +1,139 @@
+generated: '2026-08-13'
+method: derived
+source: >-
+  openapi/_original/coresignal-multi-source-company-api-openapi.yml,
+  openapi/_original/coresignal-multi-source-employee-api-openapi.yml,
+  openapi/_original/coresignal-multi-source-jobs-api-openapi.yml,
+  json-schema/*.json
+docs: https://docs.coresignal.com/data-introduction/data-overview
+note: >-
+  Coresignal's model is three PARALLEL record types, not a normalized graph. There are no foreign-key
+  fields between Company, Employee and Job in the published schemas — the entities are joined by
+  VALUE, not by id: a Job carries company_name/company_url and an Employee carries
+  active_experience_company_name, both of which are strings you match back to a Company record
+  yourself. That soft-join is the single most important thing an integrator needs to know about this
+  data model, and it is why the arazzo/ workflows in this repo chain search→search rather than
+  following a reference. Relationships below are marked with the field that carries the join and
+  their real strength.
+entities:
+  - name: Company
+    id_field: id
+    id_type: integer
+    schema: openapi/_original/coresignal-multi-source-company-api-openapi.yml#/components/schemas/Company
+    json_schema: json-schema/coresignal-company-schema.json
+    tier_variants: [Base Company, Clean Company, Multi-source Company]
+    freshness_field: last_updated
+    fields:
+      identity: [id, name, website, domain, linkedin_url, twitter_url, facebook_url, crunchbase_url]
+      firmographic: [industry, type, founded, size, employees_count, followers_count, description]
+      location: [headquarters, country, region, locality]
+      commercial: [specialities, technologies, funding_total_amount, last_funding_round]
+    filter_schema: openapi/_original/coresignal-multi-source-company-api-openapi.yml#/components/schemas/CompanyFilter
+  - name: Employee
+    id_field: id
+    id_type: integer
+    also_known_as: member_id (webhook payloads use member_id for the same identifier)
+    schema: openapi/_original/coresignal-multi-source-employee-api-openapi.yml#/components/schemas/Employee
+    json_schema: json-schema/coresignal-employee-schema.json
+    tier_variants: [Base Employee, Clean Employee, Multi-source Employee, Real-time Employee]
+    freshness_field: last_updated
+    fields:
+      identity: [id, full_name, first_name, last_name, linkedin_url]
+      professional: [title, headline, summary, industry, skills, certifications]
+      location: [country, location]
+      social: [connections, followers]
+      nested_collections: [experience, education]
+    filter_schema: openapi/_original/coresignal-multi-source-employee-api-openapi.yml#/components/schemas/EmployeeFilter
+  - name: Job
+    id_field: id
+    id_type: integer
+    schema: openapi/_original/coresignal-multi-source-jobs-api-openapi.yml#/components/schemas/Job
+    json_schema: json-schema/coresignal-job-schema.json
+    tier_variants: [Base Jobs, Multi-source Jobs]
+    freshness_field: last_updated
+    fields:
+      identity: [id, title, url]
+      posting: [description, seniority_level, employment_type, application_active, time_posted, date_posted]
+      employer: [company_name, company_url]
+      location: [location, country, region]
+      compensation: [salary_currency, salary_min, salary_max]
+    filter_schema: openapi/_original/coresignal-multi-source-jobs-api-openapi.yml#/components/schemas/JobFilter
+  - name: Subscription
+    id_field: id
+    id_type: uuid
+    source: https://docs.coresignal.com/api-introduction/webhooks/subscription-management
+    fields:
+      identity: [id]
+      state: [status, created_at, expiring_at]
+    note: >-
+      Not present in any OpenAPI; derived from the documented subscription-management responses.
+      Belongs to an API key / account, and tracks a population of Employee ids.
+relationships:
+  - from: Job
+    to: Company
+    cardinality: belongs_to
+    via: company_name
+    also_via: company_url
+    strength: soft
+    join_type: value-match
+    note: >-
+      No company id on the Job record. Resolve by searching the Company API for company_name (or by
+      normalizing company_url to a domain and matching Company.website / Company.domain).
+      arazzo/coresignal-company-to-jobs-workflow.yml implements this chain.
+  - from: Employee
+    to: Company
+    cardinality: belongs_to
+    via: active_experience_company_name
+    strength: soft
+    join_type: value-match
+    note: >-
+      The EmployeeFilter exposes active_experience_company_name and active_experience_title, which is
+      how the catalog's company→employees workflow resolves a workforce. The Employee RECORD itself
+      carries the association inside the experience[] array rather than as a top-level company id.
+      arazzo/coresignal-company-to-employees-workflow.yml implements this chain.
+  - from: Employee
+    to: Experience
+    cardinality: has_many
+    via: experience
+    strength: embedded
+    note: >-
+      Embedded array. Since 2026-08-01 each entry carries experience[].id, a profile hash id that
+      finally makes an individual position addressable.
+  - from: Employee
+    to: Education
+    cardinality: has_many
+    via: education
+    strength: embedded
+    note: Embedded array; education[].id added 2026-08-01.
+  - from: Company
+    to: AffiliatedCompany
+    cardinality: has_many
+    via: affiliated_pages
+    strength: hard
+    join_type: id-reference
+    note: >-
+      affiliated_pages[].affiliated_company_id was added to Base Company data on 2026-08-01 and
+      backfilled. This is the only true id-to-id reference Coresignal publishes — a Company pointing
+      at another Company.
+  - from: Subscription
+    to: Employee
+    cardinality: has_many
+    via: tracked population (id list, search filter, or ES DSL query)
+    strength: query-defined
+    note: Notifications arrive as member_id, which is Employee.id.
+access_pattern:
+  shape: two-step search-then-collect
+  step_1: POST /search/es_dsl or /search/filter -> array of record IDs (free)
+  step_2: GET /collect/{id} or POST /bulk_collect -> full records (credit-charged)
+  shortcut: /search/*/preview returns up to 20 full records in one charged call
+  note: >-
+    The ID array returned by step 1 is the join key for everything else. Any traversal across entities
+    is the consumer's job.
+identifier_conventions:
+  prefixes: none
+  format: bare integers per entity, not globally unique across entities
+  uuid_usage: subscription ids only
+  note: >-
+    A bare integer id is only meaningful together with the entity AND the dataset tier it came from —
+    Base, Clean and Multi-source are separate ID spaces addressed by separate base paths.
+render: null

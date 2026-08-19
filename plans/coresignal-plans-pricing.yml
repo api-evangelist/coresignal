@@ -4,8 +4,17 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Coresignal
 providerId: coresignal
 created: '2026-05-04'
-modified: '2026-05-05'
+method: searched
+modified: '2026-08-13'
+generated: '2026-08-13'
+source: https://docs.coresignal.com/pricing/pricing
 reconciled: true
+supersedes_note: >-
+  Replaces a 2026-05-04 API Evangelist bulk-sweep generation that no longer matched what Coresignal
+  publishes. That version described a 5-tier ladder with separate Collect and Search credit pools, a
+  $1,000 Datasets product and a 20% annual discount. The published pricing is an 8-tier ladder with a
+  SINGLE credit pool, a 10% annual discount, and no dataset line item on the pricing page. Every
+  figure below is read from the provider's own pricing reference.
 tags:
   - Agentic Search
   - B2B Data
@@ -24,50 +33,151 @@ tags:
   - Sales Intelligence
   - Talent Intelligence
   - Web Data
-description: Coresignal sells API access to its B2B web data (companies, employees, jobs) on credit-based
-  monthly subscriptions. Each plan includes a minimum number of Collect and Search credits with monthly
-  reset; per-record price drops as credit volume increases. A separate Datasets product is sold via
-  custom contract starting at $1,000. Annual prepay receives a 20% discount.
+description: >-
+  Coresignal sells API access to its B2B web data on a credit model. Credits are a single universal
+  unit across every endpoint and plan; each plan includes a monthly (or annual) credit allocation and
+  a credit cost is deducted per successful collect or enrich request. Search itself is free —
+  /search/es_dsl and /search/filter deduct nothing — so the price of a query is entirely determined by
+  how many records you actually pull and which dataset tier they come from (1 credit for a job or a
+  post, 10 for Base/Clean company or employee, 20 for Multi-source). Eight published tiers run from a
+  7-day free trial to a $5,000/month Elite plan, differentiated by credit count, requests-per-second
+  rate limit, access to Search Preview and the Contact Enrichment API, credit rollover, and support
+  model. Annual plans take 10% off and issue the full year of credits upfront.
 sources:
+  - https://docs.coresignal.com/pricing/pricing
   - https://coresignal.com/pricing/
+  - https://docs.coresignal.com/api-introduction/credits
   - https://docs.coresignal.com/api-introduction/rate-limits
+currency: USD
+billing_periods: [monthly, annual]
+annual_discount: 10%
+annual_terms: >-
+  Full annual credit allocation issued on the subscription start date, valid 12 months, single upfront
+  payment, auto-renewing. Annual plans are offered from the Starter tier upward.
+credit_model:
+  unit: credit
+  charged_on: successful (200) /collect and /enrich requests
+  free_operations: [/search/es_dsl, /search/filter]
+  balance_header: x-credits-remaining
+  exhaustion_status: 402
+  cost_per_record:
+    - {endpoint: Base and Multi-source Jobs APIs, credits: 1}
+    - {endpoint: Employee Posts APIs, credits: 1}
+    - {endpoint: Company Posts APIs, credits: 1}
+    - {endpoint: Base and Clean Company / Employee APIs, credits: 10}
+    - {endpoint: Historical Headcount API, credits: 10}
+    - {endpoint: Multi-source Company / Employee APIs, credits: 20}
+    - {endpoint: Contact Enrichment API, credits: 20}
+  search_preview:
+    - {endpoint: Base and Clean Search Preview, credits: 10, per: query returning up to 20 results}
+    - {endpoint: Multi-source Search Preview, credits: 20, per: query returning up to 20 results}
+  agentic_search:
+    basis: per query, in batches of 20 results; each additional batch of up to 20 adds 20 credits
+    tiers:
+      - {results: Elasticsearch query, fast: 20, reasoning: 100}
+      - {results: 1-20, fast: 20, reasoning: 100}
+      - {results: 21-40, fast: 40, reasoning: 120}
+      - {results: 41-60, fast: 60, reasoning: 140}
+      - {results: 61-80, fast: 80, reasoning: 160}
+      - {results: 81-100, fast: 100, reasoning: 180}
+  expiry:
+    monthly: valid for one billing cycle, reset each month, no carry-over
+    monthly_rollover: Premium, Scale and Elite carry unused credits up to 3 months
+    annual: all credits issued upfront, valid 12 months from purchase
+    trial: 7 days from registration
+plan_count: 8
 plans:
-  - id: coresignal-free
-    name: Free
+  - id: coresignal-free-trial
+    name: Free trial
     type: freemium
-    description: 7-day free evaluation, no credit card. 200 Collect + 400 Search credits across the
-      employee, company, and jobs endpoints.
+    price: '0.00'
+    currency: USD
+    billing_period: one-time
+    description: >-
+      7-day evaluation on the production API, no credit card. Available only to the first user of the
+      first team or domain created under an account.
     entries:
-      - label: Collect credits
-        name: collect_credits
+      - label: API credits
+        name: api_credits
         type: quota
         metric: credit
-        limit: 200
+        limit: 2000
         timeFrame: usage
         geo: global
         unit: 1
         price: '0.00'
         userMultiplied: false
-      - label: Search credits
-        name: search_credits
-        type: quota
-        metric: credit
-        limit: 400
-        timeFrame: usage
+      - label: Rate limit
+        name: rate_limit
+        type: limit
+        metric: requests_per_second
+        limit: 5
+        timeFrame: second
         geo: global
         unit: 1
-        price: '0.00'
         userMultiplied: false
     elements:
-      - name: 7-day trial validity
-      - name: Employee, company, jobs endpoints
-      - name: Elasticsearch Query DSL
-      - name: Technical support
+      - name: Duration - 7 days from account creation
+      - name: All endpoints; Contact Enrichment API on request via support@coresignal.com
+      - name: Multi-source endpoints
+      - name: Agentic Search API
+      - name: Elasticsearch DSL
+      - name: Webhooks
+      - name: Search Preview
+      - name: Email support
+      - name: Trial credits expire at the end of the 7-day period and do not carry over
+  - id: coresignal-mini
+    name: Mini
+    type: subscription
+    price: '49.00'
+    currency: USD
+    billing_period: month
+    description: Entry monthly subscription. 2,500 credits, 5 req/s.
+    entries:
+      - label: Monthly subscription
+        name: monthly_subscription
+        type: subscription
+        metric: month
+        limit: 1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '49.00'
+        userMultiplied: false
+      - label: API credits
+        name: api_credits
+        type: quota
+        metric: credit
+        limit: 2500
+        timeFrame: month
+        geo: global
+        unit: 1
+        userMultiplied: false
+      - label: Rate limit
+        name: rate_limit
+        type: limit
+        metric: requests_per_second
+        limit: 5
+        timeFrame: second
+        geo: global
+        unit: 1
+        userMultiplied: false
+    elements:
+      - name: Multi-source endpoints
+      - name: Agentic Search API
+      - name: Elasticsearch DSL
+      - name: Webhooks
+      - name: Email support
+      - name: No Search Preview
+      - name: No Contact Enrichment API
+      - name: No credit rollover
   - id: coresignal-starter
     name: Starter
     type: subscription
-    description: Entry monthly subscription. Credits reset each month; per-record price scales with
-      committed volume.
+    price: '199.00'
+    currency: USD
+    billing_period: month
+    description: 12,000 credits, 5 req/s. First tier eligible for annual billing.
     entries:
       - label: Monthly subscription
         name: monthly_subscription
@@ -77,38 +187,43 @@ plans:
         timeFrame: month
         geo: global
         unit: 1
-        price: starting from $49/month
+        price: '199.00'
         userMultiplied: false
-      - label: Collect credits (minimum)
-        name: collect_credits
+      - label: API credits
+        name: api_credits
         type: quota
         metric: credit
-        limit: 250
+        limit: 12000
         timeFrame: month
         geo: global
         unit: 1
-        price: '$0.196-$0.133/record'
         userMultiplied: false
-      - label: Search credits (minimum)
-        name: search_credits
-        type: quota
-        metric: credit
-        limit: 500
-        timeFrame: month
+      - label: Rate limit
+        name: rate_limit
+        type: limit
+        metric: requests_per_second
+        limit: 5
+        timeFrame: second
         geo: global
         unit: 1
-        price: '$0.196-$0.133/record'
         userMultiplied: false
     elements:
-      - name: Monthly credit renewal
-      - name: Employee, company, jobs endpoints
-      - name: Elasticsearch Query DSL
-      - name: Technical support
-      - name: 20% discount on annual prepay
+      - name: Multi-source endpoints
+      - name: Agentic Search API
+      - name: Elasticsearch DSL
+      - name: Webhooks
+      - name: Email support
+      - name: Annual billing available at 10% discount
+      - name: No Search Preview
+      - name: No Contact Enrichment API
+      - name: No credit rollover
   - id: coresignal-pro
     name: Pro
     type: subscription
-    description: Mid-volume tier with dedicated account manager and lower per-record pricing.
+    price: '499.00'
+    currency: USD
+    billing_period: month
+    description: 35,000 credits, 10 req/s. First tier with Search Preview and Contact Enrichment API.
     entries:
       - label: Monthly subscription
         name: monthly_subscription
@@ -118,38 +233,42 @@ plans:
         timeFrame: month
         geo: global
         unit: 1
-        price: starting from $800/month
+        price: '499.00'
         userMultiplied: false
-      - label: Collect credits (minimum)
-        name: collect_credits
+      - label: API credits
+        name: api_credits
         type: quota
         metric: credit
-        limit: 10000
+        limit: 35000
         timeFrame: month
         geo: global
         unit: 1
-        price: '$0.080-$0.050/record'
         userMultiplied: false
-      - label: Search credits (minimum)
-        name: search_credits
-        type: quota
-        metric: credit
-        limit: 20000
-        timeFrame: month
+      - label: Rate limit
+        name: rate_limit
+        type: limit
+        metric: requests_per_second
+        limit: 10
+        timeFrame: second
         geo: global
         unit: 1
-        price: '$0.080-$0.050/record'
         userMultiplied: false
     elements:
-      - name: Dedicated account manager
-      - name: Employee, company, jobs endpoints
-      - name: Elasticsearch Query DSL
-      - name: 20% discount on annual prepay
-  - id: coresignal-premium
-    name: Premium
+      - name: Search Preview
+      - name: Contact Enrichment API
+      - name: Multi-source endpoints
+      - name: Agentic Search API
+      - name: Elasticsearch DSL
+      - name: Webhooks
+      - name: Email support
+      - name: No credit rollover
+  - id: coresignal-growth
+    name: Growth
     type: subscription
-    description: High-volume tier (recommended) with the lowest per-record pricing, historical headcount
-      data access, and Employee API webhooks.
+    price: '1000.00'
+    currency: USD
+    billing_period: month
+    description: 150,000 credits, 20 req/s.
     entries:
       - label: Monthly subscription
         name: monthly_subscription
@@ -159,57 +278,176 @@ plans:
         timeFrame: month
         geo: global
         unit: 1
-        price: starting from $1,500/month
+        price: '1000.00'
         userMultiplied: false
-      - label: Collect credits (minimum)
-        name: collect_credits
-        type: quota
-        metric: credit
-        limit: 50000
-        timeFrame: month
-        geo: global
-        unit: 1
-        price: '$0.030-$0.005/record'
-        userMultiplied: false
-      - label: Search credits (minimum)
-        name: search_credits
+      - label: API credits
+        name: api_credits
         type: quota
         metric: credit
         limit: 150000
         timeFrame: month
         geo: global
         unit: 1
-        price: '$0.030-$0.005/record'
+        userMultiplied: false
+      - label: Rate limit
+        name: rate_limit
+        type: limit
+        metric: requests_per_second
+        limit: 20
+        timeFrame: second
+        geo: global
+        unit: 1
         userMultiplied: false
     elements:
-      - name: Historical headcount API access
-      - name: Employee API webhooks
-      - name: Dedicated account manager
-      - name: Employee, company, jobs endpoints
-      - name: 20% discount on annual prepay
-  - id: coresignal-datasets
-    name: Datasets
-    type: enterprise
-    description: Bulk dataset product (companies, employees, jobs) delivered monthly with historical
-      data. Custom-priced.
+      - name: Search Preview
+      - name: Contact Enrichment API
+      - name: Multi-source endpoints
+      - name: Agentic Search API
+      - name: Elasticsearch DSL
+      - name: Webhooks
+      - name: Email support
+      - name: No credit rollover
+  - id: coresignal-premium
+    name: Premium
+    type: subscription
+    price: '1500.00'
+    currency: USD
+    billing_period: month
+    description: >-
+      1,000,000 credits, 50 req/s. First tier with a dedicated account manager and 3-month credit
+      rollover.
     entries:
-      - label: Dataset license
-        name: dataset_license
+      - label: Monthly subscription
+        name: monthly_subscription
         type: subscription
         metric: month
         limit: 1
         timeFrame: month
-        geo: configurable
+        geo: global
         unit: 1
-        price: starting from $1,000 (custom)
+        price: '1500.00'
+        userMultiplied: false
+      - label: API credits
+        name: api_credits
+        type: quota
+        metric: credit
+        limit: 1000000
+        timeFrame: month
+        geo: global
+        unit: 1
+        userMultiplied: false
+      - label: Rate limit
+        name: rate_limit
+        type: limit
+        metric: requests_per_second
+        limit: 50
+        timeFrame: second
+        geo: global
+        unit: 1
         userMultiplied: false
     elements:
-      - name: Companies dataset
-      - name: Employees dataset
-      - name: Jobs dataset
-      - name: Monthly delivery
-      - name: Historical data
-      - name: Bundling and prepayment discounts
+      - name: Dedicated account manager
+      - name: 3-month credit rollover (monthly plans)
+      - name: Search Preview
+      - name: Contact Enrichment API
+      - name: Multi-source endpoints
+      - name: Agentic Search API
+      - name: Elasticsearch DSL
+      - name: Webhooks
+  - id: coresignal-scale
+    name: Scale
+    type: subscription
+    price: '3000.00'
+    currency: USD
+    billing_period: month
+    description: 4,000,000 credits, 100 req/s, account manager plus Slack support.
+    entries:
+      - label: Monthly subscription
+        name: monthly_subscription
+        type: subscription
+        metric: month
+        limit: 1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '3000.00'
+        userMultiplied: false
+      - label: API credits
+        name: api_credits
+        type: quota
+        metric: credit
+        limit: 4000000
+        timeFrame: month
+        geo: global
+        unit: 1
+        userMultiplied: false
+      - label: Rate limit
+        name: rate_limit
+        type: limit
+        metric: requests_per_second
+        limit: 100
+        timeFrame: second
+        geo: global
+        unit: 1
+        userMultiplied: false
+    elements:
+      - name: Account manager and Slack support
+      - name: 3-month credit rollover (monthly plans)
+      - name: Search Preview
+      - name: Contact Enrichment API
+      - name: Multi-source endpoints
+      - name: Agentic Search API
+      - name: Elasticsearch DSL
+      - name: Webhooks
+  - id: coresignal-elite
+    name: Elite
+    type: subscription
+    price: '5000.00'
+    currency: USD
+    billing_period: month
+    description: 10,000,000 credits, 100+ req/s, account manager plus Slack support.
+    entries:
+      - label: Monthly subscription
+        name: monthly_subscription
+        type: subscription
+        metric: month
+        limit: 1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '5000.00'
+        userMultiplied: false
+      - label: API credits
+        name: api_credits
+        type: quota
+        metric: credit
+        limit: 10000000
+        timeFrame: month
+        geo: global
+        unit: 1
+        userMultiplied: false
+      - label: Rate limit
+        name: rate_limit
+        type: limit
+        metric: requests_per_second
+        limit: 100
+        timeFrame: second
+        geo: global
+        unit: 1
+        userMultiplied: false
+        note: Published as "100+ req/s".
+    elements:
+      - name: Account manager and Slack support
+      - name: 3-month credit rollover (monthly plans)
+      - name: Search Preview
+      - name: Contact Enrichment API
+      - name: Multi-source endpoints
+      - name: Agentic Search API
+      - name: Elasticsearch DSL
+      - name: Webhooks
+cancellation: >-
+  Self-serve from the dashboard under Settings > Billing. Plan and credits remain active through the
+  end of the paid period; no cancellation fee.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

@@ -1,0 +1,117 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://docs.coresignal.com/api-introduction/authorization,
+  https://docs.coresignal.com/api-introduction/requests/elasticsearch-dsl/results-pagination,
+  https://docs.coresignal.com/api-introduction/credits,
+  https://docs.coresignal.com/api-introduction/response-codes,
+  https://docs.coresignal.com/self-service/account-management/authentication-and-api-keys
+  + openapi/_original/*.yml
+authentication:
+  style: api-key-header
+  header: apikey
+  key_format: 32-character alphanumeric string
+  multiple_keys: true
+  oauth: >-
+    OAuth 2.1 exists only on the MCP v2 surface (dashboard.coresignal.com/api/auth). The REST APIs are
+    api-key only.
+  see: authentication/coresignal-authentication.yml
+versioning:
+  scheme: uri-path
+  current: v2
+  form: https://api.coresignal.com/cdapi/v2/<dataset>/<operation>
+  header_negotiation: false
+  note: >-
+    The dataset tier is part of the path, not a parameter — company_base, company_multi_source,
+    multi_source_company, multi_source_employee, multi_source_jobs are distinct base paths. Moving
+    between Base / Clean / Multi-source tiers is a URL change, not a content-negotiation change.
+  see: lifecycle/coresignal-lifecycle.yml
+idempotency:
+  supported: false
+  idempotency_key_header: null
+  note: >-
+    Coresignal publishes NO idempotency key. What it does publish is server-side DUPLICATE DETECTION
+    on Bulk Collect: an identical in-flight search or Elasticsearch-DSL POST is rejected with HTTP 409
+    and {"detail": "Identical data request is already in progress."} That protects the caller's credit
+    balance against an accidental double-submit, but it is not a client-supplied idempotency key —
+    the caller cannot name a request, cannot safely retry a timed-out POST and get the original
+    result, and cannot replay after the first job completes. Recorded as absent, deliberately.
+  duplicate_detection:
+    scope: bulk-collect search / es_dsl POST
+    status: 409
+    body: '{"detail": "Identical data request is already in progress."}'
+pagination:
+  style: cursor (search-after)
+  request:
+    cursor_param: after
+    page_size_param: items_per_page
+    default_page_size: 1000
+    max_page_size: 1000
+  response_headers:
+    - name: x-next-page-after
+      description: >-
+        Opaque cursor — the last ID on the page, carrying last_updated and ID (and, when sorting by
+        score, the score too). Pass verbatim as ?after={value} to get the next page.
+      example: '"2025-03-03",3771705'
+      example_score_sorted: '26.806067,"2025-02-25",6428995'
+    - name: x-total-pages
+      description: Total number of ID result pages.
+      example: '57'
+    - name: x-total-results
+      description: Total number of IDs matched by the search.
+      example: '56940'
+  body: Array of record IDs (search) — records themselves are retrieved by a separate Collect call.
+  note: >-
+    Search returns IDs, not records. The two-step search→collect shape is the defining convention of
+    this API and is what the credit model is priced on: search/es_dsl and search/filter are free,
+    collect and enrich deduct credits.
+search_preview:
+  description: >-
+    /search/es_dsl/preview and /search/filter/preview return up to 20 full records in one call,
+    collapsing the search→collect round trip. Charged per query (10 credits Base/Clean, 20
+    Multi-source) rather than per record.
+  plan_gated: true
+field_selection:
+  supported: true
+  mechanism: >-
+    The MCP surface exposes field projection through entity_fetch's field list, discovered with the
+    free entity_fields tool. The REST Collect endpoints return the full record; field selection is not
+    documented as a REST query parameter.
+metering:
+  unit: credit
+  response_header: x-credits-remaining
+  example: 'x-credits-remaining: 9973'
+  charged_on: successful (200) collect and enrich requests
+  free_operations: [search/es_dsl, search/filter]
+  exhaustion_status: 402
+  see: plans/coresignal-plans-pricing.yml
+request_tracing:
+  request_id_header: null
+  note: >-
+    No request-id or correlation-id header is documented on Coresignal responses. The upstream Kong
+    gateway does emit a `request_id` in its own 404 body for unrouted paths, but that is a gateway
+    artifact and is not documented as a supported correlation handle.
+rate_limit_signaling:
+  documented_headers: []
+  exhaustion_status: 429
+  retry_after: undocumented
+  note: >-
+    Rate limits are published as per-plan requests-per-second numbers in the docs, but NO
+    X-RateLimit-* / RateLimit-* response headers and no Retry-After are documented. An agent therefore
+    cannot read its remaining budget at runtime — it can only observe the 429. This is the single
+    biggest runtime-semantics gap in the Coresignal contract.
+  see: rate-limits/coresignal-rate-limits.yml
+error_envelope:
+  shape: '{"detail": "<message>"}'
+  rfc9457: false
+  see: errors/coresignal-error-codes.yml
+async_jobs:
+  surface: Bulk Collect
+  submit_status: 201
+  in_progress_status: 202
+  max_ids_per_request: 10000
+  retrieval_window_days: 30
+  note: After 30 days from query submission the GET returns 404.
+events:
+  webhooks: true
+  see: asyncapi/coresignal-webhooks.yml

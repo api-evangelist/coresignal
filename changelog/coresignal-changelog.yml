@@ -1,0 +1,116 @@
+generated: '2026-08-13'
+method: searched
+source: https://docs.coresignal.com/release-notes/release-notes.md
+docs: https://docs.coresignal.com/release-notes/release-notes
+scheme: dated monthly release notes
+cadence: monthly
+current_version: v2
+window: recent months only — the live page is the source of truth
+history_available_from: '2025-02'
+history_available_to: '2026-08'
+breaking_change_marking: >-
+  Entries that break consumers are tagged "[Breaking change]" in the monthly index and each update
+  block carries the date the change takes effect, which is frequently in the future relative to
+  publication.
+entries:
+  - month: '2026-08'
+    url: https://docs.coresignal.com/release-notes/august-2026
+    breaking: true
+    highlights:
+      - date: '2026-08-01'
+        area: data
+        type: addition
+        summary: >-
+          Base Company data gains affiliated_pages[].affiliated_company_id, with values backfilled.
+      - date: '2026-08-01'
+        area: data
+        type: addition
+        summary: >-
+          Multi-source Employee data gains experience[].id and education[].id hash IDs so individual
+          experience and education entries can be identified.
+      - date: '2026-08-10'
+        area: data
+        type: addition
+        summary: >-
+          Base Jobs data gains status_changed_at[] (status + changed_at) recording when a posting last
+          moved between active / inactive / deleted — supports job-duration and hiring-trend analytics.
+      - date: '2026-08-11'
+        area: api
+        type: addition
+        summary: >-
+          Multi-source Employee API gains academic, career-trajectory and activity signal fields
+          including institution_ranking_score, months_in_management, post_frequency_yearly,
+          posting_recency, engagement_per_post, influence_score (0–100 composite) and processed_at.
+      - date: '2026-08-18'
+        area: data
+        type: breaking
+        summary: >-
+          Multi-source Jobs data: employment_type changes from String to Array of strings, values
+          normalized (PER_DIEM -> Temporary, unmapped -> Other), and salary[].currency moves from
+          symbols to ISO 4217 codes.
+      - area: api
+        type: breaking
+        summary: >-
+          Agentic Search API updates the response structure and maximum results count and removes the
+          "limit" parameter.
+      - area: api
+        type: change
+        summary: >-
+          Webhook subscription limit raised to 500 subscriptions per account, each allowing a maximum
+          of 300,000 IDs.
+      - area: data
+        type: change
+        summary: Glassdoor Jobs field value change; Indeed Jobs field value normalization.
+  - month: '2026-07'
+    url: https://docs.coresignal.com/release-notes/july-2026
+    breaking: true
+    highlights:
+      - area: api
+        type: addition
+        summary: >-
+          New Company Posts API endpoints.
+      - date: '2026-07-30'
+        area: api
+        type: addition
+        summary: >-
+          Three new /semantic_search/es_dsl endpoints across the Multi-source company, employee and
+          jobs APIs. Same Elasticsearch DSL request format as /search/es_dsl, but semantically related
+          job-title synonyms are injected before execution.
+      - date: '2026-07-27'
+        area: api
+        type: breaking
+        summary: >-
+          Response header changes — x-subscription-active removed from API Search responses;
+          x-credits-remaining changed to display all available API credits.
+      - date: '2026-07-27'
+        area: operations
+        type: maintenance
+        summary: >-
+          Scheduled maintenance 08:00–10:00 EET; all API endpoints and the dashboard unavailable,
+          requests returning 503.
+      - area: data
+        type: addition
+        summary: >-
+          New fields across Base Company, Clean Company, Multi-source Company and Multi-source
+          Employee data.
+  - month: '2026-06'
+    url: https://docs.coresignal.com/release-notes/june-2026
+    breaking: false
+    highlights:
+      - area: data
+        type: addition
+        summary: New Company Posts dataset introduced.
+      - area: data
+        type: addition
+        summary: >-
+          New and updated fields across Base Employee, Clean Employee, Multi-source Employee, Base
+          Company and Clean Company data.
+observations:
+  - >-
+    The change surface is overwhelmingly DATA-SHAPED, not endpoint-shaped: new and renamed record
+    fields dominate every month, while the endpoint set changes rarely. Consumers of this API are
+    exposed to schema drift far more than to route drift, and none of that drift is expressed in an
+    OpenAPI Coresignal distributes.
+  - >-
+    Breaking changes carry an effective date that is typically 1–3 weeks after publication, which is
+    the only lead time a consumer gets — there is no versioned schema they can pin to instead.

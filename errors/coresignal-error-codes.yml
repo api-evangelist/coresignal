@@ -1,0 +1,179 @@
+generated: '2026-08-13'
+method: searched
+source: https://docs.coresignal.com/api-introduction/response-codes.md
+docs: https://docs.coresignal.com/api-introduction/response-codes
+format: bare-json
+note: >-
+  Coresignal does NOT use RFC 9457 problem+json. Errors are returned as a flat JSON object with a
+  single `detail` string (e.g. {"detail": "Insufficient credits"}); the machine-readable signal is the
+  HTTP status code alone. There is no error `type` URI, no `title`, and no per-error code registry —
+  the status code is overloaded, with 404 meaning both "no such URL" and "no such record id", and 422
+  meaning six different things depending on the endpoint family. The catalog below is captured
+  verbatim from the provider's Response Codes reference, grouped the way Coresignal groups it.
+envelope:
+  content_type: application/json
+  shape: '{"detail": "<human readable message>"}'
+  fields:
+    - name: detail
+      type: string
+      description: Human-readable message. Not a stable code; do not branch on its text.
+  examples:
+    - status: 402
+      body: '{"detail": "Insufficient credits"}'
+    - status: 409
+      body: '{"detail": "Identical data request is already in progress."}'
+  correlation_id: false
+  note: >-
+    No request-id / correlation-id header is documented on error responses. Support triage therefore
+    depends on the caller retaining their own request context.
+families:
+  - id: search-and-collect
+    label: Search and Collect (Elasticsearch DSL, Search filters, Collect)
+    codes:
+      - status: 200
+        meaning: Successful request. Credits are deducted.
+        action: none
+      - status: 400
+        meaning: Request was unacceptable, often due to a missing required parameter.
+        action: Fix the request body/params; do not retry unchanged.
+      - status: 401
+        meaning: No valid API Key was provided.
+        action: Check the `apikey` header value; rotate the key in the dashboard if needed.
+      - status: 402
+        meaning: Insufficient credits.
+        action: Purchase credits or contact the account manager. Retrying will not succeed.
+      - status: 404
+        meaning: Nonexistent API URL, or a profile ID that does not exist in the database.
+        action: Distinguish the two by checking the path; a valid path with a bad id is a data miss.
+      - status: 422
+        meaning: Incorrect data structure or data types in the request.
+        action: Validate the payload against the search-filter / ES DSL schema.
+      - status: 429
+        meaning: Endpoint rate limit exceeded. All endpoints cap requests per second per API key.
+        action: Back off and retry; see rate-limits/coresignal-rate-limits.yml for the per-plan ceiling.
+      - status: 500
+        meaning: Server issues — one documented cause is selecting the wrong request type (POST/GET).
+        action: Verify the HTTP method before treating as a server fault.
+      - status: 502
+        meaning: Bad gateway.
+        action: Retry with backoff.
+      - status: 503
+        meaning: >-
+          Elasticsearch overloaded and temporarily unable to accept requests, the request is too
+          complex to complete in the allotted time, or another temporary disruption.
+        action: Simplify the query or retry with backoff.
+  - id: bulk-collect
+    label: Bulk Collect
+    codes:
+      - status: 201
+        meaning: Successful request (bulk job accepted).
+        action: none
+      - status: 202
+        meaning: The process is in progress.
+        action: Poll the job.
+      - status: 400
+        meaning: Incorrectly formatted or oversized files, or invalid data.
+        action: Fix the input file.
+      - status: 402
+        meaning: Insufficient credits.
+        action: Reduce request size or purchase credits.
+      - status: 404
+        meaning: Request did not find any matching IDs. Also returned for a GET on a query older than 30 days.
+        action: >-
+          Prepared datasets are downloadable for 30 days from query submission; after that the GET
+          returns 404.
+      - status: 409
+        meaning: Duplicate POST requests were submitted.
+        action: >-
+          Coresignal de-duplicates identical in-flight search/ES-DSL bulk submissions. Body is
+          {"detail": "Identical data request is already in progress."} — poll the existing job rather
+          than resubmitting.
+      - status: 422
+        meaning: >-
+          Request exceeded the 10k ID limit; the provided URLs cannot be parsed into shorthand names;
+          the input does not meet shorthand_names requirements; or the input includes duplicates.
+        action: Split the batch and de-duplicate the id list.
+      - status: 503
+        meaning: Temporary disruption on the bulk pipeline.
+        action: Retry with backoff.
+  - id: subscriptions-id
+    label: Webhook subscriptions — ID endpoint
+    codes:
+      - status: 200
+        meaning: Successful request.
+        action: none
+      - status: 400
+        meaning: >-
+          Incorrectly formatted or oversized files or invalid data; the subscription has already
+          expired; or renewing would push the expiry date more than 1 year out.
+        action: Create a new subscription instead of renewing an expired one.
+      - status: 401
+        meaning: No valid API Key was provided.
+        action: Check the `apikey` header.
+      - status: 404
+        meaning: Subscription does not exist or does not belong to the user.
+        action: List active subscriptions to confirm ownership.
+      - status: 409
+        meaning: Subscription was just created and has not finished initialising.
+        action: Wait and retry.
+      - status: 422
+        meaning: The webhook URL you provided is invalid.
+        action: Provide a publicly reachable HTTPS URL.
+      - status: 5xx
+        meaning: Unable to create subscription due to a server error.
+        action: Retry with backoff.
+  - id: subscriptions-search
+    label: Webhook subscriptions — Search Filter and Elasticsearch DSL endpoints
+    codes:
+      - status: 200
+        meaning: Successful request. Credits are deducted.
+        action: none
+      - status: 400
+        meaning: Request was unacceptable, often due to a missing required parameter.
+        action: Fix the request.
+      - status: 401
+        meaning: No valid API Key was provided.
+        action: Check the `apikey` header.
+      - status: 422
+        meaning: >-
+          Either the webhook URL is invalid, or incompatible filters were used (such as any date
+          filter from search filters or the Elasticsearch DSL schema).
+        action: Remove date filters from subscription queries.
+  - id: realtime-employee
+    label: Real-time Employee API
+    codes:
+      - status: 200
+        meaning: Successful request. Credits are deducted.
+        action: none
+      - status: 400
+        meaning: Request was unacceptable, often due to a missing required parameter.
+        action: Fix the request.
+      - status: 402
+        meaning: Insufficient credits.
+        action: Purchase credits.
+      - status: 408
+        meaning: Response timeout. Credits are NOT deducted.
+        action: Safe to retry — the request is free on timeout.
+      - status: 422
+        meaning: Incorrect data structure or data types — invalid URL or invalid cache age.
+        action: Validate the profile URL and cache_age parameter.
+      - status: 454
+        meaning: >-
+          Non-standard status. Profile was missing, removed, or made private during the most recent
+          scrape. Credits are NOT deducted.
+        action: >-
+          Treat as a permanent data miss for that profile, not a transport error. Note 454 is outside
+          the IANA HTTP status registry, so generic HTTP clients will surface it as an unknown 4xx.
+        nonstandard: true
+      - status: 503
+        meaning: >-
+          Something went wrong API-side; a Bad Gateway message is returned when the wrong request type
+          was selected.
+        action: Verify the method, then retry with backoff.
+summary:
+  families: 5
+  distinct_statuses: 14
+  rfc9457: false
+  error_code_registry: false
+  nonstandard_statuses: [454]
+  credit_safe_failures: [408, 454]

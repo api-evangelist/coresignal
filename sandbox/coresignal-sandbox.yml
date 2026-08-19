@@ -1,0 +1,80 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://docs.coresignal.com/api-introduction/webhooks/subscription-simulation,
+  https://docs.coresignal.com/pricing/pricing,
+  https://docs.coresignal.com/self-service/account-management/authentication-and-api-keys
+note: >-
+  Coresignal ships NO sandbox environment and NO test-mode key. There is no test/live key-prefix
+  split — a key is a 32-character alphanumeric string with no mode marker, there is one base host
+  (api.coresignal.com), and every successful collect/enrich call against it spends real credits
+  against real production data. What Coresignal does provide is (a) a credit-funded 7-day free trial
+  that exercises the production API, and (b) one genuine simulation endpoint, for webhooks. Both are
+  captured verbatim below; nothing here is invented.
+test_live_separation:
+  present: false
+  key_prefixes: []
+  modes: []
+  base_url_test: null
+  base_url_live: https://api.coresignal.com/cdapi/v2
+  note: >-
+    An agent cannot dry-run this API. The only way to verify a query shape without spending credits is
+    that /search/es_dsl and /search/filter are themselves free — search is uncharged and collect is
+    charged, so the free half of the two-step flow doubles as the rehearsal.
+free_tier:
+  type: time-boxed trial on production
+  duration_days: 7
+  credits: 2000
+  credit_expiry: end of the 7-day period, no carry-over to a paid plan
+  card_required: false
+  endpoints: >-
+    All endpoints. Contact Enrichment API available on request by emailing support@coresignal.com.
+  rate_limit: 5 requests per second
+  eligibility: >-
+    First user from the first team or domain created under an account only.
+  signup: https://dashboard.coresignal.com/sign-up
+  source: https://docs.coresignal.com/pricing/pricing
+free_operations:
+  - operation: POST /search/es_dsl
+    cost: 0 credits
+  - operation: POST /search/filter
+    cost: 0 credits
+  - operation: MCP entity_fields
+    cost: 0 credits
+    note: Field-name discovery is explicitly free so query formulation costs nothing.
+  - operation: MCP artifact_read
+    cost: 0 credits
+credit_safe_failures:
+  - status: 408
+    surface: Real-time Employee API
+    note: Response timeout — credits are not deducted, safe to retry.
+  - status: 454
+    surface: Real-time Employee API
+    note: Profile missing/removed/private at last scrape — credits are not deducted.
+  - surface: MCP email_enrich
+    note: Misses are free; only emails actually found are charged. Blocked EEA/UK lookups are not charged.
+simulation:
+  - name: Webhook subscription simulation
+    endpoint: POST https://api.coresignal.com/cdapi/v2/subscriptions/simulate
+    purpose: >-
+      Creates a fake subscription and delivers one example webhook to your callback URL within minutes,
+      instead of waiting for the normal weekly delivery cycle.
+    auth: apikey header
+    rate_limit: 1 request per second
+    request_body: '{"webhook_url": "{your_webhook_url}"}'
+    response: '{"message": "Subscriptions webhook simulation initiated"}'
+    delivered_payload_example: '{"member_id": 18330245, "change_type": "changed"}'
+    payload_note: >-
+      The delivered payload is randomized — a random member_id and one of the supported change_type
+      values. It is a shape test, not a fixture with stable values.
+    docs: https://docs.coresignal.com/api-introduction/webhooks/subscription-simulation
+test_data:
+  magic_ids: []
+  test_records: []
+  fixtures: []
+  note: >-
+    No magic/test record IDs are published. Coresignal does publish full sample RECORDS per dataset
+    (the "Sample" pages linked from each API's docs) which are useful for building response handling
+    offline, but they are documentation samples, not addressable test fixtures.
+time_simulation:
+  present: false

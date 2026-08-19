@@ -1,0 +1,30 @@
+generated: '2026-08-13'
+method: generated
+source: >-
+  openapi/_original/*.yml, mcp/coresignal-mcp.yml, conventions/coresignal-conventions.yml,
+  errors/coresignal-error-codes.yml, asyncapi/coresignal-webhooks.yml
+note: >-
+  Coresignal publishes no AGENTS.md and no skill files of its own; these are API Evangelist
+  generations. Every REST step is grounded in an operationId that exists verbatim in the OpenAPI files
+  in this repo, and every MCP step is grounded in a tool name Coresignal publishes in its own README.
+skills:
+  - file: coresignal-search-and-collect-companies.md
+    name: Search and collect Coresignal company records
+    api: openapi/coresignal-search-api-openapi.yml
+    operations: [searchCompaniesByFilter, searchCompaniesByEsDsl, collectCompany]
+  - file: coresignal-company-to-workforce.md
+    name: Map a company to its workforce and open roles
+    api: openapi/_original/coresignal-multi-source-company-api-openapi.yml
+    operations: [searchCompaniesByFilter, collectCompany, searchEmployeesByFilter, collectEmployee, searchJobsByFilter, collectJob]
+  - file: coresignal-bulk-collect-at-scale.md
+    name: Bulk collect Coresignal records at scale
+    api: openapi/coresignal-collect-api-openapi.yml
+    operations: [searchCompaniesByEsDsl, bulkCollectCompanies, searchEmployeesByEsDsl, bulkCollectEmployees]
+  - file: coresignal-track-employee-changes.md
+    name: Track employee profile changes with Coresignal webhooks
+    api: openapi/_original/coresignal-multi-source-employee-api-openapi.yml
+    operations: [searchEmployeesByFilter, searchEmployeesByEsDsl, collectEmployee, bulkCollectEmployees]
+  - file: coresignal-mcp-agent-pulls.md
+    name: Pull Coresignal data from an agent over MCP
+    api: mcp/coresignal-mcp.yml
+    operations: [entity_search, entity_fields, entity_fetch, email_enrich, artifact_read]

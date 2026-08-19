@@ -1,0 +1,106 @@
+generated: '2026-08-13'
+method: probed
+source: live GET probes of every Coresignal host named in apis.yml + OpenAPI servers[]
+note: >-
+  Coresignal serves no security.txt, no api-catalog and no ai-plugin.json on any host. It DOES serve a
+  real OAuth 2.1 / OIDC discovery surface from the dashboard host (dashboard.coresignal.com) and an
+  RFC 9728 protected-resource document from the MCP host — those exist because the Coresignal MCP v2
+  server authenticates with OAuth 2.1 against the dashboard. On coresignal.com and
+  dashboard.coresignal.com every unmatched /.well-known/* path is answered by a Webflow / Next.js SPA
+  catch-all, so any HTML 200 on those hosts is recorded here as a miss, not a document.
+hosts:
+  - host: https://api.coresignal.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+  - host: https://docs.coresignal.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+  - host: https://coresignal.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+  - host: https://dashboard.coresignal.com
+    documents:
+      - path: /.well-known/openid-configuration
+        status: 200
+        content_type: application/json
+        file: coresignal-openid-configuration.json
+        real_document: true
+        spec: OpenID Connect Discovery 1.0
+      - path: /.well-known/oauth-authorization-server
+        status: 200
+        content_type: application/json
+        file: coresignal-oauth-authorization-server.json
+        real_document: true
+        spec: RFC 8414 OAuth 2.0 Authorization Server Metadata
+      - path: /.well-known/security.txt
+        status: 200
+        real_document: false
+        note: HTML SPA shell, not an RFC 9116 document — recorded as a miss.
+      - path: /.well-known/agent-card.json
+        status: 200
+        real_document: false
+        note: HTML SPA shell, not an A2A AgentCard — recorded as a miss, no a2a/ artifact written.
+  - host: https://mcp.coresignal.com
+    documents:
+      - path: /.well-known/oauth-protected-resource/mcp/v2
+        status: 200
+        content_type: application/json
+        file: coresignal-oauth-protected-resource.json
+        real_document: true
+        spec: RFC 9728 OAuth 2.0 Protected Resource Metadata
+        note: >-
+          Advertised in the WWW-Authenticate challenge returned by
+          POST https://mcp.coresignal.com/mcp/v2 without a bearer token.
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/oauth-protected-resource
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+summary:
+  paths_probed: 33
+  real_documents: 3
+  security_txt: false
+  api_catalog: false
+  agent_card: false

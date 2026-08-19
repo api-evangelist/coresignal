@@ -1,0 +1,67 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  npm registry search + registry.npmjs.org metadata, pypi.org, github.com/Coresignal-com,
+  https://docs.coresignal.com/integrations/integrations-overview
+note: >-
+  Coresignal publishes NO first-party REST client SDK in any language. The Authorization docs page
+  teaches raw HTTP with hand-rolled snippets (Python requests, Ruby net/http, Node https) rather than
+  pointing at a library. The two first-party distributions below are an n8n community node and a
+  remote MCP server; the MCP server is a hosted URL with no installable package. PyPI has no
+  coresignal, coresignal-sdk or coresignal-api project (404 on all three).
+packages:
+  - language: typescript
+    registry: npm
+    name: n8n-nodes-coresignal-api
+    url: https://www.npmjs.com/package/n8n-nodes-coresignal-api
+    install: npm install n8n-nodes-coresignal-api
+    repository: https://github.com/Coresignal-com/n8n-nodes-coresignal-api
+    license: MIT
+    official: true
+    version: 1.1.1
+    published: '2026-03-26'
+    first_published: '2026-02-19'
+    description: >-
+      n8n community node for the Coresignal API — company, employee, job and post data inside n8n
+      workflows.
+    evidence: >-
+      Published from the Coresignal-com GitHub organization; registry repository field points at
+      github.com/Coresignal-com/n8n-nodes-coresignal-api.
+  - language: n/a
+    registry: mcp
+    name: com.coresignal/mcp
+    url: https://github.com/Coresignal-com/coresignal-mcp
+    install: null
+    official: true
+    version: 2.0.0
+    published: '2026-08-07'
+    published_source: github pushed_at (no package registry release to date)
+    description: >-
+      Official Coresignal MCP server. Remote only — there is no npm/PyPI package to install; clients
+      connect to https://mcp.coresignal.com/mcp/v2 over streamable HTTP with OAuth 2.1.
+    note: >-
+      Distributed as an MCP server.json manifest ($schema
+      static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json) declaring a single
+      streamable-http remote. version 2.0.0 is read from that manifest; `published` is the repository
+      push date because no registry endpoint carries this artifact.
+third_party:
+  - language: typescript
+    registry: npm
+    name: '@pipeworx/mcp-coresignal'
+    url: https://www.npmjs.com/package/@pipeworx/mcp-coresignal
+    official: false
+    version: 0.1.0
+    published: '2026-07-02'
+    publisher: mojibake-ai
+    note: >-
+      Community MCP wrapper, not published by Coresignal. Recorded so it is not mistaken for a
+      first-party SDK.
+registries_checked:
+  - {registry: npm, result: '2 packages matching "coresignal" — 1 official, 1 third-party'}
+  - {registry: pypi, result: 'no project (coresignal / coresignal-sdk / coresignal-api all HTTP 404)'}
+  - {registry: github, org: Coresignal-com, result: '2 public repos: coresignal-mcp, n8n-nodes-coresignal-api'}
+summary:
+  official_count: 2
+  official_sdk_count: 0
+  languages: [typescript]
+  first_party_rest_sdk: false

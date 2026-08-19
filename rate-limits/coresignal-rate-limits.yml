@@ -4,8 +4,18 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Coresignal
 providerId: coresignal
 created: '2026-05-04'
-modified: '2026-05-05'
+method: searched
+modified: '2026-08-13'
+generated: '2026-08-13'
+source: https://docs.coresignal.com/api-introduction/rate-limits
 reconciled: true
+supersedes_note: >-
+  Replaces a 2026-05-04 API Evangelist bulk-sweep generation whose numbers (Collect 54 rps, Search 18
+  rps, Bulk 27 rps, per-minute subscription budgets) do not appear anywhere in Coresignal's published
+  rate-limit reference. What Coresignal actually publishes is a single per-PLAN requests-per-second
+  ceiling that applies uniformly across search, collect, bulk collect, search preview, webhook
+  requests and the Agentic Search /fast endpoint, plus one separate per-hour limit on the Agentic
+  Search /reasoning endpoint. Every number below is read from that page.
 tags:
   - Agentic Search
   - B2B Data
@@ -16,72 +26,138 @@ tags:
   - Rate Limiting
   - Quotas
   - Throttling
-description: Coresignal publishes per-API rate limits expressed in requests per second (or per minute
-  for subscription endpoints). Limits are scoped to the API key and differ by request type - Collect
-  (GET) requests get the highest budget, Search (POST) and Enrich (GET) requests are throttled tighter,
-  and Bulk Collect sits between them. Subscription endpoints (Real-time and Clean Employee API) use
-  per-minute budgets. Monthly credit allotments are governed by the plan and act as quotas, not as
-  short-window throttles.
+description: >-
+  Coresignal enforces one rate limit per API key, set by the subscribed plan and expressed in requests
+  per second. The same ceiling covers search, collect, bulk collect, search preview, webhook requests
+  and the Agentic Search /fast endpoint; there is no separate budget per verb or per dataset. The
+  Agentic Search /reasoning endpoint is the single exception, limited to 10 requests per hour. Credit
+  allocation is a separate, orthogonal control - a monthly quota that governs how many records you may
+  pull, not how fast you may ask.
 sources:
   - https://docs.coresignal.com/api-introduction/rate-limits
-  - https://coresignal.com/pricing/
+  - https://docs.coresignal.com/pricing/pricing
+  - https://docs.coresignal.com/api-introduction/response-codes
 responseCodes:
   throttled: 429
-  quotaExceeded: 429
+  quotaExceeded: 402
+response_headers:
+  documented: []
+  retry_after: false
+  note: >-
+    Coresignal documents NO rate-limit response headers - no X-RateLimit-*, no draft RateLimit-*, and
+    no Retry-After on a 429. The only runtime budget signal it does send is x-credits-remaining, which
+    is the credit quota, not the request throttle. A client therefore cannot read its remaining
+    request budget and can only discover the ceiling by hitting 429. This is the largest runtime gap
+    in the Coresignal contract for an autonomous agent.
+limit_count: 9
 limits:
-  - name: Collect (GET) requests
+  - name: Data APIs - Free trial
     scope: api-key
+    plan: Free trial
     metric: requests_per_second
-    limit: 54
+    limit: 5
     timeFrame: second
-    notes: Applies across most APIs (Company, Employee, Jobs Collect endpoints).
-  - name: Search (POST) and Enrich (GET) requests
+    applies_to: [search, collect, bulk collect, search preview, webhooks, agentic search /fast]
+  - name: Data APIs - Mini
     scope: api-key
+    plan: Mini
     metric: requests_per_second
-    limit: 18
+    limit: 5
     timeFrame: second
-    notes: Applies to most Company and Employee Search/Enrich endpoints.
-  - name: Bulk Collect operations
+    applies_to: [search, collect, bulk collect, search preview, webhooks, agentic search /fast]
+  - name: Data APIs - Starter
     scope: api-key
+    plan: Starter
     metric: requests_per_second
-    limit: 27
+    limit: 5
     timeFrame: second
-    notes: Applies to Bulk Collect across Company, Employee, and Jobs APIs.
-  - name: Clean Employee API (subscription)
+    applies_to: [search, collect, bulk collect, search preview, webhooks, agentic search /fast]
+  - name: Data APIs - Pro
     scope: api-key
-    metric: requests_per_minute
-    limit: 9
-    timeFrame: minute
-  - name: Base Employee API (subscription)
+    plan: Pro
+    metric: requests_per_second
+    limit: 10
+    timeFrame: second
+    applies_to: [search, collect, bulk collect, search preview, webhooks, agentic search /fast]
+  - name: Data APIs - Growth
     scope: api-key
-    metric: requests_per_minute
-    limit: 18
-    timeFrame: minute
-  - name: Real-time Employee API
+    plan: Growth
+    metric: requests_per_second
+    limit: 20
+    timeFrame: second
+    applies_to: [search, collect, bulk collect, search preview, webhooks, agentic search /fast]
+  - name: Data APIs - Premium
     scope: api-key
-    metric: urls_per_minute
+    plan: Premium
+    metric: requests_per_second
     limit: 50
-    timeFrame: minute
-    notes: Measured in URLs submitted per minute rather than HTTP calls.
-  - name: Plan credit allotment
+    timeFrame: second
+    applies_to: [search, collect, bulk collect, search preview, webhooks, agentic search /fast]
+  - name: Data APIs - Scale
+    scope: api-key
+    plan: Scale
+    metric: requests_per_second
+    limit: 100
+    timeFrame: second
+    applies_to: [search, collect, bulk collect, search preview, webhooks, agentic search /fast]
+  - name: Data APIs - Elite
+    scope: api-key
+    plan: Elite
+    metric: requests_per_second
+    limit: 100
+    timeFrame: second
+    published_as: 100+ req/s
+    applies_to: [search, collect, bulk collect, search preview, webhooks, agentic search /fast]
+    notes: Published as "100+ req/s"; the ceiling above 100 is not stated and is presumably negotiated.
+  - name: Agentic Search API - /v2/agentic_search/reasoning
+    scope: endpoint
+    metric: requests_per_hour
+    limit: 10
+    timeFrame: hour
+    notes: >-
+      Endpoint-specific and plan-independent. The /v2/agentic_search/fast endpoint is governed by the
+      plan's per-second limit instead.
+other_limits:
+  - name: Webhook subscriptions per account
     scope: account
-    metric: credits
-    limit: see plan tier
-    notes: Monthly Collect and Search credits are governed by the subscribed plan (Starter / Pro / Premium).
-      Treat as a quota, not a per-second throttle.
+    limit: 500
+    effective: '2026-08'
+    source: https://docs.coresignal.com/release-notes/august-2026
+  - name: IDs per webhook subscription
+    scope: subscription
+    limit: 300000
+    effective: '2026-08'
+  - name: IDs per Bulk Collect request
+    scope: request
+    limit: 10000
+    exceeded_status: 422
+  - name: Search results per page
+    scope: request
+    limit: 1000
+    parameter: items_per_page
+  - name: Subscription simulation
+    scope: endpoint
+    metric: requests_per_second
+    limit: 1
+    endpoint: POST /cdapi/v2/subscriptions/simulate
 policies:
   - name: Per-API-key scoping
-    description: Rate limits are enforced per API key. Multi-tenant consumers should issue separate
-      keys per environment or downstream tenant for isolation.
-  - name: Backoff Strategy
-    description: On 429 responses, back off and retry; the documented per-second limits are short-window,
-      so even a 1-2 second pause typically clears the throttle.
-  - name: Credits vs throttling
-    description: Hitting the monthly credit cap blocks further calls until renewal or top-up; this is
-      separate from per-second request throttling.
-  - name: Bulk vs single-record
-    description: For bulk-style ingest, prefer Bulk Collect (27 rps) over multiple single-record Collect
-      calls to maximize throughput within the published budget.
+    description: >-
+      Limits are enforced per API key. Multiple keys can be generated per account, so issue separate
+      keys per environment or downstream tenant for isolation - that is the only isolation mechanism,
+      since keys carry no scopes.
+  - name: Backoff strategy
+    description: >-
+      On 429, back off and retry. No Retry-After is sent, so choose your own schedule; the window is
+      per-second, so a short pause typically clears it.
+  - name: Credits versus throttling
+    description: >-
+      429 means too fast; 402 means out of credits. They are different controls and a 402 will not
+      clear by waiting - it clears on renewal or top-up.
+  - name: Search is free, so rehearse with it
+    description: >-
+      /search/es_dsl and /search/filter deduct no credits. Use search to size a result set from
+      x-total-results before committing to a collect that spends the budget.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

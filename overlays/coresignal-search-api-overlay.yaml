@@ -1,0 +1,63 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the Coresignal Search API
+  version: 1.0.0
+extends: openapi/coresignal-search-api-openapi.yml
+x-generated: '2026-08-13'
+x-method: generated
+x-source: >-
+  Derived from artifacts in this repo: conventions/coresignal-conventions.yml,
+  errors/coresignal-error-codes.yml, rate-limits/coresignal-rate-limits.yml,
+  plans/coresignal-plans-pricing.yml. Captures API Evangelist annotations only; the underlying spec is
+  never mutated.
+actions:
+  - target: $.info
+    update:
+      x-apievangelist-slug: coresignal
+      x-apievangelist-artifacts:
+        conventions: conventions/coresignal-conventions.yml
+        errors: errors/coresignal-error-codes.yml
+        rate_limits: rate-limits/coresignal-rate-limits.yml
+        plans: plans/coresignal-plans-pricing.yml
+        data_model: data-model/coresignal-data-model.yml
+        mcp: mcp/coresignal-mcp.yml
+      x-metering:
+        unit: credit
+        search_cost: 0
+        remaining_header: x-credits-remaining
+        note: >-
+          /search/es_dsl and /search/filter are free; credits are deducted on collect and enrich.
+  - target: $.components.securitySchemes.apiKey
+    update:
+      description: >-
+        32-character alphanumeric API key issued in the Coresignal dashboard. Sent in the `apikey`
+        request header. No scopes; entitlement is the plan on the account. Multiple keys per account
+        may be generated and revoked.
+      x-key-format: 32-character alphanumeric
+      x-issuer: https://dashboard.coresignal.com/
+  - target: $.paths['/search/es_dsl'].post
+    update:
+      x-pagination:
+        style: cursor
+        cursor_param: after
+        page_size_param: items_per_page
+        max_page_size: 1000
+        response_headers: [x-next-page-after, x-total-pages, x-total-results]
+      x-returns: array of record IDs — collect the records with a separate call
+      x-credit-cost: 0
+  - target: $.paths['/search/filter'].post
+    update:
+      x-pagination:
+        style: cursor
+        cursor_param: after
+        page_size_param: items_per_page
+        max_page_size: 1000
+        response_headers: [x-next-page-after, x-total-pages, x-total-results]
+      x-returns: array of record IDs — collect the records with a separate call
+      x-credit-cost: 0
+  - target: $.paths['/search/es_dsl'].post.responses
+    update:
+      '503':
+        description: >-
+          Elasticsearch overloaded, the query is too complex to complete in the allotted time, or
+          another temporary disruption. Simplify the query or retry with backoff.

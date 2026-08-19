@@ -1,0 +1,146 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  well-known/coresignal-openid-configuration.json,
+  well-known/coresignal-oauth-authorization-server.json,
+  well-known/coresignal-oauth-protected-resource.json,
+  https://docs.coresignal.com/introduction/data-and-compliance,
+  https://coresignal.com/data-transparency, openapi/_original/*.yml
+note: >-
+  Coresignal's REST APIs are api-key only and conform to very few cross-cutting standards. Everything
+  in the OAuth/OIDC family below comes from the MCP v2 authentication surface
+  (dashboard.coresignal.com/api/auth), which is genuinely standards-based and was probed directly —
+  not from the data APIs.
+standards:
+  - id: oauth2
+    conforms: true
+    scope: MCP v2 only
+    evidence: >-
+      RFC 8414 authorization-server metadata served at
+      https://dashboard.coresignal.com/.well-known/oauth-authorization-server (HTTP 200); grant types
+      authorization_code, client_credentials, refresh_token.
+  - id: oauth2.1
+    conforms: true
+    scope: MCP v2 only
+    evidence: >-
+      Provider documents "OAuth 2.1 sign-in via the Coresignal dashboard"; discovery advertises
+      code_challenge_methods_supported [S256] and response_types [code] only, with no implicit grant —
+      the OAuth 2.1 profile.
+  - id: rfc7636-pkce
+    conforms: true
+    evidence: code_challenge_methods_supported = ["S256"]
+  - id: rfc8414-as-metadata
+    conforms: true
+    evidence: /.well-known/oauth-authorization-server on dashboard.coresignal.com returns 200 JSON
+  - id: rfc9728-protected-resource-metadata
+    conforms: true
+    evidence: >-
+      https://mcp.coresignal.com/.well-known/oauth-protected-resource/mcp/v2 returns 200 and is
+      advertised in the WWW-Authenticate challenge from the MCP endpoint.
+  - id: rfc7591-dynamic-client-registration
+    conforms: true
+    evidence: registration_endpoint https://dashboard.coresignal.com/api/auth/oauth2/register
+  - id: rfc7662-token-introspection
+    conforms: true
+    evidence: introspection_endpoint published in authorization-server metadata
+  - id: rfc7009-token-revocation
+    conforms: true
+    evidence: revocation_endpoint published in authorization-server metadata
+  - id: oidc-core
+    conforms: true
+    scope: dashboard sign-in
+    evidence: >-
+      /.well-known/openid-configuration returns 200 with issuer, jwks_uri, userinfo_endpoint,
+      id_token_signing_alg_values_supported [RS256], claims_supported, end_session_endpoint.
+  - id: oidc-discovery
+    conforms: true
+    evidence: https://dashboard.coresignal.com/.well-known/openid-configuration HTTP 200
+  - id: mcp
+    conforms: true
+    version: '2025-06-18'
+    evidence: >-
+      Live initialize handshake against https://mcp.coresignal.com/mcp returned
+      protocolVersion 2025-06-18, serverInfo coresignal_mcp 3.4.2. server.json manifest uses the
+      2025-12-11 MCP server schema and declares a streamable-http remote.
+  - id: openapi
+    conforms: true
+    version: 3.0.3
+    evidence: openapi/ specs in this repo
+    note: >-
+      The OpenAPI documents in this repo are API Evangelist harvests. Coresignal does not publish an
+      OpenAPI/Swagger document at any host — /openapi.json, /openapi.yaml, /swagger.json,
+      /v1/openapi.json, /api-docs and /redoc all 404 on api.coresignal.com and return the docs SPA
+      shell on docs.coresignal.com.
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: >-
+      Errors are a flat {"detail": "..."} object with content-type application/json; no type/title/
+      status/detail/instance members, no application/problem+json.
+  - id: rfc8594-sunset-header
+    conforms: false
+    evidence: No Sunset or Deprecation header documented; deprecations announced only in release notes.
+  - id: rfc9116-security-txt
+    conforms: false
+    evidence: /.well-known/security.txt returns 404 or an HTML SPA shell on every Coresignal host.
+  - id: rfc6749-scopes
+    conforms: partial
+    evidence: >-
+      The authorization server advertises openid/profile/email/offline_access, but the MCP protected
+      resource advertises scopes_supported: [] — access is all-or-nothing per team, with no
+      per-capability scoping.
+  - id: idempotency-key
+    conforms: false
+    evidence: >-
+      No Idempotency-Key header. Bulk Collect performs server-side duplicate detection (409) but the
+      caller cannot name or replay a request.
+  - id: cursor-pagination
+    conforms: true
+    evidence: >-
+      search-after style cursor via x-next-page-after / ?after=, with x-total-pages and
+      x-total-results. Non-standard header names (no RFC 8288 Link header).
+  - id: rfc8288-web-linking
+    conforms: false
+    evidence: Pagination uses custom x-* headers rather than a Link header with rel="next".
+  - id: ratelimit-headers
+    conforms: false
+    evidence: >-
+      No X-RateLimit-* or draft RateLimit-* headers and no Retry-After documented; limits are
+      published only as prose numbers per plan.
+  - id: elasticsearch-query-dsl
+    conforms: true
+    evidence: >-
+      /search/es_dsl and /semantic_search/es_dsl accept Elasticsearch Query DSL verbatim; the index
+      mapping is published per dataset and is inlined in the legacy MCP tool inputSchema.
+    note: >-
+      A de-facto industry query standard rather than a formal one, but it is the primary request
+      language of this API and portable knowledge for the caller.
+  - id: iso4217-currency
+    conforms: true
+    effective: '2026-08-18'
+    evidence: >-
+      Multi-source Jobs salary[].currency moves from symbols to ISO 4217 codes per the August 2026
+      release notes.
+  - id: gdpr
+    conforms: claimed
+    evidence: >-
+      Provider publishes a Data Privacy and Transparency page and states its privacy strategy aligns
+      with major US and EU privacy regulations; MCP email enrichment automatically excludes EEA and UK
+      employees.
+    url: https://coresignal.com/data-transparency
+  - id: ccpa
+    conforms: claimed
+    evidence: Named on the Data Privacy and Transparency page.
+    url: https://coresignal.com/data-transparency
+  - id: ewdci
+    name: Ethical Web Data Collection Initiative accreditation
+    conforms: true
+    evidence: >-
+      Coresignal is a founding member of the EWDCI and states it completed the accreditation process
+      against the four core principles (legality, ethics, ecosystem, responsibility).
+    url: https://ethicalwebdata.com/
+certifications_published: []
+certifications_note: >-
+  No SOC 2, ISO 27001, PCI DSS, HIPAA or FedRAMP certification is named anywhere on coresignal.com,
+  docs.coresignal.com or a trust subdomain (trust.coresignal.com does not resolve). The published
+  compliance posture is a DATA-ETHICS posture — EWDCI accreditation plus GDPR/CCPA alignment — not a
+  security-certification posture. Recorded as-is.

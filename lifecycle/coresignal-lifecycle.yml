@@ -1,0 +1,75 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://docs.coresignal.com/release-notes/release-notes,
+  https://docs.coresignal.com/integrations/coresignal-mcp,
+  https://status.coresignal.com/, openapi/_original/*.yml
+versioning:
+  scheme: uri-path
+  current: v2
+  form: /cdapi/v2/<dataset>/<operation>
+  docs: https://docs.coresignal.com/api-introduction/apis-overview
+  note: >-
+    A single major version (v2) is in the path. Dataset TIER (Base / Clean / Multi-source) is also
+    encoded in the path, so a tier upgrade is a URL change for the caller.
+deprecation:
+  policy_url: null
+  policy_published: false
+  sunset_header: false
+  deprecation_header: false
+  advance_notice: true
+  mechanism: dated release notes
+  note: >-
+    Coresignal publishes NO deprecation-policy document and supports NEITHER the RFC 8594 `Sunset`
+    header NOR the `Deprecation` header. What it does do — consistently — is announce breaking changes
+    ahead of their effective date on the monthly release-notes page, each entry tagged
+    "[Breaking change]" and carrying the date the change lands. Examples observed: the 2026-07-27
+    entry announcing removal of the `x-subscription-active` response header and a semantic change to
+    `x-credits-remaining`; the 2026-08-18 Multi-source Jobs data entry changing `employment_type` from
+    String to Array and moving `salary[].currency` to ISO 4217. That is a real change-communication
+    practice but it is not a machine-readable deprecation signal and there is no stated support
+    window, so no `Deprecation` pointer is claimed.
+  known_deprecations:
+    - subject: Legacy MCP endpoint https://mcp.coresignal.com/mcp
+      status: supported, deprecation announced without a date
+      replacement: https://mcp.coresignal.com/mcp/v2
+      source: https://docs.coresignal.com/integrations/coresignal-mcp
+      quote: >-
+        "An older endpoint, https://mcp.coresignal.com/mcp, remains supported ... It will eventually be
+        deprecated, so new integrations should use v2."
+    - subject: 'Response header x-subscription-active'
+      status: removed
+      effective: '2026-07-27'
+      source: https://docs.coresignal.com/release-notes/july-2026
+sla:
+  url: null
+  uptime_target: null
+  note: >-
+    No public SLA or uptime commitment is published. Support tiers are published on the pricing page
+    (email for Free trial through Growth, dedicated account manager from Premium, account manager +
+    Slack from Scale) but carry no response-time or availability numbers.
+status_page: https://status.coresignal.com/
+maintenance:
+  announced_in_release_notes: true
+  example:
+    date: '2026-07-27'
+    window: 08:00–10:00 EET
+    impact: >-
+      All API endpoints and the self-service dashboard unavailable; requests receive 503 Service
+      Unavailable.
+    source: https://docs.coresignal.com/release-notes/july-2026
+data_retention:
+  bulk_collect_download_window_days: 30
+  webhook_subscription_days: 91
+  webhook_subscription_max_renewal: 1 year from creation
+  mcp_search_cache_handle: 1 hour (cache_id)
+deprecated_operations: []
+deprecated_operations_note: >-
+  No operation in any harvested OpenAPI carries `deprecated: true`. Coresignal's deprecations land on
+  DATA FIELDS and RESPONSE HEADERS rather than on endpoints, which is characteristic of a
+  data-as-a-service provider — the endpoint surface is stable while the record schema moves monthly.
+release_cadence:
+  frequency: monthly
+  earliest_published: '2025-02'
+  latest_published: '2026-08'
+  see: changelog/coresignal-changelog.yml

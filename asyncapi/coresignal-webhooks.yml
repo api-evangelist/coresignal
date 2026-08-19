@@ -1,0 +1,121 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://docs.coresignal.com/api-introduction/webhooks,
+  https://docs.coresignal.com/api-introduction/webhooks/employee-webhooks,
+  https://docs.coresignal.com/api-introduction/webhooks/experience-webhooks,
+  https://docs.coresignal.com/api-introduction/webhooks/subscription-management,
+  https://docs.coresignal.com/api-introduction/webhooks/subscription-simulation
+spec_type: none
+asyncapi_published: false
+note: >-
+  Coresignal publishes NO AsyncAPI document — /asyncapi.yaml and /asyncapi.json are absent from every
+  host and neither the docs nor the GitHub org carry an event spec. It DOES operate a real,
+  well-documented webhook surface, captured here as a webhook catalog. The surface is unusual and
+  worth stating plainly: these are CHANGE NOTIFICATIONS, not data deliveries. A notification carries
+  an id and a status only; the changed record must be retrieved with a separate, credit-charged
+  Collect or Bulk Collect call. Notifications themselves cost no credits.
+delivery:
+  transport: HTTPS POST to a subscriber-supplied callback URL
+  batching: >-
+    Payloads are JSON ARRAYS — one delivery carries many changed profiles, not one event per request.
+  cadence:
+    - source: Base Employee API
+      frequency: daily
+    - source: Clean Employee API
+      frequency: weekly
+    - source: Multi-source Employee API
+      frequency: weekly
+  signing: undocumented
+  retries: undocumented
+  ordering: undocumented
+  note: >-
+    No payload signature, no retry policy and no delivery-ordering guarantee is documented. A
+    subscriber cannot verify that a callback came from Coresignal.
+subscription_model:
+  entity: employee profiles only
+  population_selectors: [id list, search filter query, Elasticsearch DSL query]
+  field_filter:
+    parameter: tracked_fields
+    description: >-
+      Optional array narrowing the subscription to changes on named fields only. Without it, any
+      change to a tracked profile fires.
+    example: '{"tracked_fields": ["skills"]}'
+  lifetime_days: 91
+  max_renewal: up to 1 year from creation
+  max_subscriptions_per_account: 500
+  max_ids_per_subscription: 300000
+  limits_effective: '2026-08'
+  cost: >-
+    Subscription search/ES-DSL creation deducts credits; notification delivery itself does not.
+  incompatible_filters: >-
+    Date filters (from search filters or the Elasticsearch DSL schema) cannot be used in a
+    subscription query — attempting it returns 422.
+channels:
+  - id: employee-webhooks
+    name: Employee Webhooks
+    description: >-
+      Fires when tracked fields on a subscribed employee profile change, or when a profile enters or
+      leaves the subscription's query population.
+    docs: https://docs.coresignal.com/api-introduction/webhooks/employee-webhooks
+    payload_fields:
+      - {name: member_id, type: integer, description: ID of the employee profile that was updated.}
+      - {name: status, type: string, description: The type of change detected.}
+      - {name: changed_fields, type: array|null, description: The specific fields modified on the profile.}
+    messages:
+      - status: started_matching_query
+        description: >-
+          A profile that previously did not match the subscription filters now does. Example given by
+          the provider — a job title updated to "Project Manager".
+        changed_fields: null
+      - status: stopped_matching_query
+        description: >-
+          A profile that matched the subscription filters no longer does. Example — a job title changed
+          from "Project Manager" to "Scrum Master".
+        changed_fields: null
+      - status: changed
+        description: >-
+          One or more tracked fields were updated; changed_fields names them. Retrieve new values with
+          Collect or Bulk Collect.
+    example_payload: |
+      [
+        {"member_id": 123, "status": "started_matching_query", "changed_fields": null},
+        {"member_id": 124, "status": "stopped_matching_query", "changed_fields": null},
+        {"member_id": 125, "status": "changed", "changed_fields": ["skills", "headline", "certifications"]}
+      ]
+  - id: experience-webhooks
+    name: Experience Webhooks
+    description: >-
+      Weekly notifications when employees start a new position, are promoted, or close an existing
+      position — career-movement signal without polling.
+    docs: https://docs.coresignal.com/api-introduction/webhooks/experience-webhooks
+    payload_fields:
+      - {name: member_id, type: integer, description: ID of the employee profile that was updated.}
+      - {name: status, type: string, description: Notifies a changed state.}
+    messages:
+      - status: changed
+        description: >-
+          Non-specified change in the experience section. The exact change must be resolved with Bulk
+          Collect GET or the collection endpoints.
+    triggers:
+      - Employee starts a new experience position
+      - Employee closes a previously open experience position
+    example_payload: |
+      [
+        {"member_id": 125, "status": "changed"}
+      ]
+management_operations:
+  - {method: GET, path: /cdapi/v2/subscriptions, description: 'List subscriptions with status, created_at and expiring_at. Query params expired (bool) and page; ~1,000 per page.'}
+  - {method: GET, path: '/cdapi/v2/subscriptions/{subscription_id}', description: Details of an active subscription.}
+  - {method: POST, path: '/cdapi/v2/subscriptions/{subscription_id}/renew', description: Renew a subscription, up to 1 year total from creation.}
+  - {method: DELETE, path: '/cdapi/v2/subscriptions/{subscription_id}', description: Delete a subscription.}
+  - {method: POST, path: /cdapi/v2/subscriptions/simulate, description: 'Deliver one example webhook to a callback URL immediately. Body {"webhook_url": "..."}, 1 req/s.'}
+subscription_object_example: |
+  [
+    {"id": "c8e295c0-2f85-473d-8bef-350526e6b30a", "status": "active", "created_at": "2024-09-18", "expiring_at": "2024-12-18"}
+  ]
+gaps:
+  - No AsyncAPI or other machine-readable event contract.
+  - No payload signing or verification mechanism documented.
+  - No retry, dead-letter or delivery-guarantee documentation.
+  - Company and Jobs datasets have no webhook surface — employee profiles only.
