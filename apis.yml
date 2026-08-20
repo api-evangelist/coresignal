@@ -38,6 +38,24 @@ tags:
   - Enrichment
   - Firmographics
   - Job Postings
+  - Job
+  - Lead Generation
+  - People Data
+  - Sales Intelligence
+  - Talent Intelligence
+  - Web Data
+tags_raw:
+  - Agentic Search
+  - B2B Data
+  - Companies
+  - Company Data
+  - Data as a Service
+  - Elasticsearch
+  - Employee Data
+  - Employees
+  - Enrichment
+  - Firmographics
+  - Job Postings
   - Jobs
   - Lead Generation
   - People Data
@@ -63,6 +81,10 @@ apis:
   humanURL: https://docs.coresignal.com/agentic-search-api/
   baseURL: https://api.coresignal.com/cdapi/v2/agentic_search
   tags:
+  - Agentic Search
+  - AI Agents
+  - Natural-Language
+  tags_raw:
   - Agentic Search
   - AI Agents
   - Natural Language
