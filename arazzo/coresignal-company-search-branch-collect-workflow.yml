@@ -12,8 +12,11 @@ info:
     executed without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: companyApi
-  url: ../openapi/coresignal-multi-source-company-api-openapi.yml
+- name: collectApi
+  url: ../openapi/coresignal-collect-api-openapi.yml
+  type: openapi
+- name: searchApi
+  url: ../openapi/coresignal-search-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: company-search-branch-collect
