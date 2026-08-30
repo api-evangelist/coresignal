@@ -12,8 +12,11 @@ info:
     description.
   version: 1.0.0
 sourceDescriptions:
-- name: jobsApi
-  url: ../openapi/coresignal-multi-source-jobs-api-openapi.yml
+- name: collectApi
+  url: ../openapi/coresignal-collect-api-openapi.yml
+  type: openapi
+- name: searchApi
+  url: ../openapi/coresignal-search-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: job-search-collect
@@ -52,7 +55,7 @@ workflows:
     description: >-
       Search job posting records using a structured filter. Returns an array of
       matching Coresignal job posting IDs.
-    operationId: searchJobsByFilter
+    operationId: searchCompaniesByFilter
     parameters:
     - name: apikey
       in: header
@@ -75,7 +78,7 @@ workflows:
     description: >-
       Retrieve the full enriched job posting record for the first matching ID
       returned by the search.
-    operationId: collectJob
+    operationId: collectCompany
     parameters:
     - name: apikey
       in: header

@@ -13,11 +13,11 @@ info:
     the underlying OpenAPI descriptions.
   version: 1.0.0
 sourceDescriptions:
-- name: companyApi
-  url: ../openapi/coresignal-multi-source-company-api-openapi.yml
+- name: collectApi
+  url: ../openapi/coresignal-collect-api-openapi.yml
   type: openapi
-- name: jobsApi
-  url: ../openapi/coresignal-multi-source-jobs-api-openapi.yml
+- name: searchApi
+  url: ../openapi/coresignal-search-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: company-to-jobs
@@ -81,7 +81,7 @@ workflows:
     description: >-
       Search active job posting records whose hiring company matches the resolved
       company name and whose title matches the requested title.
-    operationId: searchJobsByFilter
+    operationId: searchCompaniesByFilter
     parameters:
     - name: apikey
       in: header
@@ -101,7 +101,7 @@ workflows:
     description: >-
       Retrieve the full enriched job posting record for the first match published
       by the resolved company.
-    operationId: collectJob
+    operationId: collectCompany
     parameters:
     - name: apikey
       in: header
