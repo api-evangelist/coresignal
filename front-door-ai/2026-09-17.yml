@@ -1,0 +1,34 @@
+# Front Door AI Index — coresignal — 2026-09-17
+# AI vocabulary counted on the provider's root page. Generated; do not edit.
+# `score` is null unless ownership is `own` — see front_door_ai.py.
+front_door_ai:
+  slug: coresignal
+  lexicon_version: '1.0'
+  probed_at: '2026-09-17'
+  host: coresignal.com
+  final_host: coresignal.com
+  ownership: own
+  owner: coresignal
+  shares_host_with: null
+  inherited_from: null
+  verdict: scored
+  score: 26
+  host_score: 26
+  density: 19.26
+  words: 1350
+  tiers:
+    agentic: 10
+    core: 16
+    model: 0
+  ambiguous: 6
+  top_terms:
+    AI: 13
+    agent: 4
+    agentic: 4
+    prompts: 3
+    MCP: 2
+    ML: 2
+    AI agent: 1
+    automation: 1
+    intelligence: 1
+    machine learning: 1

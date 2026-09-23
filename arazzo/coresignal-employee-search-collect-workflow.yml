@@ -13,7 +13,7 @@ info:
   version: 1.0.0
 sourceDescriptions:
 - name: employeeApi
-  url: ../openapi/coresignal-multi-source-employee-api-openapi.yml
+  url: ../openapi/_original/coresignal-multi-source-employee-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: employee-search-collect

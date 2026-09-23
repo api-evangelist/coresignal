@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Coresignal Multi-source Company Collect Search API
+  title: Coresignal Multi-source Company Search API
   version: '2.0'
   description: The Multi-source Company API returns enriched company records combining public web data sources, deduplicated and standardized with 500+ fields. Search uses Elasticsearch DSL queries; Collect returns full records by ID. Authentication uses the apikey HTTP header.
   contact:
@@ -72,6 +72,13 @@ paths:
                   type: integer
                   format: int64
 components:
+  responses:
+    Unauthorized:
+      description: Missing or invalid apikey header
+    CreditsExhausted:
+      description: API credits exhausted for the account
+    RateLimited:
+      description: Rate limit exceeded
   schemas:
     CompanyFilter:
       type: object
@@ -98,13 +105,6 @@ components:
           type: array
           items:
             type: string
-  responses:
-    RateLimited:
-      description: Rate limit exceeded
-    CreditsExhausted:
-      description: API credits exhausted for the account
-    Unauthorized:
-      description: Missing or invalid apikey header
   securitySchemes:
     apiKey:
       type: apiKey

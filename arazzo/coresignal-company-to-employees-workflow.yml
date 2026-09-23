@@ -14,10 +14,10 @@ info:
   version: 1.0.0
 sourceDescriptions:
 - name: companyApi
-  url: ../openapi/coresignal-multi-source-company-api-openapi.yml
+  url: ../openapi/_original/coresignal-multi-source-company-api-openapi.yml
   type: openapi
 - name: employeeApi
-  url: ../openapi/coresignal-multi-source-employee-api-openapi.yml
+  url: ../openapi/_original/coresignal-multi-source-employee-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: company-to-employees

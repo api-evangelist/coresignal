@@ -1,8 +1,7 @@
 {
   "provider": "coresignal",
   "sources": [
-    "coresignal-collect-api-openapi.yml",
-    "coresignal-search-api-openapi.yml"
+    "_original/coresignal-multi-source-company-api-openapi.yml"
   ],
   "outputs": [
     "coresignal-collect-api-openapi.yml",
@@ -11,6 +10,16 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "2 archived document(s) dropped as subsets of other archived documents",
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "coresignal-multi-source-company-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "_original/coresignal-multi-source-jobs-api-openapi.yml: archived document superseded by a larger archived document",
+    "_original/coresignal-multi-source-employee-api-openapi.yml: archived document superseded by a larger archived document",
+    "coresignal-collect-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "coresignal-search-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
