@@ -38,6 +38,9 @@ image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/coresignal
 type: Index
 access: 3rd-Party
 position: Consuming
+x-docs-platform: gitbook
+x-docs-platform-confidence: high
+x-docs-platform-checked: 2026-09-24
 tags:
   - Agentic Search
   - B2B Data
