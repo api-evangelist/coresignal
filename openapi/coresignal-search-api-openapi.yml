@@ -72,13 +72,6 @@ paths:
                   type: integer
                   format: int64
 components:
-  responses:
-    Unauthorized:
-      description: Missing or invalid apikey header
-    RateLimited:
-      description: Rate limit exceeded
-    CreditsExhausted:
-      description: API credits exhausted for the account
   schemas:
     CompanyFilter:
       type: object
@@ -105,6 +98,13 @@ components:
           type: array
           items:
             type: string
+  responses:
+    CreditsExhausted:
+      description: API credits exhausted for the account
+    RateLimited:
+      description: Rate limit exceeded
+    Unauthorized:
+      description: Missing or invalid apikey header
   securitySchemes:
     apiKey:
       type: apiKey

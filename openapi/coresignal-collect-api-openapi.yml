@@ -73,9 +73,6 @@ paths:
                 items:
                   $ref: '#/components/schemas/Company'
 components:
-  responses:
-    Unauthorized:
-      description: Missing or invalid apikey header
   schemas:
     Company:
       type: object
@@ -135,6 +132,9 @@ components:
         last_updated:
           type: string
           format: date-time
+  responses:
+    Unauthorized:
+      description: Missing or invalid apikey header
   securitySchemes:
     apiKey:
       type: apiKey
