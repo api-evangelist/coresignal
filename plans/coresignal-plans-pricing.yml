@@ -451,3 +451,101 @@ cancellation: >-
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - free
+  - subscription
+  units:
+  - credit
+  - period
+  - rate
+  plans:
+  - name: Free trial
+    access: freemium
+    model: free
+    model_how: derived
+    units:
+    - credit
+    - rate
+    periods:
+    - per-use
+    - second
+  - name: Mini
+    access: other
+    model: subscription
+    model_how: stated
+    units:
+    - credit
+    - period
+    - rate
+    periods:
+    - month
+    - second
+  - name: Starter
+    access: other
+    model: subscription
+    model_how: stated
+    units:
+    - credit
+    - period
+    - rate
+    periods:
+    - month
+    - second
+  - name: Pro
+    access: other
+    model: subscription
+    model_how: stated
+    units:
+    - credit
+    - period
+    - rate
+    periods:
+    - month
+    - second
+  - name: Growth
+    access: other
+    model: subscription
+    model_how: stated
+    units:
+    - credit
+    - period
+    - rate
+    periods:
+    - month
+    - second
+  - name: Premium
+    access: other
+    model: subscription
+    model_how: stated
+    units:
+    - credit
+    - period
+    - rate
+    periods:
+    - month
+    - second
+  - name: Scale
+    access: other
+    model: subscription
+    model_how: stated
+    units:
+    - credit
+    - period
+    - rate
+    periods:
+    - month
+    - second
+  - name: Elite
+    access: other
+    model: subscription
+    model_how: stated
+    units:
+    - credit
+    - period
+    - rate
+    periods:
+    - month
+    - second
