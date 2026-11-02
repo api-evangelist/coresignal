@@ -1,0 +1,258 @@
+# Pricing transcribed from the provider's own page — see provenance. Numbers are quoted, not derived.
+generated: '2026-10-28'
+method: searched
+source: https://coresignal.com/pricing/
+sources:
+- https://coresignal.com/pricing/
+provenance:
+  tool: engine/economics/harvest_pricing.py
+  run: 20261028T120612
+  grounding: every price_text was found verbatim in the fetched page text
+audience: developer-api
+pricing_basis: per-call
+delivery:
+  delivery: managed
+  method: page
+  read: '2026-10-28'
+published: true
+note: Credit-based API plans monthly and annual; credit consumption table given (e.g. employee full record
+  20 credits). Datasets priced by agreement, starting from $1,000.
+plan_count: 15
+currency: USD
+plans:
+- name: Free tier
+  price_text: 7 day free trial
+  period: none
+  unit: credits
+  included_quota: 2,000 credits
+- name: Mini
+  price_text: $49/month
+  price: 49
+  currency: USD
+  period: month
+  unit: credits
+  included_quota: 2,500 credits
+- name: Starter
+  price_text: $199/month
+  price: 199
+  currency: USD
+  period: month
+  unit: credits
+  included_quota: 12,000 credits
+- name: Pro
+  price_text: $499/month
+  price: 499
+  currency: USD
+  period: month
+  unit: credits
+  included_quota: 35,000 credits
+- name: Growth
+  price_text: $1,000/month
+  price: 1000
+  currency: USD
+  period: month
+  unit: credits
+  included_quota: 150,000 credits; $0.007/credit
+- name: Premium
+  price_text: $1,500/month
+  price: 1500
+  currency: USD
+  period: month
+  unit: credits
+  included_quota: 1,000,000 credits
+- name: Scale
+  price_text: $3,000/month
+  price: 3000
+  currency: USD
+  period: month
+  unit: credits
+  included_quota: 4,000,000 credits
+- name: Elite
+  price_text: $5,000/month
+  price: 5000
+  currency: USD
+  period: month
+  unit: credits
+  included_quota: 10,000,000 credits
+- name: Starter (annual)
+  price_text: $2,149/year
+  price: 2149
+  currency: USD
+  period: year
+  unit: credits
+  included_quota: 144,000 credits
+- name: Pro (annual)
+  price_text: $5,389/year
+  price: 5389
+  currency: USD
+  period: year
+  unit: credits
+  included_quota: 420,000 credits
+- name: Growth (annual)
+  price_text: $10,800/year
+  price: 10800
+  currency: USD
+  period: year
+  unit: credits
+  included_quota: 1,800,000 credits
+- name: Premium (annual)
+  price_text: $16,200/year
+  price: 16200
+  currency: USD
+  period: year
+  unit: credits
+  included_quota: 12,000,000 credits
+- name: Scale (annual)
+  price_text: $32,400/year
+  price: 32400
+  currency: USD
+  period: year
+  unit: credits
+  included_quota: 48,000,000 credits
+- name: Elite (annual)
+  price_text: $54,000/year
+  price: 54000
+  currency: USD
+  period: year
+  unit: credits
+  included_quota: 120,000,000 credits
+- name: Datasets
+  price_text: Starting from $1,000
+  price: 1000
+  currency: USD
+  period: none
+  unit: dataset
+  included_quota: Monthly payments with a yearly contract; JSON or CSV
+rate_limit_statements:
+- 20 requests per second rate limit
+- Rate limits (Data API) 5 req/s 5 req/s 5 req/s 10 req/s 20 req/s 50 req/s 100 req/s 100+ req/s
+x-canonical:
+  generated: '2026-11-01'
+  vocabulary: engine/economics/plans-canonical.yml
+  models:
+  - hybrid
+  - metered
+  units:
+  - credit
+  - object
+  plans:
+  - name: Free tier
+    access: other
+    model: metered
+    model_how: derived
+    units:
+    - credit
+    periods:
+    - none
+  - name: Mini
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - credit
+    periods:
+    - month
+  - name: Starter
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - credit
+    periods:
+    - month
+  - name: Pro
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - credit
+    periods:
+    - month
+  - name: Growth
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - credit
+    periods:
+    - month
+  - name: Premium
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - credit
+    periods:
+    - month
+  - name: Scale
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - credit
+    periods:
+    - month
+  - name: Elite
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - credit
+    periods:
+    - month
+  - name: Starter (annual)
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - credit
+    periods:
+    - year
+  - name: Pro (annual)
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - credit
+    periods:
+    - year
+  - name: Growth (annual)
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - credit
+    periods:
+    - year
+  - name: Premium (annual)
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - credit
+    periods:
+    - year
+  - name: Scale (annual)
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - credit
+    periods:
+    - year
+  - name: Elite (annual)
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - credit
+    periods:
+    - year
+  - name: Datasets
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - object
+    periods:
+    - none
