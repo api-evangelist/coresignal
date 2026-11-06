@@ -127,7 +127,7 @@ rate_limit_statements:
 - 20 requests per second rate limit
 - Rate limits (Data API) 5 req/s 5 req/s 5 req/s 10 req/s 20 req/s 50 req/s 100 req/s 100+ req/s
 x-canonical:
-  generated: '2026-11-02'
+  generated: '2026-11-06'
   vocabulary: engine/economics/plans-canonical.yml
   models:
   - hybrid
